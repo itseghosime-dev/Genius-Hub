@@ -2,9 +2,9 @@
 
 ## 1. Motion Principles
 
-1. **Energetic & Purposeful**: Motion conveys optimism and technological connectivity without slowing down task completion.
+1. **Energetic & Purposeful**: Motion conveys optimism, brilliance, and community connectivity without slowing down user tasks.
 2. **Never Obstructive**: Animations never hijack scroll behavior, delay critical content rendering, or block reading.
-3. **Respect Reduced Motion**: Every animated component and SVG indicator respects OS-level `prefers-reduced-motion: reduce` settings.
+3. **Respect Reduced Motion**: Every animated component and SVG indicator respects OS-level `prefers-reduced-motion: reduce` settings with static or minimal fallbacks.
 4. **Lightweight Execution**: Pure CSS keyframes and native transitions keep runtime JavaScript overhead at zero.
 
 ---
@@ -20,7 +20,14 @@
 
 ## 3. BrandLoader Guidelines
 
-The redesigned `BrandLoader` depicts community people nodes (Genius Orange, Digital Blue, Electric Teal) interconnected by orbital network motion, converging into the radiant Genius Hub sun core.
+The `BrandLoader` reflects the Genius Hub logo concept: a central **"G"** as the anchor surrounded by an orbiting constellation of **stars** representing brilliance, people, opportunity, and impact within a vibrant community ecosystem.
+
+### Key Visual Attributes:
+
+- **Central "G"**: Anchors the brand mark in signature Genius Orange (`#FF6B00`).
+- **Surrounding Stars**: 5-star orbital constellation (Genius Orange, Digital Blue, Electric Teal, Optimistic Yellow) that pulses and gently rotates.
+- **Light-First Background**: Designed for crisp white and soft cloud surfaces.
+- **Accessibility**: Full `role="status"` with default label `Loading Genius Hub...` and complete reduction under `prefers-reduced-motion`.
 
 ### When to Use:
 

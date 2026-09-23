@@ -10,10 +10,10 @@ export interface BrandLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const sizeConfig: Record<BrandLoaderSize, { px: number; textClass: string }> = {
-  sm: { px: 28, textClass: 'text-xs' },
-  md: { px: 44, textClass: 'text-sm' },
-  lg: { px: 60, textClass: 'text-base' },
-  xl: { px: 80, textClass: 'text-lg' },
+  sm: { px: 32, textClass: 'text-xs' },
+  md: { px: 48, textClass: 'text-sm' },
+  lg: { px: 64, textClass: 'text-base' },
+  xl: { px: 88, textClass: 'text-lg' },
 };
 
 export const BrandLoader: React.FC<BrandLoaderProps> = ({
@@ -44,75 +44,63 @@ export const BrandLoader: React.FC<BrandLoaderProps> = ({
         className="shrink-0"
         aria-hidden="true"
       >
-        {/* Connective Motion Ring (Technology / Network Arc) */}
+        {/* Subtle Orbiting Constellation Track (Hub & Ecosystem) */}
         <circle
           cx="24"
           cy="24"
           r="19"
-          stroke="#2563eb"
-          strokeWidth="1.5"
-          strokeDasharray="4 6"
-          className="origin-center motion-safe:animate-[spin_6s_linear_infinite]"
-          strokeOpacity="0.3"
-        />
-
-        {/* Outer Interconnected Network Track */}
-        <circle
-          cx="24"
-          cy="24"
-          r="15"
-          stroke="#0d9488"
+          stroke="#ff6b00"
           strokeWidth="1"
-          strokeDasharray="2 4"
-          className="origin-center motion-safe:animate-[spin_4s_linear_infinite_reverse]"
-          strokeOpacity="0.25"
+          strokeDasharray="3 5"
+          strokeOpacity="0.2"
+          className="origin-center motion-safe:animate-[spin_12s_linear_infinite]"
         />
 
-        {/* Small Orange People Nodes (Community & Human Potential) */}
-        {/* Top Community Node (Genius Orange) */}
-        <circle
-          cx="24"
-          cy="5"
-          r="3"
-          fill="#ff6b00"
-          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite]"
-        />
-        {/* Right Innovation Node (Digital Blue) */}
-        <circle
-          cx="43"
-          cy="24"
-          r="2.75"
-          fill="#2563eb"
-          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.3s]"
-        />
-        {/* Bottom Community Node (Genius Orange) */}
-        <circle
-          cx="24"
-          cy="43"
-          r="3"
-          fill="#ff6b00"
-          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.6s]"
-        />
-        {/* Left Growth Node (Electric Teal) */}
-        <circle
-          cx="5"
-          cy="24"
-          r="2.75"
-          fill="#0d9488"
-          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.9s]"
-        />
+        {/* Orbiting Stars & Brilliance Constellation Group */}
+        <g className="origin-center motion-safe:animate-[spin_8s_linear_infinite]">
+          {/* Top Star — Brilliance & Human Potential (Genius Orange) */}
+          <path
+            d="M 24 1.5 Q 24 5 27.5 5 Q 24 5 24 8.5 Q 24 5 20.5 5 Q 24 5 24 1.5 Z"
+            fill="#ff6b00"
+            className="motion-safe:animate-[pulse_1.8s_ease-in-out_infinite]"
+          />
 
-        {/* Converging Radiant Sun Core (Genius Hub Center Identity) */}
-        <circle
-          cx="24"
-          cy="24"
-          r="6.5"
-          fill="#ff6b00"
-          className="motion-safe:animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"
-          fillOpacity="0.2"
-        />
-        <circle cx="24" cy="24" r="6" fill="#ff6b00" />
-        <circle cx="24" cy="24" r="2.5" fill="#ffffff" />
+          {/* Top-Right Star — Opportunity & Innovation (Digital Blue) */}
+          <path
+            d="M 38 11.5 Q 38 14 40.5 14 Q 38 14 38 16.5 Q 38 14 35.5 14 Q 38 14 38 11.5 Z"
+            fill="#2563eb"
+            className="motion-safe:animate-[pulse_1.8s_ease-in-out_infinite_0.35s]"
+          />
+
+          {/* Bottom-Right Star — Impact & Community (Electric Teal) */}
+          <path
+            d="M 35 31.5 Q 35 34 37.5 34 Q 35 34 35 36.5 Q 35 34 32.5 34 Q 35 34 35 31.5 Z"
+            fill="#0d9488"
+            className="motion-safe:animate-[pulse_1.8s_ease-in-out_infinite_0.7s]"
+          />
+
+          {/* Bottom-Left Star — Livelihoods & Growth (Genius Orange) */}
+          <path
+            d="M 13 31.5 Q 13 34 15.5 34 Q 13 34 13 36.5 Q 13 34 10.5 34 Q 13 34 13 31.5 Z"
+            fill="#ff6b00"
+            className="motion-safe:animate-[pulse_1.8s_ease-in-out_infinite_1.05s]"
+          />
+
+          {/* Top-Left Star — Youth Optimism (Optimistic Yellow) */}
+          <path
+            d="M 10 11.5 Q 10 14 12.5 14 Q 10 14 10 16.5 Q 10 14 7.5 14 Q 10 14 10 11.5 Z"
+            fill="#f59e0b"
+            className="motion-safe:animate-[pulse_1.8s_ease-in-out_infinite_1.4s]"
+          />
+        </g>
+
+        {/* Central "G" Brand Anchor */}
+        <g className="origin-center motion-safe:animate-[pulse_3s_ease-in-out_infinite]">
+          <path
+            d="M24 14.5c-5.25 0-9.5 4.25-9.5 9.5s4.25 9.5 9.5 9.5c4.65 0 8.5-3.35 9.32-7.75H24v-3.5h13.25c.16.57.25 1.15.25 1.75 0 7.45-6.05 13.5-13.5 13.5C16.55 37.5 10.5 31.45 10.5 24S16.55 10.5 24 10.5c3.75 0 7.15 1.5 9.6 3.95l-2.65 2.65C29.2 15.35 26.75 14.5 24 14.5Z"
+            fill="#ff6b00"
+          />
+        </g>
       </svg>
 
       {showLabel ? (
