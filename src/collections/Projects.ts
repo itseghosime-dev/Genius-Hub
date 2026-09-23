@@ -1,13 +1,36 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
+import {
+  createWorkflowBeforeChangeHook,
+  WORKFLOW_STATUS_OPTIONS,
+  workflowFieldGroup,
+} from '@/fields/workflow';
 
 export const Projects: CollectionConfig = {
   slug: 'projects',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'parentProgramme', 'projectStatus', 'isFeatured', 'updatedAt'],
+    defaultColumns: ['title', 'parentProgramme', 'status', 'projectStatus', 'isFeatured'],
     group: 'Programmes & Impact',
+  },
+  access: {
+    read: publicReadOrRequirePermission('projects.read'),
+    create: requirePermissionAccess('projects.create'),
+    update: requirePermissionAccess('projects.update'),
+    delete: requirePermissionAccess('projects.delete'),
+  },
+  hooks: {
+    beforeChange: [
+      createWorkflowBeforeChangeHook({
+        approvePermission: 'projects.approve',
+        publishPermission: 'projects.publish',
+      }),
+    ],
   },
   fields: [
     {
@@ -84,7 +107,7 @@ export const Projects: CollectionConfig = {
         { label: 'Completed & Evaluated', value: 'completed' },
         { label: 'On Hold', value: 'on_hold' },
       ],
-      label: 'Project Status',
+      label: 'Project Operational Phase',
       admin: {
         position: 'sidebar',
       },
@@ -166,6 +189,18 @@ export const Projects: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'status',
+      type: 'select',
+      defaultValue: 'draft',
+      required: true,
+      options: WORKFLOW_STATUS_OPTIONS,
+      label: 'Workflow Status',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    workflowFieldGroup,
     seoFieldGroup,
   ],
 };
