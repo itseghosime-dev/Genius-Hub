@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+build
+dist
+coverage
+test-results
+playwright-report
+blob-report
+bun.lock
+next-env.d.ts
+*.log
+*.tsbuildinfo
+.DS_Store
