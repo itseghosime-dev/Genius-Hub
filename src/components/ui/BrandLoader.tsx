@@ -10,10 +10,10 @@ export interface BrandLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const sizeConfig: Record<BrandLoaderSize, { px: number; textClass: string }> = {
-  sm: { px: 32, textClass: 'text-xs' },
-  md: { px: 48, textClass: 'text-sm' },
-  lg: { px: 64, textClass: 'text-base' },
-  xl: { px: 96, textClass: 'text-lg' },
+  sm: { px: 28, textClass: 'text-xs' },
+  md: { px: 44, textClass: 'text-sm' },
+  lg: { px: 60, textClass: 'text-base' },
+  xl: { px: 84, textClass: 'text-lg' },
 };
 
 export const BrandLoader: React.FC<BrandLoaderProps> = ({
@@ -29,54 +29,89 @@ export const BrandLoader: React.FC<BrandLoaderProps> = ({
     <div
       role="status"
       aria-label={label}
-      className={cn('inline-flex flex-col items-center justify-center gap-3', className)}
+      className={cn(
+        'inline-flex flex-col items-center justify-center gap-2.5 select-none',
+        className,
+      )}
       {...props}
     >
       <svg
         width={px}
         height={px}
-        viewBox="0 0 64 64"
+        viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="text-(--brand-primary) motion-safe:animate-pulse"
+        className="text-(--brand-primary)"
         aria-hidden="true"
       >
-        {/* Outer subtle orbital ring */}
+        {/* Warm subtle sun aura */}
         <circle
-          cx="32"
-          cy="32"
-          r="28"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeDasharray="4 6"
-          className="origin-center animate-[spin_8s_linear_infinite] opacity-40"
-        />
-
-        {/* Dynamic interconnected nodes representing People, Knowledge, Opportunity, Impact */}
-        {/* Top Node */}
-        <circle cx="32" cy="14" r="4" fill="#0b1320" className="dark:fill-slate-200" />
-        {/* Right Node */}
-        <circle cx="50" cy="32" r="4" fill="currentColor" />
-        {/* Bottom Node */}
-        <circle cx="32" cy="50" r="4" fill="#059669" />
-        {/* Left Node */}
-        <circle cx="14" cy="32" r="4" fill="#0284c7" />
-
-        {/* Connecting vector paths */}
-        <path
-          d="M32 14L50 32M50 32L32 50M32 50L14 32M14 32L32 14"
+          cx="24"
+          cy="24"
+          r="20"
           stroke="currentColor"
           strokeWidth="1.5"
-          strokeOpacity="0.3"
+          strokeOpacity="0.15"
+          strokeDasharray="3 4"
+          className="origin-center motion-safe:animate-[spin_12s_linear_infinite]"
         />
 
-        {/* Central Core Radiant Mark (Genius Hub Core) */}
-        <circle cx="32" cy="32" r="8" fill="currentColor" />
-        <circle cx="32" cy="32" r="3" fill="#ffffff" />
+        {/* Gathering community nodes (People, Opportunity, Knowledge, Growth) */}
+        {/* Top Node */}
+        <circle
+          cx="24"
+          cy="10"
+          r="3"
+          fill="#d97706"
+          className="motion-safe:animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"
+          fillOpacity="0.8"
+        />
+        {/* Right Node */}
+        <circle
+          cx="38"
+          cy="24"
+          r="2.5"
+          fill="#c2410c"
+          className="motion-safe:animate-[pulse_2.5s_ease-in-out_infinite]"
+        />
+        {/* Bottom Node */}
+        <circle
+          cx="24"
+          cy="38"
+          r="3"
+          fill="#d97706"
+          className="motion-safe:animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]"
+          fillOpacity="0.7"
+        />
+        {/* Left Node */}
+        <circle
+          cx="10"
+          cy="24"
+          r="2.5"
+          fill="#36533e"
+          className="motion-safe:animate-[pulse_2.5s_ease-in-out_infinite_0.25s]"
+        />
+
+        {/* Soft connecting human arcs */}
+        <path
+          d="M24 10C31.732 10 38 16.268 38 24C38 31.732 31.732 38 24 38C16.268 38 10 31.732 10 24C10 16.268 16.268 10 24 10Z"
+          stroke="#d97706"
+          strokeWidth="1"
+          strokeOpacity="0.25"
+        />
+
+        {/* Warm Radiant Center Mark (Genius Sun Core) */}
+        <circle cx="24" cy="24" r="5.5" fill="#d97706" />
+        <circle cx="24" cy="24" r="2" fill="#ffffff" />
       </svg>
 
       {showLabel ? (
-        <span className={cn('font-semibold tracking-tight text-(--text-secondary)', textClass)}>
+        <span
+          className={cn(
+            'font-serif font-medium tracking-normal text-(--text-secondary)',
+            textClass,
+          )}
+        >
           {label}
         </span>
       ) : (
