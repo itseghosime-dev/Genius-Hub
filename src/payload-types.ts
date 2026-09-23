@@ -71,11 +71,15 @@ export interface Config {
     media: Media;
     people: Person;
     partners: Partner;
+    'focus-areas': FocusArea;
     programmes: Programme;
     projects: Project;
     events: Event;
     'success-stories': SuccessStory;
     articles: Article;
+    'article-categories': ArticleCategory;
+    tags: Tag;
+    locations: Location;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -87,11 +91,15 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    'focus-areas': FocusAreasSelect<false> | FocusAreasSelect<true>;
     programmes: ProgrammesSelect<false> | ProgrammesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
     'success-stories': SuccessStoriesSelect<false> | SuccessStoriesSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    'article-categories': ArticleCategoriesSelect<false> | ArticleCategoriesSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents':
       PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -101,14 +109,15 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  fallbackLocale: null;
+  fallbackLocale:
+    ('false' | 'none' | 'null') | false | null | ('en' | 'fr' | 'de') | ('en' | 'fr' | 'de')[];
   globals: {
     'site-settings': SiteSetting;
   };
   globalsSelect: {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'fr' | 'de';
   widgets: {
     collections: CollectionsWidget;
   };
@@ -137,16 +146,14 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Administrative users with access to the Payload CMS control panel. Advanced RBAC and permissions will be configured in Phase 03.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
   id: number;
   name: string;
-  /**
-   * Assigned platform governance and content access roles.
-   */
-  roles?: ('admin' | 'editor' | 'reviewer' | 'media_manager')[] | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -205,14 +212,9 @@ export interface Media {
    */
   dateCaptured?: string | null;
   /**
-   * Tags for categorization (e.g., #DigitalSkills, #WomenInTech, #Graduation2026).
+   * Relational topic tags for asset library indexing.
    */
-  tags?:
-    | {
-        tag: string;
-        id?: string | null;
-      }[]
-    | null;
+  tags?: (number | Tag)[] | null;
   /**
    * Optional embedded video link for streamable assets.
    */
@@ -257,6 +259,23 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: number;
+  /**
+   * Lightweight topic keyword (e.g., UI/UX, Renewable Energy, Youth Development, Apprenticeships).
+   */
+  name: string;
+  /**
+   * Unique URL identifier. Auto-generated from "name" if not specified.
+   */
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "people".
  */
 export interface Person {
@@ -298,6 +317,7 @@ export interface Person {
     };
     [k: string]: unknown;
   } | null;
+  primaryLocation?: (number | null) | Location;
   designations?: {
     isLeadership?: boolean | null;
     isBoardMember?: boolean | null;
@@ -324,25 +344,139 @@ export interface Person {
   displayOrder?: number | null;
   status?: ('active' | 'alumni' | 'inactive') | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: number;
+  /**
+   * e.g., Genius Hub Headquarters, Edo Innovation Center, Lagos Training Hub.
+   */
+  name: string;
+  /**
+   * Unique URL identifier. Auto-generated from "name" if not specified.
+   */
+  slug?: string | null;
+  locationType:
+    | 'hub_facility'
+    | 'office'
+    | 'training_center'
+    | 'community_venue'
+    | 'partner_facility'
+    | 'other';
+  /**
+   * Physical street address if applicable (not required for all field venues).
+   */
+  address?: string | null;
+  city: string;
+  stateOrRegion: string;
+  country: string;
+  coordinates?: {
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+  flags?: {
+    isOffice?: boolean | null;
+    isProgrammeLocation?: boolean | null;
+    isEventVenue?: boolean | null;
+  };
+  contactInfo?: {
+    phone?: string | null;
+    email?: string | null;
+  };
+  /**
+   * e.g., Mon–Fri: 8:30 AM – 5:00 PM, Sat: 9:00 AM – 2:00 PM.
+   */
+  openingHours?: string | null;
+  mapDisplay?: boolean | null;
+  /**
+   * When checked, generates a public route and renders SEO metadata.
+   */
+  isPublicPageEnabled?: boolean | null;
+  /**
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
+   */
+  seo?: {
+    /**
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
+     */
+    metaTitle?: string | null;
+    /**
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
+     */
+    metaDescription?: string | null;
+    /**
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
+     */
+    canonicalUrl?: string | null;
+    /**
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
+     */
+    noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -388,33 +522,119 @@ export interface Partner {
    */
   description?: string | null;
   timeline?: {
-    /**
-     * e.g., 2020
-     */
     startYear?: number | null;
     endYear?: number | null;
   };
   isFeatured?: boolean | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "focus-areas".
+ */
+export interface FocusArea {
+  id: number;
+  /**
+   * Strategic development pillar (e.g., Digital Skills & Technology, TVET & Vocational Mastery, Enterprise Incubation, Migration Reintegration).
+   */
+  title: string;
+  /**
+   * Unique URL identifier. Auto-generated from "title" if not specified.
+   */
+  slug?: string | null;
+  /**
+   * Comprehensive overview of the developmental rationale, objectives, and impact.
+   */
+  description?: string | null;
+  /**
+   * SVG or transparent PNG icon representing this focus area.
+   */
+  icon?: (number | null) | Media;
+  heroMedia?: (number | null) | Media;
+  displayOrder?: number | null;
+  isFeatured?: boolean | null;
+  /**
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
+   */
+  seo?: {
+    /**
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
+     */
+    metaTitle?: string | null;
+    /**
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
+     */
+    metaDescription?: string | null;
+    /**
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
+     */
+    canonicalUrl?: string | null;
+    /**
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
+     */
+    noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -449,32 +669,19 @@ export interface Programme {
     };
     [k: string]: unknown;
   } | null;
-  programmeType:
-    | 'digital_skills'
-    | 'vocational_tvet'
-    | 'entrepreneurship'
-    | 'migration_reintegration'
-    | 'women_empowerment'
-    | 'youth_employment'
-    | 'leadership_governance'
-    | 'other';
-  focusAreas?:
-    | {
-        skill: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Authoritative topical pillar mapping for categorization and SEO.
+   */
+  focusAreas: (number | FocusArea)[];
   /**
    * e.g., Unemployed youth, returning migrants, female entrepreneurs, tech enthusiasts.
    */
   targetAudience?: string | null;
   deliveryFormat?: ('in_person' | 'virtual' | 'hybrid') | null;
-  locations?:
-    | {
-        location: string;
-        id?: string | null;
-      }[]
-    | null;
+  /**
+   * Structured relationship to verified physical hubs and campuses.
+   */
+  locations?: (number | Location)[] | null;
   schedule?: {
     startDate?: string | null;
     endDate?: string | null;
@@ -488,6 +695,7 @@ export interface Programme {
   heroMedia?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   partners?: (number | Partner)[] | null;
+  tags?: (number | Tag)[] | null;
   impactStatistics?:
     | {
         metricValue: string;
@@ -499,25 +707,45 @@ export interface Programme {
   isFeatured?: boolean | null;
   status?: ('draft' | 'published' | 'archived') | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -556,13 +784,9 @@ export interface Project {
    * The broader institutional programme this specific project operationalizes.
    */
   parentProgramme?: (number | null) | Programme;
+  focusAreas?: (number | FocusArea)[] | null;
   partners?: (number | Partner)[] | null;
-  locations?:
-    | {
-        location: string;
-        id?: string | null;
-      }[]
-    | null;
+  locations?: (number | Location)[] | null;
   timeline?: {
     startDate?: string | null;
     endDate?: string | null;
@@ -580,31 +804,52 @@ export interface Project {
     donorOrFunder?: string | null;
     grantDetails?: string | null;
   };
+  tags?: (number | Tag)[] | null;
   heroMedia?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   outcomes?: string | null;
   reportsAndDocuments?: (number | Media)[] | null;
   isFeatured?: boolean | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -650,43 +895,67 @@ export interface Event {
     endDateTime?: string | null;
     timezone?: string | null;
   };
-  venue?: {
-    venueName?: string | null;
-    address?: string | null;
-    city?: string | null;
-    country?: string | null;
-  };
+  /**
+   * Structured link to verified physical facility or innovation center.
+   */
+  venueLocation?: (number | null) | Location;
+  /**
+   * e.g., Main Auditorium, Hall B, 3rd Floor.
+   */
+  customVenueNotes?: string | null;
   onlineAccess?: {
     meetingUrl?: string | null;
     accessInstructions?: string | null;
   };
+  focusAreas?: (number | FocusArea)[] | null;
   speakers?: (number | Person)[] | null;
   partners?: (number | Partner)[] | null;
+  tags?: (number | Tag)[] | null;
   relatedProgramme?: (number | null) | Programme;
   relatedProject?: (number | null) | Project;
   heroMedia?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   status?: ('draft' | 'published' | 'postponed' | 'cancelled' | 'completed') | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -710,7 +979,8 @@ export interface SuccessStory {
    * e.g., Founder at StitchLab Hub, Junior Software Engineer at TechCorp.
    */
   beneficiaryRole?: string | null;
-  location?: string | null;
+  location?: (number | null) | Location;
+  focusAreas?: (number | FocusArea)[] | null;
   relatedProgramme?: (number | null) | Programme;
   relatedProject?: (number | null) | Project;
   /**
@@ -733,6 +1003,7 @@ export interface SuccessStory {
     };
     [k: string]: unknown;
   } | null;
+  tags?: (number | Tag)[] | null;
   heroMedia?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
   impactMetrics?:
@@ -746,25 +1017,45 @@ export interface SuccessStory {
   isFeatured?: boolean | null;
   status?: ('draft' | 'published' | 'archived') | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -799,8 +1090,13 @@ export interface Article {
     };
     [k: string]: unknown;
   };
+  /**
+   * Structured relationship to controlled editorial categories.
+   */
+  category: number | ArticleCategory;
+  focusAreas?: (number | FocusArea)[] | null;
+  tags?: (number | Tag)[] | null;
   authors?: (number | Person)[] | null;
-  category: 'insights' | 'news' | 'case_study' | 'research' | 'community';
   publishedAt?: string | null;
   heroMedia?: (number | null) | Media;
   relatedProgrammes?: (number | Programme)[] | null;
@@ -808,25 +1104,105 @@ export interface Article {
   relatedEvents?: (number | Event)[] | null;
   status?: ('draft' | 'published' | 'archived') | null;
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "article-categories".
+ */
+export interface ArticleCategory {
+  id: number;
+  /**
+   * e.g., Insights & Thought Leadership, Corporate News, Field Dispatches, Policy Research.
+   */
+  name: string;
+  /**
+   * Unique URL identifier. Auto-generated from "name" if not specified.
+   */
+  slug?: string | null;
+  description?: string | null;
+  displayOrder?: number | null;
+  /**
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
+   */
+  seo?: {
+    /**
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
+     */
+    metaTitle?: string | null;
+    /**
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
+     */
+    metaDescription?: string | null;
+    /**
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
+     */
+    canonicalUrl?: string | null;
+    /**
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
+     */
+    noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt: string;
   createdAt: string;
@@ -872,6 +1248,10 @@ export interface PayloadLockedDocument {
         value: number | Partner;
       } | null)
     | ({
+        relationTo: 'focus-areas';
+        value: number | FocusArea;
+      } | null)
+    | ({
         relationTo: 'programmes';
         value: number | Programme;
       } | null)
@@ -890,6 +1270,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'articles';
         value: number | Article;
+      } | null)
+    | ({
+        relationTo: 'article-categories';
+        value: number | ArticleCategory;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: number | Location;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -939,7 +1331,6 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
-  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -975,12 +1366,7 @@ export interface MediaSelect<T extends boolean = true> {
       };
   location?: T;
   dateCaptured?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
+  tags?: T;
   externalVideoUrl?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1041,6 +1427,7 @@ export interface PeopleSelect<T extends boolean = true> {
   profileImage?: T;
   shortBio?: T;
   fullBio?: T;
+  primaryLocation?: T;
   designations?:
     | T
     | {
@@ -1074,8 +1461,13 @@ export interface PeopleSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1104,8 +1496,41 @@ export interface PartnersSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "focus-areas_select".
+ */
+export interface FocusAreasSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  icon?: T;
+  heroMedia?: T;
+  displayOrder?: T;
+  isFeatured?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1119,21 +1544,10 @@ export interface ProgrammesSelect<T extends boolean = true> {
   slug?: T;
   shortDescription?: T;
   fullDescription?: T;
-  programmeType?: T;
-  focusAreas?:
-    | T
-    | {
-        skill?: T;
-        id?: T;
-      };
+  focusAreas?: T;
   targetAudience?: T;
   deliveryFormat?: T;
-  locations?:
-    | T
-    | {
-        location?: T;
-        id?: T;
-      };
+  locations?: T;
   schedule?:
     | T
     | {
@@ -1146,6 +1560,7 @@ export interface ProgrammesSelect<T extends boolean = true> {
   heroMedia?: T;
   gallery?: T;
   partners?: T;
+  tags?: T;
   impactStatistics?:
     | T
     | {
@@ -1161,8 +1576,13 @@ export interface ProgrammesSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1177,13 +1597,9 @@ export interface ProjectsSelect<T extends boolean = true> {
   summary?: T;
   fullContent?: T;
   parentProgramme?: T;
+  focusAreas?: T;
   partners?: T;
-  locations?:
-    | T
-    | {
-        location?: T;
-        id?: T;
-      };
+  locations?: T;
   timeline?:
     | T
     | {
@@ -1205,6 +1621,7 @@ export interface ProjectsSelect<T extends boolean = true> {
         donorOrFunder?: T;
         grantDetails?: T;
       };
+  tags?: T;
   heroMedia?: T;
   gallery?: T;
   outcomes?: T;
@@ -1215,8 +1632,13 @@ export interface ProjectsSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1238,22 +1660,18 @@ export interface EventsSelect<T extends boolean = true> {
         endDateTime?: T;
         timezone?: T;
       };
-  venue?:
-    | T
-    | {
-        venueName?: T;
-        address?: T;
-        city?: T;
-        country?: T;
-      };
+  venueLocation?: T;
+  customVenueNotes?: T;
   onlineAccess?:
     | T
     | {
         meetingUrl?: T;
         accessInstructions?: T;
       };
+  focusAreas?: T;
   speakers?: T;
   partners?: T;
+  tags?: T;
   relatedProgramme?: T;
   relatedProject?: T;
   heroMedia?: T;
@@ -1264,8 +1682,13 @@ export interface EventsSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1280,11 +1703,13 @@ export interface SuccessStoriesSelect<T extends boolean = true> {
   beneficiaryName?: T;
   beneficiaryRole?: T;
   location?: T;
+  focusAreas?: T;
   relatedProgramme?: T;
   relatedProject?: T;
   quote?: T;
   summary?: T;
   fullStory?: T;
+  tags?: T;
   heroMedia?: T;
   gallery?: T;
   impactMetrics?:
@@ -1302,8 +1727,13 @@ export interface SuccessStoriesSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1317,8 +1747,10 @@ export interface ArticlesSelect<T extends boolean = true> {
   slug?: T;
   excerpt?: T;
   content?: T;
-  authors?: T;
   category?: T;
+  focusAreas?: T;
+  tags?: T;
+  authors?: T;
   publishedAt?: T;
   heroMedia?: T;
   relatedProgrammes?: T;
@@ -1330,8 +1762,98 @@ export interface ArticlesSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "article-categories_select".
+ */
+export interface ArticleCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  displayOrder?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  locationType?: T;
+  address?: T;
+  city?: T;
+  stateOrRegion?: T;
+  country?: T;
+  coordinates?:
+    | T
+    | {
+        latitude?: T;
+        longitude?: T;
+      };
+  flags?:
+    | T
+    | {
+        isOffice?: T;
+        isProgrammeLocation?: T;
+        isEventVenue?: T;
+      };
+  contactInfo?:
+    | T
+    | {
+        phone?: T;
+        email?: T;
+      };
+  openingHours?: T;
+  mapDisplay?: T;
+  isPublicPageEnabled?: T;
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
+        noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1407,25 +1929,45 @@ export interface SiteSetting {
     youtube?: string | null;
   };
   /**
-   * Configure search engine metadata, Open Graph preview, and indexing controls.
+   * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
   seo?: {
     /**
-     * Recommended: 50-60 characters. Appears in search results and browser tabs.
+     * Recommended: 50–60 characters. Appears in search results and browser title bars. Falls back to entity title.
      */
     metaTitle?: string | null;
     /**
-     * Recommended: 150-160 characters. Concise summary of the page for search snippets.
+     * Recommended: 150–160 characters. Search result summary snippet. Falls back to short description/summary.
      */
     metaDescription?: string | null;
     /**
-     * Recommended dimension: 1200 × 630 pixels.
+     * Optional absolute URL override. Leave empty to automatically use the standard canonical URL.
      */
-    metaImage?: (number | null) | Media;
+    canonicalUrl?: string | null;
     /**
-     * Check to prevent web crawlers from indexing this item.
+     * Custom title for social card sharing (Facebook, LinkedIn, Twitter/X). Falls back to Meta Title.
+     */
+    ogTitle?: string | null;
+    /**
+     * Custom summary for social card previews. Falls back to Meta Description.
+     */
+    ogDescription?: string | null;
+    /**
+     * Recommended resolution: 1200 × 630 pixels. Falls back to hero media or global brand card.
+     */
+    ogImage?: (number | null) | Media;
+    /**
+     * Check to instruct search engines NOT to display this page in search results.
      */
     noIndex?: boolean | null;
+    /**
+     * Check to instruct search crawlers NOT to crawl links on this page.
+     */
+    noFollow?: boolean | null;
+    /**
+     * Optional raw JSON-LD schema override for advanced schema customization.
+     */
+    customJsonLd?: string | null;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -1467,8 +2009,13 @@ export interface SiteSettingsSelect<T extends boolean = true> {
     | {
         metaTitle?: T;
         metaDescription?: T;
-        metaImage?: T;
+        canonicalUrl?: T;
+        ogTitle?: T;
+        ogDescription?: T;
+        ogImage?: T;
         noIndex?: T;
+        noFollow?: T;
+        customJsonLd?: T;
       };
   updatedAt?: T;
   createdAt?: T;

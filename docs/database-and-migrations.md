@@ -13,17 +13,32 @@ Genius Hub utilizes **PostgreSQL 16+** as its primary relational store. Database
 ┌──────────────────────────────────▼─────────────────────────────────────┐
 │                        PostgreSQL 16+ Database                         │
 ├───────────────────┬───────────────────┬────────────────────────────────┤
-│  Core Entities    │  Domain Models    │   Editorial & Impact           │
-│  - users          │  - programmes     │   - articles                   │
-│  - media          │  - projects       │   - success_stories            │
-│  - people         │  - events         │   - site_settings (global)     │
-│  - partners       │                   │                                │
+│  Core Entities    │  Taxonomies & Hubs│   Editorial & Impact           │
+│  - users          │  - focus_areas    │   - articles                   │
+│  - media          │  - locations      │   - article_categories         │
+│  - people         │  - tags           │   - success_stories            │
+│  - partners       │  - programmes     │   - site_settings (global)     │
+│                   │  - projects       │                                │
+│                   │  - events         │                                │
 └───────────────────┴───────────────────┴────────────────────────────────┘
 ```
 
 ---
 
-## 2. Local Database Setup (Docker)
+## 2. Schema Topology & Localization Architecture
+
+Under PostgreSQL, `@payloadcms/db-postgres` separates static metadata from localized fields and relational joins:
+
+1. **Base Entity Tables**: `programmes`, `projects`, `events`, `people`, `partners`, `media`, `locations`, `focus_areas`, `article_categories`, `tags`, `success_stories`, `articles`, `users`.
+2. **Localization Tables (`*_locales`)**: e.g., `programmes_locales`, `projects_locales`, `events_locales`, `people_locales`, `locations_locales`, `focus_areas_locales`, `site_settings_locales`.
+   - Stores localized textual content tagged with `_locale: ('en' | 'fr' | 'de')` and `_parent_id`.
+   - Unique composite index on `(_locale, _parent_id)` prevents translation duplication.
+3. **Relational Join Tables (`*_rels`)**: e.g., `programmes_rels`, `projects_rels`, `events_rels`, `articles_rels`, `success_stories_rels`.
+   - Normalizes many-to-many and polymorphic foreign key relationships (FocusAreas, Locations, Partners, Speakers, Media galleries, Tags).
+
+---
+
+## 3. Local Database Setup (Docker)
 
 A lightweight `docker-compose.yml` is provided for local PostgreSQL development:
 
@@ -52,7 +67,7 @@ docker compose down
 
 ---
 
-## 3. Migration-Driven Database Strategy
+## 4. Migration-Driven Database Strategy
 
 All database schema modifications MUST be migration-driven. Uncontrolled production schema synchronization (`push: true`) is strictly disabled in `src/payload.config.ts`.
 
@@ -68,7 +83,7 @@ All database schema modifications MUST be migration-driven. Uncontrolled product
 
 ---
 
-## 4. Migration Development Workflow
+## 5. Migration Development Workflow
 
 ### Step 1: Modify or Add Collections
 
@@ -84,7 +99,7 @@ bun run generate:types
 ### Step 3: Create the Migration File
 
 ```bash
-bun run db:migrate:create add_programme_curriculum_fields
+bun run db:migrate:create add_taxonomies_locations_localization
 ```
 
 This inspects the collection schema changes and automatically generates a timestamped migration in `src/migrations/` with reversible `up` and `down` SQL transactions.
@@ -97,7 +112,7 @@ bun run db:migrate
 
 ---
 
-## 5. Production Deployment & Rollback Strategy
+## 6. Production Deployment & Rollback Strategy
 
 ### Production Execution
 
@@ -114,7 +129,7 @@ bun run db:migrate
 
 ---
 
-## 6. Media Storage Strategy: Local to S3/R2 Evolution
+## 7. Media Storage Strategy: Local to S3/R2 Evolution
 
 In Phase 02, uploaded assets are stored in the local file system at `public/media/` for zero-configuration development.
 
