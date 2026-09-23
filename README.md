@@ -145,6 +145,12 @@ The data layer models Genius Hub's organizational ecosystem across 13 collection
 
 Comprehensive engineering documentation is available in the `docs/` directory:
 
+- [Brand Audit & Digital Identity Translation](docs/brand-audit.md) — Analysis of core brand colors, typography heritage, imagery, and digital translation.
+- [Digital Design System & UI Foundation](docs/design-system.md) — Design principles, semantic CSS tokens, typography scales, layout containers, and UI primitives.
+- [Motion Design & Animation Language](docs/motion.md) — Motion principles, timing/easing tokens, BrandLoader guidelines, and reduced-motion rules.
+- [Staff Authentication & Lifecycle](docs/staff-auth.md) — Cryptographic invitation workflows, status state machine, and session security.
+- [Access Control & RBAC Matrix](docs/access-control.md) — Role-to-permission mapping and least privilege enforcement.
+- [Content Workflow & Governance](docs/content-workflow.md) — Multi-stage publication pipeline and separation of duties.
 - [Content Model & Domain Topology](docs/content-model.md) — Purpose of every collection, authoritative relationships, ER diagram, and localization decisions.
 - [CMS Developer Guide](docs/cms.md) — Payload CMS Local API (`getPayloadClient`), REST/GraphQL endpoints, and admin usage.
 - [Database & Migrations Guide](docs/database-and-migrations.md) — PostgreSQL schema topology, localization tables, and migration lifecycle.

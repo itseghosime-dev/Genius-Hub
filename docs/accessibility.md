@@ -17,12 +17,14 @@ Genius Hub is committed to ensuring full digital accessibility for all beneficia
 ### B. Motion Accessibility Foundation
 
 - Created `src/hooks/use-reduced-motion.ts` to detect the OS-level `prefers-reduced-motion: reduce` media query.
-- Establishes the prerequisite hook for future GSAP and CSS animations to ensure motion can be disabled or minimized for users with vestibular disorders.
+- Configured global CSS `@media (prefers-reduced-motion: reduce)` in `src/styles/globals.css` ensuring instant transitions and zero vestibular disruption.
+- `BrandLoader` respects reduced motion by disabling animations.
 
 ### C. Keyboard Operability & Focus State Foundations
 
-- Base focus state utilities configured using visible high-contrast focus rings (`focus:ring-2`, `focus:outline-hidden`).
-- Custom 404 and Error boundary pages are fully operable via standard keyboard interactions (`Tab`, `Enter`, `Space`).
+- Visible high-contrast focus rings (`:focus-visible` with 2px solid `--focus-ring` and 2px offset).
+- UI Primitives (`Button`, `IconButton`, `LinkButton`, `Input`, `Select`, `Checkbox`, `Radio`) feature full keyboard operability and accessible error state mappings (`aria-invalid`, `aria-describedby`).
+- Minimum touch targets of 44–48px across mobile inputs and buttons.
 
 ---
 
