@@ -35,12 +35,14 @@ Configured in `next.config.ts` across all incoming routes:
 - All standard database operations are executed through Payload's PostgreSQL adapter (`@payloadcms/db-postgres`), which issues parameterized SQL queries under the hood.
 - Any future raw SQL queries or custom reporting views must explicitly use parameterized queries and prepared statements to eliminate SQL injection vulnerabilities.
 
-### D. Staff Identity & Role-Based Access Control (Phase 03)
+### D. Staff Identity, Password Resets & Role-Based Access Control (Phase 03)
 
 - **Strict Separation of Identities**: The `users` collection is dedicated solely to internal staff and governance. Public users, students, and applicants are separated into distinct domain models.
 - **Role & Permission Mapping**: Centralized mapping in `src/lib/access/` resolving 10 staff roles (`super_admin`, `admin`, `content_editor`, `content_approver`, `events_manager`, `programmes_manager`, `media_manager`, `applications_manager`, `commerce_manager`, `communications_manager`) to namespaced permissions.
 - **Founder / Super Admin Model**: The founder (**Isimeme Whyte**) is granted `super_admin` through role assignment rather than hardcoded string matching. Super Admin has full administrative and emergency publishing privileges while remaining subject to full audit logging.
-- **Account State Enforcement**: Suspended (`status: 'suspended'`) and disabled (`status: 'disabled'`) staff accounts are blocked from authentication and API operations.
+- **Account State Enforcement**: Suspended (`status: 'suspended'`) and disabled (`status: 'disabled'`) staff accounts are immediately blocked from authentication and all server-side operations, even if an authenticated session previously existed.
+- **Password Reset Security**: Native Payload password resets with 2-hour token expiration (`tokenExpiration: 7200`), Argon2/bcrypt password hashing, no plaintext transmission, and enumeration mitigation.
+- **MFA Readiness**: A readiness flag `mfaRequired` is integrated into the schema; active multi-factor enforcement is scheduled for subsequent phases.
 
 ### E. Cryptographic Invitation System (Phase 03)
 

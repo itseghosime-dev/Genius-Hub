@@ -72,6 +72,18 @@ Administrators with `users.suspend` or `users.disable` permissions can manage ac
 
 ## 4. Multi-Factor Authentication (MFA) & Session Security
 
-- **MFA Readiness**: A readiness field `mfaEnabled` is incorporated into the `users` schema in preparation for production TOTP enforcement.
-- **Brute-Force Protection**: Configured with `maxLoginAttempts: 5` and a 10-minute lockout window.
+- **MFA Readiness**: A readiness configuration flag `mfaRequired` is incorporated into the `users` schema in preparation for production TOTP enforcement. Active second-factor enforcement is explicitly deferred to later phases.
+- **Brute-Force Protection**: Configured with `maxLoginAttempts: 5` and a 10-minute lockout window (`lockTime: 600000`).
+- **Session & Reset Token Expiration**: Configured with `tokenExpiration: 7200` (2-hour lifetime for sessions and password reset tokens).
 - **Session Cookies**: In production, Payload session cookies are configured with `httpOnly`, `sameSite: 'lax'`, and `secure: true`.
+- **Immediate Revocation upon Disablement/Suspension**: All server-side permission checks (`hasPermission`, `hasAnyPermission`, `hasAllPermissions`, `hasRole`, `superAdminOnlyAccess`, etc.) strictly require `user.status === 'active'`. If an active staff account is suspended or disabled, any subsequent operation by that authenticated identity is immediately denied.
+
+---
+
+## 5. Password Reset Lifecycle
+
+1. **Standard Cryptographic Handling**: Uses Payload's native password reset flow with high-entropy cryptographic reset tokens.
+2. **Token Expiration**: Password reset tokens expire after 2 hours (`tokenExpiration: 7200`).
+3. **No Plaintext Passwords**: Passwords are never sent via email. They are securely hashed using Payload's standard cryptographic algorithms (Argon2 / bcrypt) prior to storage.
+4. **Account Enumeration Mitigation**: Generic responses are provided to prevent verifying whether an email address exists in the system.
+5. **Disabled Account Exclusion**: Suspended or disabled staff cannot use password reset to regain authorized operational access, as server-side access controls require `status === 'active'`.
