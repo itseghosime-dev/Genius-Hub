@@ -81,20 +81,22 @@ src/features/<domain-name>/
 
 ## 4. Technology Stack & Planned Evolution
 
-| Component            | Phase 01 Foundation         | Planned Evolution / Adoption Phase               |
-| :------------------- | :-------------------------- | :----------------------------------------------- |
-| **Framework**        | Next.js 16 (App Router)     | App Router with Turbopack & React 19             |
-| **Language**         | TypeScript 5 (Strict Mode)  | Full end-to-end type safety                      |
-| **Styling**          | Tailwind CSS v4             | Custom design token system + Tailwind            |
-| **Package Manager**  | Bun (committed `bun.lock`)  | Bun for local execution and CI                   |
-| **CMS**              | Deferred                    | Payload CMS (Headless integration)               |
-| **Database**         | Deferred                    | PostgreSQL + Prisma / Drizzle ORM                |
-| **Caching / Queues** | Deferred                    | Redis (Upstash / Valkey) + BullMQ                |
-| **Object Storage**   | Deferred                    | AWS S3 / Cloudflare R2 + CDN                     |
-| **Email Gateway**    | Deferred                    | Amazon SES + React Email templates               |
-| **Payments**         | Deferred                    | Paystack / Flutterwave / Stripe webhook handlers |
-| **Motion**           | Baseline accessibility hook | GSAP + ScrollTrigger with reduced-motion support |
-| **CI / CD**          | GitHub Actions (Validation) | GitHub Actions automated pipelines               |
+| Component            | Current Implementation (Phase 02)               | Planned Evolution / Adoption Phase                   |
+| :------------------- | :---------------------------------------------- | :--------------------------------------------------- |
+| **Framework**        | Next.js 16 (App Router, Turbopack, React 19)    | App Router with Turbopack & React 19                 |
+| **Language**         | TypeScript 5 (Strict Mode)                      | Full end-to-end type safety                          |
+| **Styling**          | Tailwind CSS v4                                 | Custom design token system + Tailwind                |
+| **Package Manager**  | Bun (committed `bun.lock`)                      | Bun for local execution and CI                       |
+| **CMS**              | Payload CMS 3.x (Embedded App Router)           | Dynamic editorial workflows, preview & RBAC          |
+| **Database**         | PostgreSQL 16+ via `@payloadcms/db-postgres`    | Cloud PostgreSQL with connection pooling (PgBouncer) |
+| **Rich Text**        | `@payloadcms/richtext-lexical` (Lexical engine) | Custom lexical block nodes & embed renderers         |
+| **Migrations**       | Migration-driven (`bun run db:migrate`)         | Automated release phase CI/CD execution              |
+| **Caching / Queues** | Deferred                                        | Redis (Upstash / Valkey) + BullMQ                    |
+| **Object Storage**   | Local `/public/media` (Architecture S3-ready)   | AWS S3 / Cloudflare R2 + Global CDN                  |
+| **Email Gateway**    | Console logger in dev                           | Amazon SES + React Email templates                   |
+| **Payments**         | Deferred                                        | Paystack / Flutterwave / Stripe webhook handlers     |
+| **Motion**           | Baseline accessibility hook                     | GSAP + ScrollTrigger with reduced-motion support     |
+| **CI / CD**          | GitHub Actions (Validation)                     | GitHub Actions automated pipelines                   |
 
 ---
 
