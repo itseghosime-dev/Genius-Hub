@@ -44,7 +44,7 @@ export async function up({ db, payload: _payload, req: _req }: MigrateUpArgs): P
       ADD COLUMN IF NOT EXISTS "disabled_at" timestamp(3) with time zone,
       ADD COLUMN IF NOT EXISTS "last_login_at" timestamp(3) with time zone,
       ADD COLUMN IF NOT EXISTS "must_change_password" boolean DEFAULT false,
-      ADD COLUMN IF NOT EXISTS "mfa_enabled" boolean DEFAULT false;
+      ADD COLUMN IF NOT EXISTS "mfa_required" boolean DEFAULT false;
 
     -- Users Roles Table (hasMany select)
     CREATE TABLE IF NOT EXISTS "users_roles" (
@@ -274,7 +274,7 @@ export async function down({ db, payload: _payload, req: _req }: MigrateDownArgs
       DROP COLUMN IF EXISTS "disabled_at",
       DROP COLUMN IF EXISTS "last_login_at",
       DROP COLUMN IF EXISTS "must_change_password",
-      DROP COLUMN IF EXISTS "mfa_enabled";
+      DROP COLUMN IF EXISTS "mfa_required";
 
     DROP TYPE IF EXISTS "public"."enum_staff_invitations_roles";
     DROP TYPE IF EXISTS "public"."enum_staff_invitations_status";

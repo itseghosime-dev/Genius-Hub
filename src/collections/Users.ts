@@ -26,6 +26,7 @@ export const Users: CollectionConfig = {
   auth: {
     maxLoginAttempts: 5,
     lockTime: 10 * 60 * 1000, // 10 minutes lockout after 5 failed attempts
+    tokenExpiration: 7200, // 2-hour session/reset token expiration
   },
   admin: {
     useAsTitle: 'email',
@@ -241,13 +242,14 @@ export const Users: CollectionConfig = {
       },
     },
     {
-      name: 'mfaEnabled',
+      name: 'mfaRequired',
       type: 'checkbox',
       defaultValue: false,
-      label: 'Multi-Factor Authentication (MFA) Enabled',
+      label: 'Require Multi-Factor Authentication (MFA Readiness)',
       admin: {
         position: 'sidebar',
-        description: 'Readiness flag for multi-factor authentication enforcement.',
+        description:
+          'Configuration flag indicating this account will require MFA once TOTP enforcement is enabled in Phase 04+. Note: MFA enforcement is deferred.',
       },
     },
   ],

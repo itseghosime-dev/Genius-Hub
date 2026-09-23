@@ -274,9 +274,9 @@ export interface User {
   lastLoginAt?: string | null;
   mustChangePassword?: boolean | null;
   /**
-   * Readiness flag for multi-factor authentication enforcement.
+   * Configuration flag indicating this account will require MFA once TOTP enforcement is enabled in Phase 04+. Note: MFA enforcement is deferred.
    */
-  mfaEnabled?: boolean | null;
+  mfaRequired?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -1713,7 +1713,7 @@ export interface UsersSelect<T extends boolean = true> {
   disabledAt?: T;
   lastLoginAt?: T;
   mustChangePassword?: T;
-  mfaEnabled?: T;
+  mfaRequired?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
