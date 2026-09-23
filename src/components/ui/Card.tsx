@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import type { Radius } from '@/config/design';
 
-export type CardVariant = 'default' | 'elevated' | 'bordered' | 'muted' | 'inverse';
+export type CardVariant = 'default' | 'editorial' | 'sand' | 'cream' | 'flat' | 'inverse';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
@@ -11,12 +11,13 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const cardVariantClasses: Record<CardVariant, string> = {
-  default: 'bg-(--surface-primary) text-(--text-primary) border border-(--border-default)',
-  elevated:
-    'bg-(--surface-elevated) text-(--text-primary) border border-(--border-subtle) shadow-md',
-  bordered: 'bg-transparent text-(--text-primary) border-2 border-(--border-strong)',
-  muted: 'bg-(--surface-secondary) text-(--text-primary) border border-(--border-subtle)',
-  inverse: 'bg-(--surface-inverse) text-(--text-inverse) border border-(--border-inverse)',
+  default:
+    'bg-(--surface-primary) text-(--text-primary) border border-(--border-default) shadow-xs',
+  editorial: 'bg-transparent text-(--text-primary) border-0 p-0',
+  sand: 'bg-(--surface-sand) text-(--text-primary) border border-(--border-subtle)',
+  cream: 'bg-(--surface-cream) text-(--text-primary) border border-(--border-subtle)',
+  flat: 'bg-(--surface-muted) text-(--text-primary) border-0',
+  inverse: 'bg-(--surface-inverse) text-(--text-inverse) border-0',
 };
 
 const radiusClasses: Record<Radius, string> = {
@@ -40,7 +41,7 @@ export const Card: React.FC<CardProps> = ({
       className={cn(
         'overflow-hidden transition-all duration-200',
         cardVariantClasses[variant],
-        radiusClasses[radius],
+        variant !== 'editorial' && radiusClasses[radius],
         className,
       )}
       {...props}
@@ -55,7 +56,7 @@ export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   children,
   ...props
 }) => (
-  <div className={cn('flex flex-col gap-1.5 p-5 pb-3 sm:p-6 sm:pb-4', className)} {...props}>
+  <div className={cn('flex flex-col gap-1.5 p-5 pb-2 sm:p-6 sm:pb-3', className)} {...props}>
     {children}
   </div>
 );
@@ -66,7 +67,7 @@ export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({
   ...props
 }) => (
   <h3
-    className={cn('text-heading-sm font-semibold tracking-tight text-(--text-primary)', className)}
+    className={cn('text-heading-md font-semibold tracking-tight text-(--text-primary)', className)}
     {...props}
   >
     {children}
@@ -78,7 +79,7 @@ export const CardDescription: React.FC<React.HTMLAttributes<HTMLParagraphElement
   children,
   ...props
 }) => (
-  <p className={cn('text-body-sm text-(--text-secondary)', className)} {...props}>
+  <p className={cn('text-body-sm leading-relaxed text-(--text-secondary)', className)} {...props}>
     {children}
   </p>
 );

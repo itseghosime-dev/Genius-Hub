@@ -11,7 +11,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const badgeVariantClasses: Record<BadgeVariant, string> = {
-  neutral: 'bg-(--surface-muted) text-(--text-secondary) border border-(--border-default)',
+  neutral: 'bg-(--surface-sand) text-(--text-secondary) border border-(--border-default)',
   brand: 'bg-(--brand-primary-light) text-(--brand-primary-hover) border border-(--border-brand)',
   success:
     'bg-(--state-success-bg) text-(--state-success-foreground) border border-(--state-success-border)',
@@ -23,7 +23,7 @@ const badgeVariantClasses: Record<BadgeVariant, string> = {
 };
 
 const dotColors: Record<BadgeVariant, string> = {
-  neutral: 'bg-slate-400',
+  neutral: 'bg-stone-400',
   brand: 'bg-(--brand-primary)',
   success: 'bg-(--state-success)',
   warning: 'bg-(--state-warning)',
@@ -32,8 +32,8 @@ const dotColors: Record<BadgeVariant, string> = {
 };
 
 const badgeSizeClasses: Record<BadgeSize, string> = {
-  sm: 'px-2 py-0.5 text-xs font-semibold gap-1',
-  md: 'px-2.5 py-1 text-xs font-semibold gap-1.5',
+  sm: 'px-2 py-0.5 text-[0.6875rem] font-medium tracking-normal gap-1',
+  md: 'px-2.5 py-0.5 text-xs font-medium tracking-normal gap-1.5',
 };
 
 export const Badge: React.FC<BadgeProps> = ({
@@ -47,7 +47,7 @@ export const Badge: React.FC<BadgeProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-(--radius-pill) leading-none tracking-tight',
+        'inline-flex items-center rounded-(--radius-subtle) leading-normal',
         badgeVariantClasses[variant],
         badgeSizeClasses[size],
         className,

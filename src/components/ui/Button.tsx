@@ -15,23 +15,23 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 export const buttonVariantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-(--brand-primary) text-(--brand-primary-foreground) hover:bg-(--brand-primary-hover) active:bg-(--brand-primary-active) shadow-sm border border-transparent',
+    'bg-(--brand-primary) text-white hover:bg-(--brand-primary-hover) active:bg-(--brand-primary-active) shadow-xs border border-transparent font-medium',
   secondary:
-    'bg-(--brand-secondary) text-(--brand-secondary-foreground) hover:bg-(--brand-secondary-hover) active:bg-(--brand-secondary-active) shadow-sm border border-transparent',
+    'bg-(--surface-sand) text-(--text-primary) hover:bg-(--surface-stone) active:bg-(--border-strong) border border-(--border-default) font-medium',
   outline:
-    'bg-transparent text-(--text-primary) border border-(--border-strong) hover:bg-(--surface-muted) active:bg-(--surface-secondary)',
+    'bg-transparent text-(--text-primary) border border-(--border-strong) hover:bg-(--surface-sand) active:bg-(--surface-stone) font-medium',
   ghost:
-    'bg-transparent text-(--text-primary) hover:bg-(--surface-muted) active:bg-(--surface-secondary) border border-transparent',
+    'bg-transparent text-(--text-primary) hover:bg-(--surface-muted) active:bg-(--surface-sand) border border-transparent font-medium',
   inverse:
-    'bg-white text-(--brand-secondary) hover:bg-slate-100 active:bg-slate-200 border border-transparent shadow-sm',
+    'bg-white text-(--text-primary) hover:bg-stone-100 active:bg-stone-200 border border-transparent shadow-xs font-medium',
   danger:
-    'bg-(--state-error) text-white hover:bg-red-700 active:bg-red-800 border border-transparent shadow-sm',
+    'bg-(--state-error) text-white hover:bg-red-800 active:bg-red-900 border border-transparent shadow-xs font-medium',
 };
 
 export const buttonSizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-9 px-3 text-xs font-semibold gap-1.5 rounded-(--radius-standard)',
-  md: 'h-11 px-5 text-sm font-semibold gap-2 rounded-(--radius-standard)',
-  lg: 'h-13 px-7 text-base font-semibold gap-2.5 rounded-(--radius-standard)',
+  sm: 'h-8.5 px-3.5 text-xs gap-1.5 rounded-(--radius-standard)',
+  md: 'h-10.5 px-5 text-sm gap-2 rounded-(--radius-standard)',
+  lg: 'h-12 px-6 text-base gap-2.5 rounded-(--radius-standard)',
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
