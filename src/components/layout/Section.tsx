@@ -13,30 +13,34 @@ export interface SectionProps extends React.HTMLAttributes<HTMLElement> {
 const spacingClasses: Record<SectionSpacing, string> = {
   none: 'py-0',
   sm: 'py-8 sm:py-12',
-  md: 'py-12 sm:py-16 lg:py-20',
+  md: 'py-12 sm:py-16 lg:py-24',
   lg: 'py-16 sm:py-24 lg:py-32',
-  xl: 'py-20 sm:py-32 lg:py-40',
+  xl: 'py-24 sm:py-32 lg:py-44',
 };
 
 const surfaceDataAttributes: Record<SurfaceTheme, Record<string, string>> = {
-  light: {},
-  secondary: { 'data-surface': 'light' },
+  canvas: {},
+  primary: {},
+  cream: { 'data-surface': 'cream' },
+  sand: { 'data-surface': 'sand' },
+  stone: { 'data-surface': 'sand' },
   dark: { 'data-surface': 'dark' },
-  brand: { 'data-surface': 'brand' },
 };
 
 const surfaceClasses: Record<SurfaceTheme, string> = {
-  light: 'bg-(--surface-canvas) text-(--text-primary)',
-  secondary: 'bg-(--surface-secondary) text-(--text-primary)',
-  dark: 'bg-(--surface-canvas) text-(--text-primary)',
-  brand: 'bg-(--surface-canvas) text-(--text-primary)',
+  canvas: 'bg-(--surface-canvas) text-(--text-primary)',
+  primary: 'bg-(--surface-primary) text-(--text-primary)',
+  cream: 'bg-(--surface-cream) text-(--text-primary)',
+  sand: 'bg-(--surface-sand) text-(--text-primary)',
+  stone: 'bg-(--surface-stone) text-(--text-primary)',
+  dark: 'bg-(--surface-inverse) text-(--text-inverse)',
 };
 
 export const Section: React.FC<SectionProps> = ({
   children,
   className,
   spacing = 'md',
-  surface = 'light',
+  surface = 'canvas',
   as: Component = 'section',
   ...props
 }) => {

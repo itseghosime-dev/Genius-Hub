@@ -26,10 +26,12 @@ export const designConfig = {
     cinema: 'aspect-[21/9]', // 21:9
   },
   surfaces: {
-    light: 'bg-(--surface-canvas) text-(--text-primary)',
-    secondary: 'bg-(--surface-secondary) text-(--text-primary)',
-    dark: 'bg-(--surface-canvas) text-(--text-primary) [data-surface="dark"]',
-    brand: 'bg-(--surface-canvas) text-(--text-primary) [data-surface="brand"]',
+    canvas: 'bg-(--surface-canvas) text-(--text-primary)',
+    primary: 'bg-(--surface-primary) text-(--text-primary)',
+    cream: 'bg-(--surface-cream) text-(--text-primary)',
+    sand: 'bg-(--surface-sand) text-(--text-primary)',
+    stone: 'bg-(--surface-stone) text-(--text-primary)',
+    dark: 'bg-(--surface-inverse) text-(--text-inverse)',
   },
   radii: {
     none: 'rounded-none',
@@ -42,5 +44,5 @@ export const designConfig = {
 
 export type ContainerWidth = keyof typeof designConfig.containers;
 export type AspectRatio = keyof typeof designConfig.aspectRatios;
-export type SurfaceTheme = 'light' | 'secondary' | 'dark' | 'brand';
+export type SurfaceTheme = keyof typeof designConfig.surfaces;
 export type Radius = keyof typeof designConfig.radii;

@@ -1,9 +1,22 @@
 import type { Metadata, Viewport } from 'next';
+import { Lora, Plus_Jakarta_Sans } from 'next/font/google';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 
+const lora = Lora({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-serif',
+  display: 'swap',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-sans',
+  display: 'swap',
+});
+
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#faf8f5',
   width: 'device-width',
   initialScale: 1,
 };
@@ -40,8 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col">{children}</body>
+    <html lang="en" className={`${lora.variable} ${plusJakarta.variable}`}>
+      <body className="flex min-h-screen flex-col font-sans antialiased selection:bg-amber-100 selection:text-amber-900">
+        {children}
+      </body>
     </html>
   );
 }

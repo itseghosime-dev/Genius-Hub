@@ -9,40 +9,34 @@
   --color-brand-primary-subtle: var(--brand-primary-subtle);
   --color-brand-primary-foreground: var(--brand-primary-foreground);
 
-  --color-brand-secondary: var(--brand-secondary);
-  --color-brand-secondary-hover: var(--brand-secondary-hover);
-  --color-brand-secondary-active: var(--brand-secondary-active);
-  --color-brand-secondary-light: var(--brand-secondary-light);
-  --color-brand-secondary-foreground: var(--brand-secondary-foreground);
-
-  --color-brand-accent: var(--brand-accent);
-  --color-brand-accent-hover: var(--brand-accent-hover);
-  --color-brand-accent-light: var(--brand-accent-light);
-  --color-brand-accent-foreground: var(--brand-accent-foreground);
-
-  --color-brand-tertiary: var(--brand-tertiary);
-  --color-brand-tertiary-hover: var(--brand-tertiary-hover);
-  --color-brand-tertiary-light: var(--brand-tertiary-light);
-  --color-brand-tertiary-foreground: var(--brand-tertiary-foreground);
+  --color-brand-terracotta: var(--brand-terracotta);
+  --color-brand-terracotta-light: var(--brand-terracotta-light);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-sage-light: var(--brand-sage-light);
+  --color-brand-pale-blue: var(--brand-pale-blue);
+  --color-brand-pale-blue-light: var(--brand-pale-blue-light);
 
   --color-surface-canvas: var(--surface-canvas);
   --color-surface-primary: var(--surface-primary);
-  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-cream: var(--surface-cream);
+  --color-surface-sand: var(--surface-sand);
+  --color-surface-stone: var(--surface-stone);
+  --color-surface-muted: var(--surface-muted);
   --color-surface-elevated: var(--surface-elevated);
   --color-surface-inverse: var(--surface-inverse);
-  --color-surface-accent: var(--surface-accent);
-  --color-surface-muted: var(--surface-muted);
 
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
   --color-text-inverse: var(--text-inverse);
+  --color-text-inverse-muted: var(--text-inverse-muted);
   --color-text-brand: var(--text-brand);
 
   --color-border-subtle: var(--border-subtle);
   --color-border-default: var(--border-default);
   --color-border-strong: var(--border-strong);
   --color-border-brand: var(--border-brand);
+  --color-border-inverse: var(--border-inverse);
 
   --color-state-success: var(--state-success);
   --color-state-success-bg: var(--state-success-bg);
@@ -72,6 +66,9 @@
   --shadow-low: var(--elevation-low);
   --shadow-mid: var(--elevation-mid);
   --shadow-high: var(--elevation-high);
+
+  --font-serif: var(--font-serif, 'Lora', Georgia, Cambria, 'Times New Roman', serif);
+  --font-sans: var(--font-sans, 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif);
 }
 
 @layer base {
@@ -82,18 +79,7 @@
   body {
     color: var(--text-primary);
     background-color: var(--surface-canvas);
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      'Open Sans',
-      'Helvetica Neue',
-      sans-serif;
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -119,73 +105,85 @@
   }
 }
 
-/* Fluid Typography Utilities */
+/* Editorial Fluid Typography Utilities */
 .text-display-xl {
-  font-size: clamp(2.5rem, 5vw + 1rem, 4.5rem);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw + 1rem, 4.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 600;
 }
 
 .text-display-lg {
-  font-size: clamp(2rem, 4vw + 0.75rem, 3.5rem);
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  font-weight: 700;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw + 0.75rem, 3.25rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
 }
 
 .text-heading-xl {
-  font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  font-weight: 700;
-}
-
-.text-heading-lg {
-  font-size: clamp(1.375rem, 2vw + 0.5rem, 1.875rem);
-  line-height: 1.25;
+  font-family: var(--font-serif);
+  font-size: clamp(1.625rem, 2.5vw + 0.5rem, 2.25rem);
+  line-height: 1.22;
   letter-spacing: -0.015em;
   font-weight: 600;
 }
 
-.text-heading-md {
-  font-size: clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem);
+.text-heading-lg {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 1.75vw + 0.5rem, 1.75rem);
   line-height: 1.3;
   letter-spacing: -0.01em;
   font-weight: 600;
 }
 
+.text-heading-md {
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 1.25vw + 0.35rem, 1.375rem);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
 .text-heading-sm {
-  font-size: 1.125rem;
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
   line-height: 1.4;
   font-weight: 600;
 }
 
 .text-body-lg {
+  font-family: var(--font-sans);
   font-size: 1.125rem;
-  line-height: 1.6;
+  line-height: 1.65;
+  color: var(--text-secondary);
 }
 
 .text-body-md {
+  font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .text-body-sm {
+  font-family: var(--font-sans);
   font-size: 0.875rem;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .text-label {
-  font-size: 0.8125rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
   line-height: 1.4;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .text-caption {
+  font-family: var(--font-sans);
   font-size: 0.75rem;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--text-muted);
 }

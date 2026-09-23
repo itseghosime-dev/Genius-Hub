@@ -1,103 +1,96 @@
 /**
  * Genius Hub Digital Design Tokens
- * Source of truth for semantic CSS variables across light, dark, and brand themes.
+ * Warm, Human-Centered, Editorial Palette for a Global Development Organization.
  */
 
 :root {
-  /* Brand Core Palette */
-  --brand-primary: #d97706; /* Genius Amber Gold */
+  /* Brand Core Accent (Genius Warm Sun Amber) */
+  --brand-primary: #d97706; /* Genius Amber / Warm Sun */
   --brand-primary-hover: #b45309;
   --brand-primary-active: #92400e;
   --brand-primary-light: #fef3c7;
   --brand-primary-subtle: #fffbeb;
   --brand-primary-foreground: #ffffff;
 
-  --brand-secondary: #0b1320; /* Deep Obsidian Navy */
-  --brand-secondary-hover: #1e293b;
-  --brand-secondary-active: #020617;
-  --brand-secondary-light: #f8fafc;
-  --brand-secondary-foreground: #ffffff;
+  /* Editorial & Earth Supporting Accents */
+  --brand-terracotta: #c2410c; /* Muted Terracotta / Earth Clay */
+  --brand-terracotta-light: #ffedd5;
+  --brand-sage: #36533e; /* Soft Muted Forest / Sustainable Growth */
+  --brand-sage-light: #e8ede7;
+  --brand-pale-blue: #476582; /* Subtle Digital Sky */
+  --brand-pale-blue-light: #edf2f7;
 
-  --brand-accent: #059669; /* Emergent Impact Emerald */
-  --brand-accent-hover: #047857;
-  --brand-accent-light: #d1fae5;
-  --brand-accent-foreground: #ffffff;
-
-  --brand-tertiary: #0284c7; /* Digital Sky / Technology */
-  --brand-tertiary-hover: #0369a1;
-  --brand-tertiary-light: #e0f2fe;
-  --brand-tertiary-foreground: #ffffff;
-
-  /* Surfaces (Default / Light Surface) */
-  --surface-canvas: #ffffff;
-  --surface-primary: #ffffff;
-  --surface-secondary: #f8fafc;
+  /* Surfaces (Warm Light Canvas - Primary) */
+  --surface-canvas: #faf8f5; /* Warm Canvas / Editorial Paper */
+  --surface-primary: #ffffff; /* Pure Card / Content Surface */
+  --surface-cream: #fdfbf7; /* Soft Cream */
+  --surface-sand: #f3ede2; /* Warm Sand / Editorial Callouts */
+  --surface-stone: #eae2d5; /* Warm Earth Neutral */
+  --surface-muted: #f4efe6; /* Subtle Input & Media Fills */
   --surface-elevated: #ffffff;
-  --surface-inverse: #0b1320;
-  --surface-accent: #fffbeb;
-  --surface-muted: #f1f5f9;
+  --surface-inverse: #1c1917; /* Deep Mineral Charcoal (Footers & Rare High-Contrast) */
 
-  /* Text & Content */
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-inverse: #ffffff;
-  --text-inverse-muted: #94a3b8;
+  /* Text & Ink (Warm Deep Charcoal) */
+  --text-primary: #1c1917; /* Mineral Charcoal */
+  --text-secondary: #57534e; /* Warm Slate / Stone */
+  --text-muted: #78716c; /* Warm Neutral / Captions */
+  --text-inverse: #faf8f5; /* Warm White on Dark */
+  --text-inverse-muted: #a8a29e;
   --text-brand: #d97706;
 
-  /* Borders & Dividers */
-  --border-subtle: #f1f5f9;
-  --border-default: #e2e8f0;
-  --border-strong: #cbd5e1;
-  --border-brand: #fcd34d;
-  --border-inverse: #1e293b;
+  /* Borders & Dividers (Warm & Subtle) */
+  --border-subtle: #f2ece1;
+  --border-default: #e7dfd3;
+  --border-strong: #d3c8b8;
+  --border-brand: #fde68a;
+  --border-inverse: #292524;
 
-  /* Status / Feedback States */
-  --state-success: #059669;
-  --state-success-bg: #ecfdf5;
-  --state-success-border: #a7f3d0;
-  --state-success-foreground: #065f46;
+  /* Status / Feedback States (Restrained) */
+  --state-success: #2d6a4f;
+  --state-success-bg: #f0fdf4;
+  --state-success-border: #bbf7d0;
+  --state-success-foreground: #14532d;
 
-  --state-warning: #d97706;
+  --state-warning: #b45309;
   --state-warning-bg: #fffbeb;
   --state-warning-border: #fde68a;
-  --state-warning-foreground: #92400e;
+  --state-warning-foreground: #78350f;
 
-  --state-error: #dc2626;
+  --state-error: #b91c1c;
   --state-error-bg: #fef2f2;
   --state-error-border: #fecaca;
-  --state-error-foreground: #991b1b;
+  --state-error-foreground: #7f1d1d;
 
-  --state-info: #0284c7;
-  --state-info-bg: #f0f9ff;
-  --state-info-border: #bae6fd;
-  --state-info-foreground: #075985;
+  --state-info: #3b6978;
+  --state-info-bg: #f0f7f9;
+  --state-info-border: #cbe3eb;
+  --state-info-foreground: #164e63;
 
   /* Interactive States & Focus */
   --focus-ring: #d97706;
-  --focus-ring-offset: #ffffff;
+  --focus-ring-offset: #faf8f5;
   --focus-ring-width: 2px;
-  --interactive-hover-overlay: rgba(0, 0, 0, 0.04);
-  --interactive-active-overlay: rgba(0, 0, 0, 0.08);
+  --interactive-hover-overlay: rgba(28, 25, 23, 0.03);
+  --interactive-active-overlay: rgba(28, 25, 23, 0.06);
 
   /* Layout & Content Widths */
   --content-narrow: 48rem; /* 768px */
-  --content-reading: 42.5rem; /* 680px */
+  --content-reading: 42.5rem; /* 680px - Editorial Reading */
   --content-default: 75rem; /* 1200px */
   --content-wide: 90rem; /* 1440px */
   --content-full: 100%;
 
-  /* Radii */
+  /* Radii (Gentle & Natural - Not Overly Rounded SaaS) */
   --radius-none: 0px;
   --radius-subtle: 0.25rem; /* 4px */
-  --radius-standard: 0.5rem; /* 8px */
-  --radius-large: 1rem; /* 16px */
+  --radius-standard: 0.375rem; /* 6px */
+  --radius-large: 0.75rem; /* 12px */
   --radius-pill: 9999px;
 
-  /* Elevations & Shadows */
-  --elevation-low: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  /* Elevations (Subtle & Quiet) */
+  --elevation-low: 0 1px 3px 0 rgba(28, 25, 23, 0.04);
+  --elevation-mid: 0 4px 12px -2px rgba(28, 25, 23, 0.06);
+  --elevation-high: 0 12px 24px -4px rgba(28, 25, 23, 0.08);
 
   /* Motion & Easings */
   --duration-fast: 150ms;
@@ -111,59 +104,52 @@
   --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Dark Surface Theme */
+/* Dark Editorial Surface Theme (Reserved for Footer & Rare High-Contrast Moments) */
 [data-surface='dark'],
 .dark {
-  --surface-canvas: #0b1320;
-  --surface-primary: #0f172a;
-  --surface-secondary: #1e293b;
-  --surface-elevated: #1e293b;
-  --surface-inverse: #ffffff;
-  --surface-accent: #172554;
-  --surface-muted: #1e293b;
+  --surface-canvas: #1c1917;
+  --surface-primary: #292524;
+  --surface-cream: #292524;
+  --surface-sand: #332e2b;
+  --surface-stone: #44403c;
+  --surface-muted: #292524;
+  --surface-elevated: #292524;
+  --surface-inverse: #faf8f5;
 
-  --text-primary: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-inverse: #0f172a;
-  --text-inverse-muted: #64748b;
+  --text-primary: #faf8f5;
+  --text-secondary: #d6d3d1;
+  --text-muted: #a8a29e;
+  --text-inverse: #1c1917;
+  --text-inverse-muted: #78716c;
   --text-brand: #fbbf24;
 
-  --border-subtle: #1e293b;
-  --border-default: #334155;
-  --border-strong: #475569;
+  --border-subtle: #292524;
+  --border-default: #44403c;
+  --border-strong: #57534e;
   --border-brand: #d97706;
-  --border-inverse: #e2e8f0;
+  --border-inverse: #e7dfd3;
 
-  --focus-ring-offset: #0b1320;
-  --interactive-hover-overlay: rgba(255, 255, 255, 0.06);
-  --interactive-active-overlay: rgba(255, 255, 255, 0.1);
-
-  --elevation-low: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-  --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+  --focus-ring-offset: #1c1917;
 }
 
-/* Brand Accent Surface Theme */
-[data-surface='brand'] {
-  --surface-canvas: #0b1320;
-  --surface-primary: #0b1320;
-  --surface-secondary: #132238;
-  --surface-elevated: #1a2c47;
-  --surface-inverse: #ffffff;
-  --surface-accent: #d97706;
-  --surface-muted: #1e293b;
+/* Warm Sand Editorial Surface */
+[data-surface='sand'] {
+  --surface-canvas: #f3ede2;
+  --surface-primary: #ffffff;
+  --surface-secondary: #eae2d5;
+  --surface-muted: #e5dccf;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --border-default: #ded4c4;
+}
 
-  --text-primary: #ffffff;
-  --text-secondary: #e2e8f0;
-  --text-muted: #94a3b8;
-  --text-inverse: #0b1320;
-  --text-brand: #fbbf24;
-
-  --border-subtle: #1e293b;
-  --border-default: #2a3d58;
-  --border-strong: #3b506f;
-  --border-brand: #d97706;
-
-  --focus-ring-offset: #0b1320;
+/* Warm Cream Editorial Surface */
+[data-surface='cream'] {
+  --surface-canvas: #fdfbf7;
+  --surface-primary: #ffffff;
+  --surface-secondary: #f4efe6;
+  --surface-muted: #eee7db;
+  --text-primary: #1c1917;
+  --text-secondary: #57534e;
+  --border-default: #e9e1d5;
 }
