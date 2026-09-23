@@ -68,6 +68,8 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    'staff-invitations': StaffInvitation;
+    'audit-logs': AuditLog;
     media: Media;
     people: Person;
     partners: Partner;
@@ -88,6 +90,8 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    'staff-invitations': StaffInvitationsSelect<false> | StaffInvitationsSelect<true>;
+    'audit-logs': AuditLogsSelect<false> | AuditLogsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
@@ -146,7 +150,7 @@ export interface UserAuthOperations {
   };
 }
 /**
- * Administrative users with access to the Payload CMS control panel. Advanced RBAC and permissions will be configured in Phase 03.
+ * Internal staff identities, role assignments, account lifecycle, and administrative privileges.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
@@ -154,6 +158,125 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name: string;
+  /**
+   * e.g. Founder & CEO, Lead TVET Facilitator, Communications Director.
+   */
+  jobTitle?: string | null;
+  /**
+   * Operational lifecycle state. Inactive, suspended, or disabled staff cannot authenticate.
+   */
+  status: 'active' | 'invited' | 'suspended' | 'disabled';
+  /**
+   * Assigned organizational governance roles. Super Administrator holds full system privileges.
+   */
+  roles: (
+    | 'super_admin'
+    | 'admin'
+    | 'content_editor'
+    | 'content_approver'
+    | 'events_manager'
+    | 'programmes_manager'
+    | 'media_manager'
+    | 'applications_manager'
+    | 'commerce_manager'
+    | 'communications_manager'
+  )[];
+  /**
+   * Optional granular permission overrides. Reserved strictly for Super Administrator assignment.
+   */
+  directPermissions?:
+    | (
+        | 'articles.read'
+        | 'articles.create'
+        | 'articles.update'
+        | 'articles.submit'
+        | 'articles.approve'
+        | 'articles.publish'
+        | 'articles.archive'
+        | 'articles.delete'
+        | 'events.read'
+        | 'events.create'
+        | 'events.update'
+        | 'events.submit'
+        | 'events.approve'
+        | 'events.publish'
+        | 'events.archive'
+        | 'events.delete'
+        | 'programmes.read'
+        | 'programmes.create'
+        | 'programmes.update'
+        | 'programmes.submit'
+        | 'programmes.approve'
+        | 'programmes.publish'
+        | 'programmes.archive'
+        | 'programmes.delete'
+        | 'projects.read'
+        | 'projects.create'
+        | 'projects.update'
+        | 'projects.submit'
+        | 'projects.approve'
+        | 'projects.publish'
+        | 'projects.archive'
+        | 'projects.delete'
+        | 'success_stories.read'
+        | 'success_stories.create'
+        | 'success_stories.update'
+        | 'success_stories.submit'
+        | 'success_stories.approve'
+        | 'success_stories.publish'
+        | 'success_stories.archive'
+        | 'success_stories.delete'
+        | 'media.read'
+        | 'media.create'
+        | 'media.update'
+        | 'media.delete'
+        | 'people.read'
+        | 'people.create'
+        | 'people.update'
+        | 'people.publish'
+        | 'people.delete'
+        | 'partners.read'
+        | 'partners.create'
+        | 'partners.update'
+        | 'partners.publish'
+        | 'partners.delete'
+        | 'focus_areas.read'
+        | 'focus_areas.create'
+        | 'focus_areas.update'
+        | 'focus_areas.delete'
+        | 'locations.read'
+        | 'locations.create'
+        | 'locations.update'
+        | 'locations.delete'
+        | 'taxonomies.read'
+        | 'taxonomies.create'
+        | 'taxonomies.update'
+        | 'taxonomies.delete'
+        | 'users.read'
+        | 'users.create'
+        | 'users.invite'
+        | 'users.update_roles'
+        | 'users.suspend'
+        | 'users.disable'
+        | 'users.delete'
+        | 'invitations.read'
+        | 'invitations.create'
+        | 'invitations.revoke'
+        | 'invitations.resend'
+        | 'audit.read'
+        | 'settings.read'
+        | 'settings.update'
+      )[]
+    | null;
+  invitedAt?: string | null;
+  activatedAt?: string | null;
+  disabledAt?: string | null;
+  lastLoginAt?: string | null;
+  mustChangePassword?: boolean | null;
+  /**
+   * Readiness flag for multi-factor authentication enforcement.
+   */
+  mfaEnabled?: boolean | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -173,6 +296,97 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
+}
+/**
+ * Manage single-use, time-limited cryptographic onboarding invitations for staff.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-invitations".
+ */
+export interface StaffInvitation {
+  id: number;
+  email: string;
+  name: string;
+  jobTitle?: string | null;
+  roles: (
+    | 'super_admin'
+    | 'admin'
+    | 'content_editor'
+    | 'content_approver'
+    | 'events_manager'
+    | 'programmes_manager'
+    | 'media_manager'
+    | 'applications_manager'
+    | 'commerce_manager'
+    | 'communications_manager'
+  )[];
+  /**
+   * One-way cryptographic hash of the active single-use invitation token.
+   */
+  tokenHash: string;
+  status: 'pending' | 'accepted' | 'expired' | 'revoked';
+  expiresAt: string;
+  invitedBy?: (number | null) | User;
+  acceptedAt?: string | null;
+  revokedAt?: string | null;
+  revokedBy?: (number | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Append-only, tamper-resistant administrative audit records capturing security and content changes.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audit-logs".
+ */
+export interface AuditLog {
+  id: number;
+  /**
+   * e.g. user.invited, user.suspended, article.published, invitation.revoked
+   */
+  action: string;
+  /**
+   * e.g. users, articles, staff-invitations, programmes
+   */
+  resourceType: string;
+  resourceId?: string | null;
+  actor?: (number | null) | User;
+  /**
+   * Subject of user administrative changes (e.g. role updates, suspension).
+   */
+  targetUser?: (number | null) | User;
+  before?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  after?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  metadata?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
+  requestId?: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -705,7 +919,37 @@ export interface Programme {
       }[]
     | null;
   isFeatured?: boolean | null;
-  status?: ('draft' | 'published' | 'archived') | null;
+  status: 'draft' | 'in_review' | 'changes_requested' | 'approved' | 'published' | 'archived';
+  workflow?: {
+    /**
+     * Timestamp when this document was submitted for review.
+     */
+    submittedAt?: string | null;
+    /**
+     * Staff member who submitted this document for review.
+     */
+    submittedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was formally approved.
+     */
+    approvedAt?: string | null;
+    /**
+     * Staff reviewer who approved this document.
+     */
+    approvedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was published to the public website.
+     */
+    publishedAt?: string | null;
+    /**
+     * Staff member who executed publication.
+     */
+    publishedBy?: (number | null) | User;
+    /**
+     * Internal notes, revision requests, or editorial guidance for the author.
+     */
+    reviewNotes?: string | null;
+  };
   /**
    * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
@@ -810,6 +1054,37 @@ export interface Project {
   outcomes?: string | null;
   reportsAndDocuments?: (number | Media)[] | null;
   isFeatured?: boolean | null;
+  status: 'draft' | 'in_review' | 'changes_requested' | 'approved' | 'published' | 'archived';
+  workflow?: {
+    /**
+     * Timestamp when this document was submitted for review.
+     */
+    submittedAt?: string | null;
+    /**
+     * Staff member who submitted this document for review.
+     */
+    submittedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was formally approved.
+     */
+    approvedAt?: string | null;
+    /**
+     * Staff reviewer who approved this document.
+     */
+    approvedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was published to the public website.
+     */
+    publishedAt?: string | null;
+    /**
+     * Staff member who executed publication.
+     */
+    publishedBy?: (number | null) | User;
+    /**
+     * Internal notes, revision requests, or editorial guidance for the author.
+     */
+    reviewNotes?: string | null;
+  };
   /**
    * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
@@ -915,7 +1190,37 @@ export interface Event {
   relatedProject?: (number | null) | Project;
   heroMedia?: (number | null) | Media;
   gallery?: (number | Media)[] | null;
-  status?: ('draft' | 'published' | 'postponed' | 'cancelled' | 'completed') | null;
+  status: 'draft' | 'in_review' | 'changes_requested' | 'approved' | 'published' | 'archived';
+  workflow?: {
+    /**
+     * Timestamp when this document was submitted for review.
+     */
+    submittedAt?: string | null;
+    /**
+     * Staff member who submitted this document for review.
+     */
+    submittedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was formally approved.
+     */
+    approvedAt?: string | null;
+    /**
+     * Staff reviewer who approved this document.
+     */
+    approvedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was published to the public website.
+     */
+    publishedAt?: string | null;
+    /**
+     * Staff member who executed publication.
+     */
+    publishedBy?: (number | null) | User;
+    /**
+     * Internal notes, revision requests, or editorial guidance for the author.
+     */
+    reviewNotes?: string | null;
+  };
   /**
    * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
@@ -1015,7 +1320,37 @@ export interface SuccessStory {
     | null;
   storyDate?: string | null;
   isFeatured?: boolean | null;
-  status?: ('draft' | 'published' | 'archived') | null;
+  status: 'draft' | 'in_review' | 'changes_requested' | 'approved' | 'published' | 'archived';
+  workflow?: {
+    /**
+     * Timestamp when this document was submitted for review.
+     */
+    submittedAt?: string | null;
+    /**
+     * Staff member who submitted this document for review.
+     */
+    submittedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was formally approved.
+     */
+    approvedAt?: string | null;
+    /**
+     * Staff reviewer who approved this document.
+     */
+    approvedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was published to the public website.
+     */
+    publishedAt?: string | null;
+    /**
+     * Staff member who executed publication.
+     */
+    publishedBy?: (number | null) | User;
+    /**
+     * Internal notes, revision requests, or editorial guidance for the author.
+     */
+    reviewNotes?: string | null;
+  };
   /**
    * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
@@ -1102,7 +1437,37 @@ export interface Article {
   relatedProgrammes?: (number | Programme)[] | null;
   relatedProjects?: (number | Project)[] | null;
   relatedEvents?: (number | Event)[] | null;
-  status?: ('draft' | 'published' | 'archived') | null;
+  status: 'draft' | 'in_review' | 'changes_requested' | 'approved' | 'published' | 'archived';
+  workflow?: {
+    /**
+     * Timestamp when this document was submitted for review.
+     */
+    submittedAt?: string | null;
+    /**
+     * Staff member who submitted this document for review.
+     */
+    submittedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was formally approved.
+     */
+    approvedAt?: string | null;
+    /**
+     * Staff reviewer who approved this document.
+     */
+    approvedBy?: (number | null) | User;
+    /**
+     * Timestamp when this document was published to the public website.
+     */
+    publishedAt?: string | null;
+    /**
+     * Staff member who executed publication.
+     */
+    publishedBy?: (number | null) | User;
+    /**
+     * Internal notes, revision requests, or editorial guidance for the author.
+     */
+    reviewNotes?: string | null;
+  };
   /**
    * Configure search engine metadata, Open Graph previews, and web crawler indexing controls.
    */
@@ -1236,6 +1601,14 @@ export interface PayloadLockedDocument {
         value: number | User;
       } | null)
     | ({
+        relationTo: 'staff-invitations';
+        value: number | StaffInvitation;
+      } | null)
+    | ({
+        relationTo: 'audit-logs';
+        value: number | AuditLog;
+      } | null)
+    | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
@@ -1331,6 +1704,16 @@ export interface PayloadMigration {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  jobTitle?: T;
+  status?: T;
+  roles?: T;
+  directPermissions?: T;
+  invitedAt?: T;
+  activatedAt?: T;
+  disabledAt?: T;
+  lastLoginAt?: T;
+  mustChangePassword?: T;
+  mfaEnabled?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -1348,6 +1731,44 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff-invitations_select".
+ */
+export interface StaffInvitationsSelect<T extends boolean = true> {
+  email?: T;
+  name?: T;
+  jobTitle?: T;
+  roles?: T;
+  tokenHash?: T;
+  status?: T;
+  expiresAt?: T;
+  invitedBy?: T;
+  acceptedAt?: T;
+  revokedAt?: T;
+  revokedBy?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audit-logs_select".
+ */
+export interface AuditLogsSelect<T extends boolean = true> {
+  action?: T;
+  resourceType?: T;
+  resourceId?: T;
+  actor?: T;
+  targetUser?: T;
+  before?: T;
+  after?: T;
+  metadata?: T;
+  ipAddress?: T;
+  userAgent?: T;
+  requestId?: T;
+  createdAt?: T;
+  updatedAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1571,6 +1992,17 @@ export interface ProgrammesSelect<T extends boolean = true> {
       };
   isFeatured?: T;
   status?: T;
+  workflow?:
+    | T
+    | {
+        submittedAt?: T;
+        submittedBy?: T;
+        approvedAt?: T;
+        approvedBy?: T;
+        publishedAt?: T;
+        publishedBy?: T;
+        reviewNotes?: T;
+      };
   seo?:
     | T
     | {
@@ -1627,6 +2059,18 @@ export interface ProjectsSelect<T extends boolean = true> {
   outcomes?: T;
   reportsAndDocuments?: T;
   isFeatured?: T;
+  status?: T;
+  workflow?:
+    | T
+    | {
+        submittedAt?: T;
+        submittedBy?: T;
+        approvedAt?: T;
+        approvedBy?: T;
+        publishedAt?: T;
+        publishedBy?: T;
+        reviewNotes?: T;
+      };
   seo?:
     | T
     | {
@@ -1677,6 +2121,17 @@ export interface EventsSelect<T extends boolean = true> {
   heroMedia?: T;
   gallery?: T;
   status?: T;
+  workflow?:
+    | T
+    | {
+        submittedAt?: T;
+        submittedBy?: T;
+        approvedAt?: T;
+        approvedBy?: T;
+        publishedAt?: T;
+        publishedBy?: T;
+        reviewNotes?: T;
+      };
   seo?:
     | T
     | {
@@ -1722,6 +2177,17 @@ export interface SuccessStoriesSelect<T extends boolean = true> {
   storyDate?: T;
   isFeatured?: T;
   status?: T;
+  workflow?:
+    | T
+    | {
+        submittedAt?: T;
+        submittedBy?: T;
+        approvedAt?: T;
+        approvedBy?: T;
+        publishedAt?: T;
+        publishedBy?: T;
+        reviewNotes?: T;
+      };
   seo?:
     | T
     | {
@@ -1757,6 +2223,17 @@ export interface ArticlesSelect<T extends boolean = true> {
   relatedProjects?: T;
   relatedEvents?: T;
   status?: T;
+  workflow?:
+    | T
+    | {
+        submittedAt?: T;
+        submittedBy?: T;
+        approvedAt?: T;
+        approvedBy?: T;
+        publishedAt?: T;
+        publishedBy?: T;
+        reviewNotes?: T;
+      };
   seo?:
     | T
     | {
