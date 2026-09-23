@@ -1,8 +1,3 @@
-/**
- * Programmatic Design System Configuration
- * Defines design constants, breakpoints, container presets, and photography aspect ratios.
- */
-
 export const designConfig = {
   breakpoints: {
     sm: '640px',
@@ -13,7 +8,7 @@ export const designConfig = {
   },
   containers: {
     narrow: 'max-w-(--content-narrow)', // 768px
-    reading: 'max-w-(--content-reading)', // 680px
+    reading: 'max-w-(--content-reading)', // 720px
     default: 'max-w-(--content-default)', // 1200px
     wide: 'max-w-(--content-wide)', // 1440px
     full: 'w-full',
@@ -28,9 +23,8 @@ export const designConfig = {
   surfaces: {
     canvas: 'bg-(--surface-canvas) text-(--text-primary)',
     primary: 'bg-(--surface-primary) text-(--text-primary)',
-    cream: 'bg-(--surface-cream) text-(--text-primary)',
-    sand: 'bg-(--surface-sand) text-(--text-primary)',
-    stone: 'bg-(--surface-stone) text-(--text-primary)',
+    cloud: 'bg-(--surface-cloud) text-(--text-primary)',
+    subtle: 'bg-(--surface-subtle) text-(--text-primary)',
     dark: 'bg-(--surface-inverse) text-(--text-inverse)',
   },
   radii: {

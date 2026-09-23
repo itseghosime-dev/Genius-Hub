@@ -21,18 +21,16 @@ const spacingClasses: Record<SectionSpacing, string> = {
 const surfaceDataAttributes: Record<SurfaceTheme, Record<string, string>> = {
   canvas: {},
   primary: {},
-  cream: { 'data-surface': 'cream' },
-  sand: { 'data-surface': 'sand' },
-  stone: { 'data-surface': 'sand' },
+  cloud: { 'data-surface': 'cloud' },
+  subtle: { 'data-surface': 'subtle' },
   dark: { 'data-surface': 'dark' },
 };
 
 const surfaceClasses: Record<SurfaceTheme, string> = {
   canvas: 'bg-(--surface-canvas) text-(--text-primary)',
   primary: 'bg-(--surface-primary) text-(--text-primary)',
-  cream: 'bg-(--surface-cream) text-(--text-primary)',
-  sand: 'bg-(--surface-sand) text-(--text-primary)',
-  stone: 'bg-(--surface-stone) text-(--text-primary)',
+  cloud: 'bg-(--surface-cloud) text-(--text-primary)',
+  subtle: 'bg-(--surface-subtle) text-(--text-primary)',
   dark: 'bg-(--surface-inverse) text-(--text-inverse)',
 };
 
