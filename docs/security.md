@@ -4,15 +4,14 @@
 
 Genius Hub handles sensitive organizational data, beneficiary records, student applications, e-commerce transactions, and administrative governance. The platform is designed following **OWASP Top 10** and **OWASP Application Security Verification Standard (ASVS)** benchmarks:
 
-- **Defense in Depth**: Security controls operate across multiple layers (network, gateway, application runtime, database, storage).
+- **Defense in Depth**: Security controls operate across multiple layers (network, edge gateway, application runtime, database, storage).
 - **Least Privilege**: Users, services, and background workers operate with the minimum permissions required.
+- **Server-Side Enforcement**: Client UI elements are never treated as security boundaries.
 - **Secure by Default**: Default configurations are hardened; security mechanisms cannot be bypassed by omitting configuration.
 
 ---
 
-## 2. Implemented Foundation (Phase 01)
-
-The following baseline security measures are actively implemented in the Phase 01 foundation:
+## 2. Implemented Security Controls
 
 ### A. Strict Environment Variable Isolation & Validation
 
@@ -31,26 +30,38 @@ Configured in `next.config.ts` across all incoming routes:
 - **Permissions-Policy**: `camera=(), microphone=(), geolocation=()` (restricts browser hardware access)
 - **X-Powered-By**: Disabled (`poweredByHeader: false`) to avoid technology disclosure.
 
-### C. Git Hygiene & Secret Exclusion
+### C. Database Access & Parameterized Queries
 
-- Comprehensive `.gitignore` preventing `.env`, `.env.local`, `.env.production`, logs, build outputs, and local database files from entering version control.
-- CI pipeline validates lockfile integrity (`--frozen-lockfile`) to protect against dependency drift.
+- All standard database operations are executed through Payload's PostgreSQL adapter (`@payloadcms/db-postgres`), which issues parameterized SQL queries under the hood.
+- Any future raw SQL queries or custom reporting views must explicitly use parameterized queries and prepared statements to eliminate SQL injection vulnerabilities.
 
-### D. Strict Static Type Checking & Code Quality
+### D. Staff Identity & Role-Based Access Control (Phase 03)
 
-- Strict TypeScript configuration (`noImplicitAny`, `strictNullChecks`, `noUncheckedIndexedAccess`) prevents runtime `undefined` vulnerabilities and prototype pollution vectors.
-- ESLint rules enforce code quality and prevent dangerous constructs.
+- **Strict Separation of Identities**: The `users` collection is dedicated solely to internal staff and governance. Public users, students, and applicants are separated into distinct domain models.
+- **Role & Permission Mapping**: Centralized mapping in `src/lib/access/` resolving 10 staff roles (`super_admin`, `admin`, `content_editor`, `content_approver`, `events_manager`, `programmes_manager`, `media_manager`, `applications_manager`, `commerce_manager`, `communications_manager`) to namespaced permissions.
+- **Founder / Super Admin Model**: The founder (**Isimeme Whyte**) is granted `super_admin` through role assignment rather than hardcoded string matching. Super Admin has full administrative and emergency publishing privileges while remaining subject to full audit logging.
+- **Account State Enforcement**: Suspended (`status: 'suspended'`) and disabled (`status: 'disabled'`) staff accounts are blocked from authentication and API operations.
 
-### E. Database Access & Query Parameterization
+### E. Cryptographic Invitation System (Phase 03)
 
-- All standard database operations in Phase 02 are executed through Payload's PostgreSQL adapter (`@payloadcms/db-postgres`), which issues parameterized SQL queries under the hood.
-- Any future raw SQL queries, custom reporting views, or direct database clients must explicitly use parameterized queries and prepared statements to eliminate SQL injection vulnerabilities. Using an ORM or query adapter does not universally prevent SQL injection if raw concatenated queries are introduced.
+- Single-use, time-limited staff onboarding invitations stored in `staff-invitations`.
+- **Zero Plaintext Storage**: Only SHA-256 hashes of high-entropy 32-byte tokens are stored in the database.
+- **Lifecycle Guarantees**: Enforces single-use consumption, 7-day expiration, and administrative revocation. Passwords are never sent over email.
+
+### F. Immutable Administrative Audit Logging (Phase 03)
+
+- Dedicated `audit-logs` collection capturing actor, action, target resource, IP address, user agent, and before/after diffs.
+- **Tamper-Resistance**: Client `create`, `update`, and `delete` access functions evaluate to `false`. Audit logs are strictly written by internal system services.
+- **Data Sanitization**: All logged payloads pass through deep sanitization stripping passwords, hashes, salts, session tokens, and API keys.
+
+### G. Content Review Governance & Separation of Duties (Phase 03)
+
+- Draft $\rightarrow$ Review $\rightarrow$ Changes Requested $\rightarrow$ Approved $\rightarrow$ Published workflow.
+- **Separation of Duties**: Authors cannot approve their own submissions. Approval requires an independent approver with `*.approve` permission (with emergency override reserved for `super_admin`).
 
 ---
 
 ## 3. Planned Security Architecture (Subsequent Phases)
-
-The following security systems will be implemented as their corresponding product domains are developed:
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -74,57 +85,18 @@ The following security systems will be implemented as their corresponding produc
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-### 1. Authentication & Session Management
+### 1. Multi-Factor Authentication (MFA)
 
-- Multi-factor authentication (MFA) using TOTP (authenticator apps) for all staff and administrative accounts.
-- Password hashing using Argon2id or bcrypt with high work factor.
-- Secure HTTP-only, `SameSite=Lax`/`Strict`, `Secure` session cookies.
-- Absolute session timeouts and sliding inactivity timeouts.
+- TOTP authenticator enforcement for all privileged staff accounts.
 
-### 2. Role-Based Access Control (RBAC) & Approvals
+### 2. Distributed Rate Limiting
 
-- Granular permissions model supporting roles such as:
-  - `Super Admin`
-  - `Programme Manager`
-  - `Admissions Reviewer`
-  - `Editorial Staff`
-  - `Finance Administrator`
-  - `Beneficiary / Student`
-  - `Partner`
-- Multi-stage approval workflows for sensitive actions (grant disbursement, applicant admissions, product price overrides).
+- Redis-backed sliding window rate limiting on `/api/auth/*` and public submission forms.
 
-### 3. Immutable Audit Logging
+### 3. Payment Security & Webhooks
 
-- Dedicated audit table capturing: actor ID, action type, resource ID, IP address, user agent, timestamp, before/after state diff.
-- Append-only audit logs protected from administrative tampering.
+- Delegated PCI-DSS processing (Paystack / Flutterwave) with HMAC SHA-512 signature validation and transaction idempotency keys.
 
-### 4. Rate Limiting & Abuse Prevention
+### 4. Media Quarantine & Malware Scanning
 
-- Distributed rate limiting powered by Redis (sliding window algorithm):
-  - Strict limits on `/api/auth/*` (brute-force defense).
-  - Throttling on public application submission endpoints.
-  - Payment webhook endpoints limited by IP/signature.
-
-### 5. Content Security Policy (CSP) & Nonces
-
-- Dynamic CSP generated via Next.js Middleware with cryptographic nonces for scripts and styles.
-- Strict `connect-src`, `img-src`, and `frame-ancestors` directives.
-
-### 6. Payment Security & Webhook Verification
-
-- Never storing sensitive raw cardholder data (delegated to PCI-DSS compliant providers: Paystack / Flutterwave).
-- Cryptographic HMAC SHA-512 signature validation on all incoming webhook payloads before processing events.
-- Idempotency keys on all transaction records to prevent double billing or replay attacks.
-
-### 7. File Upload Safety & Media Storage
-
-- All uploaded files (resumes, beneficiary verification documents, gallery media) validated for:
-  - Genuine MIME type (magic byte inspection, not file extension).
-  - Maximum size constraints.
-- Storage in isolated private S3 buckets with time-limited pre-signed download URLs.
-- Automated malware/virus scanning pipeline on upload.
-
-### 8. Email Security & Anti-Spoofing
-
-- Amazon SES integration configured with SPF, DKIM, and DMARC enforcement.
-- Rate-limited notification queues to prevent outbound spam abuse.
+- Automated scanning on object storage ingestion with isolated pre-signed URLs.
