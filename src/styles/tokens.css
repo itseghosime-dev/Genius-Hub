@@ -1,0 +1,169 @@
+/**
+ * Genius Hub Digital Design Tokens
+ * Source of truth for semantic CSS variables across light, dark, and brand themes.
+ */
+
+:root {
+  /* Brand Core Palette */
+  --brand-primary: #d97706; /* Genius Amber Gold */
+  --brand-primary-hover: #b45309;
+  --brand-primary-active: #92400e;
+  --brand-primary-light: #fef3c7;
+  --brand-primary-subtle: #fffbeb;
+  --brand-primary-foreground: #ffffff;
+
+  --brand-secondary: #0b1320; /* Deep Obsidian Navy */
+  --brand-secondary-hover: #1e293b;
+  --brand-secondary-active: #020617;
+  --brand-secondary-light: #f8fafc;
+  --brand-secondary-foreground: #ffffff;
+
+  --brand-accent: #059669; /* Emergent Impact Emerald */
+  --brand-accent-hover: #047857;
+  --brand-accent-light: #d1fae5;
+  --brand-accent-foreground: #ffffff;
+
+  --brand-tertiary: #0284c7; /* Digital Sky / Technology */
+  --brand-tertiary-hover: #0369a1;
+  --brand-tertiary-light: #e0f2fe;
+  --brand-tertiary-foreground: #ffffff;
+
+  /* Surfaces (Default / Light Surface) */
+  --surface-canvas: #ffffff;
+  --surface-primary: #ffffff;
+  --surface-secondary: #f8fafc;
+  --surface-elevated: #ffffff;
+  --surface-inverse: #0b1320;
+  --surface-accent: #fffbeb;
+  --surface-muted: #f1f5f9;
+
+  /* Text & Content */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+  --text-inverse-muted: #94a3b8;
+  --text-brand: #d97706;
+
+  /* Borders & Dividers */
+  --border-subtle: #f1f5f9;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-brand: #fcd34d;
+  --border-inverse: #1e293b;
+
+  /* Status / Feedback States */
+  --state-success: #059669;
+  --state-success-bg: #ecfdf5;
+  --state-success-border: #a7f3d0;
+  --state-success-foreground: #065f46;
+
+  --state-warning: #d97706;
+  --state-warning-bg: #fffbeb;
+  --state-warning-border: #fde68a;
+  --state-warning-foreground: #92400e;
+
+  --state-error: #dc2626;
+  --state-error-bg: #fef2f2;
+  --state-error-border: #fecaca;
+  --state-error-foreground: #991b1b;
+
+  --state-info: #0284c7;
+  --state-info-bg: #f0f9ff;
+  --state-info-border: #bae6fd;
+  --state-info-foreground: #075985;
+
+  /* Interactive States & Focus */
+  --focus-ring: #d97706;
+  --focus-ring-offset: #ffffff;
+  --focus-ring-width: 2px;
+  --interactive-hover-overlay: rgba(0, 0, 0, 0.04);
+  --interactive-active-overlay: rgba(0, 0, 0, 0.08);
+
+  /* Layout & Content Widths */
+  --content-narrow: 48rem; /* 768px */
+  --content-reading: 42.5rem; /* 680px */
+  --content-default: 75rem; /* 1200px */
+  --content-wide: 90rem; /* 1440px */
+  --content-full: 100%;
+
+  /* Radii */
+  --radius-none: 0px;
+  --radius-subtle: 0.25rem; /* 4px */
+  --radius-standard: 0.5rem; /* 8px */
+  --radius-large: 1rem; /* 16px */
+  --radius-pill: 9999px;
+
+  /* Elevations & Shadows */
+  --elevation-low: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+
+  /* Motion & Easings */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-editorial: 700ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Surface Theme */
+[data-surface='dark'],
+.dark {
+  --surface-canvas: #0b1320;
+  --surface-primary: #0f172a;
+  --surface-secondary: #1e293b;
+  --surface-elevated: #1e293b;
+  --surface-inverse: #ffffff;
+  --surface-accent: #172554;
+  --surface-muted: #1e293b;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+  --text-inverse-muted: #64748b;
+  --text-brand: #fbbf24;
+
+  --border-subtle: #1e293b;
+  --border-default: #334155;
+  --border-strong: #475569;
+  --border-brand: #d97706;
+  --border-inverse: #e2e8f0;
+
+  --focus-ring-offset: #0b1320;
+  --interactive-hover-overlay: rgba(255, 255, 255, 0.06);
+  --interactive-active-overlay: rgba(255, 255, 255, 0.1);
+
+  --elevation-low: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --elevation-mid: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --elevation-high: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
+}
+
+/* Brand Accent Surface Theme */
+[data-surface='brand'] {
+  --surface-canvas: #0b1320;
+  --surface-primary: #0b1320;
+  --surface-secondary: #132238;
+  --surface-elevated: #1a2c47;
+  --surface-inverse: #ffffff;
+  --surface-accent: #d97706;
+  --surface-muted: #1e293b;
+
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-inverse: #0b1320;
+  --text-brand: #fbbf24;
+
+  --border-subtle: #1e293b;
+  --border-default: #2a3d58;
+  --border-strong: #3b506f;
+  --border-brand: #d97706;
+
+  --focus-ring-offset: #0b1320;
+}
