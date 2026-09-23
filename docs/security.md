@@ -41,6 +41,11 @@ Configured in `next.config.ts` across all incoming routes:
 - Strict TypeScript configuration (`noImplicitAny`, `strictNullChecks`, `noUncheckedIndexedAccess`) prevents runtime `undefined` vulnerabilities and prototype pollution vectors.
 - ESLint rules enforce code quality and prevent dangerous constructs.
 
+### E. Database Access & Query Parameterization
+
+- All standard database operations in Phase 02 are executed through Payload's PostgreSQL adapter (`@payloadcms/db-postgres`), which issues parameterized SQL queries under the hood.
+- Any future raw SQL queries, custom reporting views, or direct database clients must explicitly use parameterized queries and prepared statements to eliminate SQL injection vulnerabilities. Using an ORM or query adapter does not universally prevent SQL injection if raw concatenated queries are introduced.
+
 ---
 
 ## 3. Planned Security Architecture (Subsequent Phases)

@@ -6,76 +6,81 @@ Search Engine Optimization is a foundational engineering requirement for Genius 
 
 ---
 
-## 2. Implemented Foundation (Phase 01)
+## 2. Reusable CMS SEO Field Architecture (Phase 02)
 
-The Phase 01 architecture implements the baseline Next.js App Router SEO primitives:
+All public and indexable collections (`Programmes`, `Projects`, `Events`, `People`, `Partners`, `SuccessStories`, `Articles`, `ArticleCategories`, `FocusAreas`, `Locations`) and the `SiteSettings` global embed the standardized `seoFieldGroup` (`src/fields/seo.ts`).
 
-### A. Centralized Site Metadata & Metadata API
+### Field Schema & Behavior
 
-- Configured in `src/config/site.ts` and applied via `src/app/layout.tsx`.
-- **Title Template**: `%s | Genius Hub` ensures consistent branded title hierarchy across all future routes.
-- **Metadata Base**: Uses canonical `NEXT_PUBLIC_APP_URL` to ensure relative Open Graph and Twitter image URLs resolve to absolute URLs during crawling.
-- **Default Open Graph & Twitter Cards**: Base tags for `type: website`, `locale: en_US`, and `card: summary_large_image`.
+| Field                 | Type           | Localized                  | Purpose & Fallback Strategy                                                                  |
+| :-------------------- | :------------- | :------------------------- | :------------------------------------------------------------------------------------------- |
+| **`metaTitle`**       | Text           | **Yes** (`en`, `fr`, `de`) | Search engine result title. Falls back to entity `title` or `name`.                          |
+| **`metaDescription`** | Textarea       | **Yes** (`en`, `fr`, `de`) | Search snippet summary (150–160 chars). Falls back to `shortDescription` or `summary`.       |
+| **`canonicalUrl`**    | Text           | No                         | Optional absolute canonical URL override. Defaults to auto-computed canonical route.         |
+| **`ogTitle`**         | Text           | **Yes** (`en`, `fr`, `de`) | Social share title (Facebook, LinkedIn, Twitter/X). Falls back to `metaTitle`.               |
+| **`ogDescription`**   | Textarea       | **Yes** (`en`, `fr`, `de`) | Social share snippet. Falls back to `metaDescription`.                                       |
+| **`ogImage`**         | Upload (Media) | No                         | Open Graph share image (1200 × 630px). Falls back to `heroMedia` or global site brand image. |
+| **`noIndex`**         | Checkbox       | No                         | Sets `robots: { index: false }` to prevent indexing of draft or private pages.               |
+| **`noFollow`**        | Checkbox       | No                         | Sets `robots: { follow: false }` to instruct crawlers not to follow outbound links.          |
+| **`customJsonLd`**    | Textarea       | No                         | Optional raw Schema.org JSON-LD override for specialized custom structured data.             |
 
-### B. Dynamic Robots & Sitemap Routes
-
-- `src/app/robots.ts`: Generates standard `robots.txt` allowing general crawling while disallowing `/api/` and `/admin/` paths, and linking to the dynamic sitemap.
-- `src/app/sitemap.ts`: Generates standard `sitemap.xml` with automatic change frequency and priority headers.
+> **Non-Forced Design**: Editors are never forced to fill out SEO fields. The frontend dynamic `generateMetadata()` function automatically synthesizes optimal fallback values from the entity's core content.
 
 ---
 
-## 3. Planned SEO Architecture (Subsequent Phases)
+## 3. Strategic Topical SEO via Focus Areas
 
-As the CMS (Payload) and dynamic domains are integrated, the SEO system will expand as follows:
+The `focus-areas` collection represents Genius Hub's primary development pillars (e.g., _Digital Skills & Tech Innovation_, _TVET & Vocational Mastery_, _Enterprise Incubation_, _Migration Reintegration_).
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        Dynamic Next.js Route                           │
-├──────────────────────────────────┬─────────────────────────────────────┤
-│         generateMetadata()       │          Page Component (RSC)       │
-│  - Meta Title, Description       │  - Semantic HTML (h1, h2, nav, main)│
-│  - Canonical URL & Alternates    │  - High-performance images with alt │
-│  - OpenGraph / Dynamic Social Img│  - JSON-LD Schema Scripts           │
-│  - Robots index/noindex controls │                                     │
-└──────────────────────────────────┴─────────────────────────────────────┘
-```
+- Each Focus Area acts as a high-authority topical hub page (`/focus-areas/[slug]`).
+- Aggregates and links all related `Programmes`, `Projects`, `Events`, `Articles`, and `SuccessStories`.
+- Creates deep semantic topic clusters that establish search engine topical authority.
 
-### 1. Dynamic Structured Data (JSON-LD)
+---
 
-Schema.org structured data components will be embedded via server-rendered `<script type="application/ld+json">` tags:
+## 4. Multilingual SEO & `hreflang` Architecture
 
-- **`Organization`**: Identifies Genius Hub Global, Nigeria origin, social links, contact points, and founder/leadership references.
-- **`Course` / `EducationalOccupationalProgram`**: Details training curricula, duration, prerequisites, certification, and provider.
-- **`Event`**: Details workshop dates, venues (physical and virtual), registration URLs, and ticketing.
-- **`Article`**: Details editorial blogs, author profiles, publication dates, and publisher info.
-- **`Product`**: Details e-commerce physical and digital merchandise with currency, availability, and pricing.
-- **`BreadcrumbList`**: Enhances search engine result page navigation snippets.
-- **`FAQPage`**: Embeds structured answers for programme admissions and partner inquiries.
+- Configured with `en` (default), `fr`, and `de` locales in Payload CMS.
+- The future Next.js frontend will generate `hreflang` alternate tags for all localized routes:
+  ```html
+  <link
+    rel="alternate"
+    href="https://geniushubglobal.com/en/programmes/digital-skills"
+    hreflang="en"
+  />
+  <link
+    rel="alternate"
+    href="https://geniushubglobal.com/fr/programmes/competences-numeriques"
+    hreflang="fr"
+  />
+  <link
+    rel="alternate"
+    href="https://geniushubglobal.com/de/programmes/digitale-kompetenzen"
+    hreflang="de"
+  />
+  <link
+    rel="alternate"
+    href="https://geniushubglobal.com/en/programmes/digital-skills"
+    hreflang="x-default"
+  />
+  ```
 
-### 2. Multilingual SEO & `hreflang`
+---
 
-- Dynamic language routing supporting English (`en`) and French (`fr`).
-- Automatic generation of `hreflang` alternate link tags in HTML `<head>` and `sitemap.xml`.
-- Dedicated `x-default` canonical fallback mapping.
+## 5. Structured Data (JSON-LD) Schemas
 
-### 3. CMS-Driven Slug & Redirect Engine
+Embedded dynamically via server-rendered `<script type="application/ld+json">` tags:
 
-- All CMS content types (Pages, Programmes, Articles, Events, Products) will support:
-  - Custom URL slugs.
-  - Automatic historical slug tracking: when an editor modifies a slug, a `301 Permanent Redirect` rule is stored in the database to prevent broken inbound backlinks.
-  - Granular `noindex` and `nofollow` overrides for private or draft pages.
-  - Custom canonical URL overrides.
+- **`Organization`**: Identifies Genius Hub Global, Nigeria origin, official contact channels, social handles, and founder citation (Isimeme Whyte).
+- **`EducationalOccupationalProgram` / `Course`**: Details training curricula, duration, delivery format, and credentials.
+- **`Event`**: Details workshop dates, venues, coordinates, and virtual livestream access.
+- **`Article`**: Details author profiles, publication dates, and publisher info.
+- **`BreadcrumbList`**: Enhances search engine result page breadcrumb navigation snippets.
+- **`Place` / `CivicStructure`**: Details physical innovation hubs and training centers.
 
-### 4. Image SEO & Dynamic Social Graph Generation
+---
 
-- Mandatory descriptive `alt` text validation across all CMS image uploads.
-- Dynamic social share image generation using `@vercel/og` (`ImageResponse` API) to generate customized Open Graph cards featuring programme titles, dates, and branding.
-
-### 5. Sitemap Indexing for Large Datasets
-
-- For high-volume archives (event archives, media galleries, alumni directories), dynamic sitemap indexing (`sitemap-index.xml`) splitting sitemaps into domain chunks (e.g., `/sitemap-programmes.xml`, `/sitemap-blog.xml`).
-
-### 6. Core Web Vitals (CWV) Standards
+## 6. Core Web Vitals (CWV) Standards
 
 Targeting top-tier performance percentiles:
 

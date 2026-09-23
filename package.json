@@ -2,6 +2,7 @@
   "name": "genius-hub",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "packageManager": "bun@1.4.2",
   "scripts": {
     "dev": "next dev",
@@ -13,12 +14,24 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "payload": "payload",
+    "generate:types": "payload generate:types",
+    "generate:importmap": "payload generate:importmap",
+    "db:migrate": "payload migrate",
+    "db:migrate:create": "payload migrate:create",
+    "db:migrate:status": "payload migrate:status"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.90.1",
+    "@payloadcms/next": "^3.90.1",
+    "@payloadcms/richtext-lexical": "^3.90.1",
+    "graphql": "^16.8.1",
     "next": "^16.3.6",
+    "payload": "^3.90.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "sharp": "^0.35.4",
     "zod": "^4.6.5"
   },
   "devDependencies": {

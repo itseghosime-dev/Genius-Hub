@@ -32,8 +32,12 @@ export default tseslint.config(
       'coverage/**',
       'test-results/**',
       'playwright-report/**',
+      'src/migrations/**',
+      'src/payload-types.ts',
+      'src/app/(payload)/admin/importMap.js',
       '*.config.mjs',
       '*.config.ts',
+      '*.config.mts',
     ],
   },
 );
