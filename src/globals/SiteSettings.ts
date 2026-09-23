@@ -28,6 +28,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'tagline',
           type: 'text',
+          localized: true,
           defaultValue: 'Human impact and the future of work',
         },
         {
@@ -41,6 +42,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'founderStorytelling',
           type: 'text',
+          localized: true,
           defaultValue: 'Founded by Isimeme Whyte',
           label: 'Founder Citation / Storytelling Anchor',
         },
@@ -62,6 +64,7 @@ export const SiteSettings: GlobalConfig = {
         {
           name: 'headquartersAddress',
           type: 'textarea',
+          localized: true,
           defaultValue: 'Benin City, Edo State, Nigeria',
         },
       ],

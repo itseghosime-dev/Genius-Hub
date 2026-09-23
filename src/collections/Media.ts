@@ -48,6 +48,7 @@ export const Media: CollectionConfig = {
       name: 'alt',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Alternative Text (Alt)',
       admin: {
         description:
@@ -57,6 +58,7 @@ export const Media: CollectionConfig = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       label: 'Title / Label',
       admin: {
         description: 'Descriptive title for internal search and media library organization.',
@@ -65,6 +67,7 @@ export const Media: CollectionConfig = {
     {
       name: 'caption',
       type: 'textarea',
+      localized: true,
       label: 'Caption',
       admin: {
         description: 'Editorial caption displayed below the media item in stories and galleries.',
@@ -107,7 +110,7 @@ export const Media: CollectionConfig = {
     {
       name: 'location',
       type: 'text',
-      label: 'Location / Venue',
+      label: 'Location / Venue (Text Note)',
       admin: {
         description:
           'Geographic location where photo/video was captured (e.g., Benin City, Lagos, Abuja).',
@@ -123,18 +126,12 @@ export const Media: CollectionConfig = {
     },
     {
       name: 'tags',
-      type: 'array',
-      label: 'Organizational Tags',
-      fields: [
-        {
-          name: 'tag',
-          type: 'text',
-          required: true,
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Topic Tags',
       admin: {
-        description:
-          'Tags for categorization (e.g., #DigitalSkills, #WomenInTech, #Graduation2026).',
+        description: 'Relational topic tags for asset library indexing.',
       },
     },
     {

@@ -67,6 +67,7 @@ export const Partners: CollectionConfig = {
     {
       name: 'description',
       type: 'textarea',
+      localized: true,
       label: 'Partnership Overview',
       admin: {
         description: 'Brief overview of the partnership collaboration and institutional synergy.',
@@ -80,15 +81,12 @@ export const Partners: CollectionConfig = {
         {
           name: 'startYear',
           type: 'number',
-          label: 'Collaboration Start Year',
-          admin: {
-            description: 'e.g., 2020',
-          },
+          label: 'Collaboration Start Year (e.g., 2020)',
         },
         {
           name: 'endYear',
           type: 'number',
-          label: 'Collaboration End Year (Leave empty if ongoing)',
+          label: 'Collaboration End Year (Leave empty if active)',
         },
       ],
     },

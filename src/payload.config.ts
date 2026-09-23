@@ -9,11 +9,15 @@ import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { People } from './collections/People';
 import { Partners } from './collections/Partners';
+import { FocusAreas } from './collections/FocusAreas';
 import { Programmes } from './collections/Programmes';
 import { Projects } from './collections/Projects';
 import { Events } from './collections/Events';
 import { SuccessStories } from './collections/SuccessStories';
 import { Articles } from './collections/Articles';
+import { ArticleCategories } from './collections/ArticleCategories';
+import { Tags } from './collections/Tags';
+import { Locations } from './collections/Locations';
 
 import { SiteSettings } from './globals/SiteSettings';
 
@@ -31,16 +35,29 @@ export default buildConfig({
       titleSuffix: '— Genius Hub CMS Admin',
     },
   },
+  localization: {
+    locales: [
+      { label: 'English', code: 'en' },
+      { label: 'Français (French)', code: 'fr' },
+      { label: 'Deutsch (German)', code: 'de' },
+    ],
+    defaultLocale: 'en',
+    fallback: true,
+  },
   collections: [
     Users,
     Media,
     People,
     Partners,
+    FocusAreas,
     Programmes,
     Projects,
     Events,
     SuccessStories,
     Articles,
+    ArticleCategories,
+    Tags,
+    Locations,
   ],
   globals: [SiteSettings],
   editor: lexicalEditor({}),

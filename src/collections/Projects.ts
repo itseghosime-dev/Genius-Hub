@@ -14,6 +14,7 @@ export const Projects: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Project Title',
     },
     slugField('title'),
@@ -21,6 +22,7 @@ export const Projects: CollectionConfig = {
       name: 'summary',
       type: 'textarea',
       required: true,
+      localized: true,
       label: 'Executive Summary',
       admin: {
         description:
@@ -30,6 +32,7 @@ export const Projects: CollectionConfig = {
     {
       name: 'fullContent',
       type: 'richText',
+      localized: true,
       label: 'Comprehensive Project Scope & Methodology',
     },
     {
@@ -42,6 +45,13 @@ export const Projects: CollectionConfig = {
       },
     },
     {
+      name: 'focusAreas',
+      type: 'relationship',
+      relationTo: 'focus-areas',
+      hasMany: true,
+      label: 'Strategic Focus Areas',
+    },
+    {
       name: 'partners',
       type: 'relationship',
       relationTo: 'partners',
@@ -50,16 +60,10 @@ export const Projects: CollectionConfig = {
     },
     {
       name: 'locations',
-      type: 'array',
-      label: 'Project Implementation Locations',
-      fields: [
-        {
-          name: 'location',
-          type: 'text',
-          required: true,
-          label: 'Target Community / City / Region',
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'locations',
+      hasMany: true,
+      label: 'Implementation Locations & Hubs',
     },
     {
       name: 'timeline',
@@ -94,6 +98,7 @@ export const Projects: CollectionConfig = {
           name: 'metricName',
           type: 'text',
           required: true,
+          localized: true,
           label: 'Metric Name (e.g., Youths Trained, Startups Funded)',
         },
         {
@@ -105,6 +110,7 @@ export const Projects: CollectionConfig = {
         {
           name: 'unitOrContext',
           type: 'text',
+          localized: true,
           label: 'Demographic / Context (e.g., 60% Female, Edo State)',
         },
       ],
@@ -117,6 +123,13 @@ export const Projects: CollectionConfig = {
         { name: 'donorOrFunder', type: 'text', label: 'Lead Donor / Grantor Organization' },
         { name: 'grantDetails', type: 'text', label: 'Grant Title / Reference Number' },
       ],
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Topic Tags',
     },
     {
       name: 'heroMedia',
@@ -134,6 +147,7 @@ export const Projects: CollectionConfig = {
     {
       name: 'outcomes',
       type: 'textarea',
+      localized: true,
       label: 'Key Outcomes & Measurable Impact',
     },
     {

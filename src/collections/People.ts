@@ -21,6 +21,7 @@ export const People: CollectionConfig = {
       name: 'role',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Role / Designation',
       admin: {
         description:
@@ -30,12 +31,14 @@ export const People: CollectionConfig = {
     {
       name: 'organization',
       type: 'text',
+      localized: true,
       defaultValue: 'Genius Hub Global',
       label: 'Organization / Institution',
     },
     {
       name: 'division',
       type: 'text',
+      localized: true,
       label: 'Department / Division',
       admin: {
         description: 'e.g., Executive Leadership, Technology & Innovation, TVET Programmes.',
@@ -50,6 +53,7 @@ export const People: CollectionConfig = {
     {
       name: 'shortBio',
       type: 'textarea',
+      localized: true,
       label: 'Short Bio / Summary',
       admin: {
         description: 'Brief 2-3 sentence introductory biography for cards and speaker profiles.',
@@ -58,10 +62,17 @@ export const People: CollectionConfig = {
     {
       name: 'fullBio',
       type: 'richText',
+      localized: true,
       label: 'Full Biography',
       admin: {
         description: 'Comprehensive biographical and impact background.',
       },
+    },
+    {
+      name: 'primaryLocation',
+      type: 'relationship',
+      relationTo: 'locations',
+      label: 'Primary Operating Location / Hub',
     },
     {
       name: 'designations',

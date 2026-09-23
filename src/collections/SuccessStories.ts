@@ -14,6 +14,7 @@ export const SuccessStories: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Story Title',
       admin: {
         description:
@@ -30,6 +31,7 @@ export const SuccessStories: CollectionConfig = {
     {
       name: 'beneficiaryRole',
       type: 'text',
+      localized: true,
       label: 'Current Role / Enterprise Name',
       admin: {
         description: 'e.g., Founder at StitchLab Hub, Junior Software Engineer at TechCorp.',
@@ -37,8 +39,16 @@ export const SuccessStories: CollectionConfig = {
     },
     {
       name: 'location',
-      type: 'text',
-      label: 'Location / Community',
+      type: 'relationship',
+      relationTo: 'locations',
+      label: 'Beneficiary Location / Hub',
+    },
+    {
+      name: 'focusAreas',
+      type: 'relationship',
+      relationTo: 'focus-areas',
+      hasMany: true,
+      label: 'Relevant Focus Areas',
     },
     {
       name: 'relatedProgramme',
@@ -55,6 +65,7 @@ export const SuccessStories: CollectionConfig = {
     {
       name: 'quote',
       type: 'textarea',
+      localized: true,
       label: 'Key Quote / Testimonial Excerpt',
       admin: {
         description: 'Highlighted pull-quote for impact cards and hero showcases.',
@@ -63,12 +74,21 @@ export const SuccessStories: CollectionConfig = {
     {
       name: 'summary',
       type: 'textarea',
+      localized: true,
       label: 'Summary Story Card Overview',
     },
     {
       name: 'fullStory',
       type: 'richText',
+      localized: true,
       label: 'In-Depth Success Journey & Narrative',
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Topic Tags',
     },
     {
       name: 'heroMedia',
@@ -94,7 +114,13 @@ export const SuccessStories: CollectionConfig = {
           required: true,
           label: 'Metric Value (e.g., 300% Income Increase, 4 Employees)',
         },
-        { name: 'metricLabel', type: 'text', required: true, label: 'Metric Context' },
+        {
+          name: 'metricLabel',
+          type: 'text',
+          required: true,
+          localized: true,
+          label: 'Metric Context / Description',
+        },
       ],
     },
     {

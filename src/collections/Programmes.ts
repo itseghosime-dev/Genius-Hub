@@ -6,7 +6,7 @@ export const Programmes: CollectionConfig = {
   slug: 'programmes',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'programmeType', 'applicationStatus', 'isFeatured', 'status'],
+    defaultColumns: ['title', 'applicationStatus', 'isFeatured', 'status'],
     group: 'Programmes & Impact',
   },
   fields: [
@@ -14,6 +14,7 @@ export const Programmes: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Programme Title',
     },
     slugField('title'),
@@ -21,6 +22,7 @@ export const Programmes: CollectionConfig = {
       name: 'shortDescription',
       type: 'textarea',
       required: true,
+      localized: true,
       label: 'Short Description / Summary',
       admin: {
         description: 'Concise summary for programme cards, catalogue views, and search previews.',
@@ -29,41 +31,24 @@ export const Programmes: CollectionConfig = {
     {
       name: 'fullDescription',
       type: 'richText',
+      localized: true,
       label: 'Full Programme Curriculum & Overview',
     },
     {
-      name: 'programmeType',
-      type: 'select',
-      required: true,
-      defaultValue: 'digital_skills',
-      options: [
-        { label: 'Digital Skills & Tech Innovation', value: 'digital_skills' },
-        { label: 'Vocational & TVET Training', value: 'vocational_tvet' },
-        { label: 'Entrepreneurship & Enterprise Incubation', value: 'entrepreneurship' },
-        { label: 'Migration & Socio-Economic Reintegration', value: 'migration_reintegration' },
-        { label: 'Women Empowerment & Gender Inclusion', value: 'women_empowerment' },
-        { label: 'Youth Employment & Apprenticeship', value: 'youth_employment' },
-        { label: 'Leadership & Institutional Capacity', value: 'leadership_governance' },
-        { label: 'Other Development Initiative', value: 'other' },
-      ],
-      label: 'Programme Focus Category',
-    },
-    {
       name: 'focusAreas',
-      type: 'array',
-      label: 'Key Skill Pillars & Focus Tracks',
-      fields: [
-        {
-          name: 'skill',
-          type: 'text',
-          required: true,
-          label: 'Track / Module (e.g., UI/UX Design, Fashion Design, Solar Tech)',
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'focus-areas',
+      hasMany: true,
+      required: true,
+      label: 'Primary Focus Areas / Strategic Pillars',
+      admin: {
+        description: 'Authoritative topical pillar mapping for categorization and SEO.',
+      },
     },
     {
       name: 'targetAudience',
       type: 'text',
+      localized: true,
       label: 'Target Audience & Eligibility',
       admin: {
         description:
@@ -83,16 +68,13 @@ export const Programmes: CollectionConfig = {
     },
     {
       name: 'locations',
-      type: 'array',
-      label: 'Training Hub Locations',
-      fields: [
-        {
-          name: 'location',
-          type: 'text',
-          required: true,
-          label: 'Location / State (e.g., Edo Innovation Hub, Lagos, Abuja)',
-        },
-      ],
+      type: 'relationship',
+      relationTo: 'locations',
+      hasMany: true,
+      label: 'Training Hubs & Delivery Locations',
+      admin: {
+        description: 'Structured relationship to verified physical hubs and campuses.',
+      },
     },
     {
       name: 'schedule',
@@ -153,18 +135,36 @@ export const Programmes: CollectionConfig = {
       label: 'Programme Sponsoring & Implementing Partners',
     },
     {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Topic Tags',
+    },
+    {
       name: 'impactStatistics',
       type: 'array',
       label: 'Key Programme Impact Metrics',
       fields: [
-        { name: 'metricValue', type: 'text', required: true, label: 'Value (e.g., 5,000+, 85%)' },
+        {
+          name: 'metricValue',
+          type: 'text',
+          required: true,
+          label: 'Value (e.g., 5,000+, 85%)',
+        },
         {
           name: 'metricLabel',
           type: 'text',
           required: true,
+          localized: true,
           label: 'Label (e.g., Beneficiaries Trained, Job Placement Rate)',
         },
-        { name: 'metricDescription', type: 'text', label: 'Contextual Note' },
+        {
+          name: 'metricDescription',
+          type: 'text',
+          localized: true,
+          label: 'Contextual Note',
+        },
       ],
     },
     {

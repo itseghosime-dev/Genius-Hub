@@ -14,12 +14,14 @@ export const Events: CollectionConfig = {
       name: 'title',
       type: 'text',
       required: true,
+      localized: true,
       label: 'Event Title',
     },
     slugField('title'),
     {
       name: 'description',
       type: 'richText',
+      localized: true,
       label: 'Event Agenda & Overview',
     },
     {
@@ -85,20 +87,22 @@ export const Events: CollectionConfig = {
       ],
     },
     {
-      name: 'venue',
-      type: 'group',
-      label: 'Physical Venue Details',
-      fields: [
-        { name: 'venueName', type: 'text', label: 'Venue Name / Hub Facility' },
-        { name: 'address', type: 'text', label: 'Street Address' },
-        {
-          name: 'city',
-          type: 'text',
-          label: 'City / State',
-          defaultValue: 'Benin City, Edo State',
-        },
-        { name: 'country', type: 'text', label: 'Country', defaultValue: 'Nigeria' },
-      ],
+      name: 'venueLocation',
+      type: 'relationship',
+      relationTo: 'locations',
+      label: 'Designated Venue / Facility Location',
+      admin: {
+        description: 'Structured link to verified physical facility or innovation center.',
+      },
+    },
+    {
+      name: 'customVenueNotes',
+      type: 'text',
+      localized: true,
+      label: 'Custom Venue / Room Notes (Optional)',
+      admin: {
+        description: 'e.g., Main Auditorium, Hall B, 3rd Floor.',
+      },
     },
     {
       name: 'onlineAccess',
@@ -109,9 +113,17 @@ export const Events: CollectionConfig = {
         {
           name: 'accessInstructions',
           type: 'textarea',
+          localized: true,
           label: 'Access Instructions / Passcode Info',
         },
       ],
+    },
+    {
+      name: 'focusAreas',
+      type: 'relationship',
+      relationTo: 'focus-areas',
+      hasMany: true,
+      label: 'Strategic Focus Areas',
     },
     {
       name: 'speakers',
@@ -126,6 +138,13 @@ export const Events: CollectionConfig = {
       relationTo: 'partners',
       hasMany: true,
       label: 'Event Sponsors & Co-Organizers',
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      relationTo: 'tags',
+      hasMany: true,
+      label: 'Topic Tags',
     },
     {
       name: 'relatedProgramme',
