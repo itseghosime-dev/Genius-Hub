@@ -34,7 +34,6 @@ All commits must follow the [Conventional Commits v1.0.0](https://www.convention
 ```
 
 ### Supported Types
-
 - **`feat`**: Introduces a new user-facing or platform capability.
 - **`fix`**: Fixes a defect or unexpected behavior.
 - **`chore`**: Maintenance tasks, build system updates, dependency changes.
@@ -45,7 +44,6 @@ All commits must follow the [Conventional Commits v1.0.0](https://www.convention
 - **`ci`**: Changes to CI/CD configuration files and scripts.
 
 ### Atomic Commits Requirement
-
 - Commits must be small, focused, and atomic.
 - Avoid large monolithic commits bundling unrelated changes across domains.
 - Every commit in the history must leave the codebase in a building and passing state.
@@ -78,7 +76,6 @@ bun run build
 ## 4. Continuous Integration (CI) Enforcement
 
 GitHub Actions automatically validates all pushes and Pull Requests targeting `main`:
-
 1. Checkout repository with clean workspace.
 2. Setup Bun environment.
 3. Install dependencies using frozen lockfile (`bun install --frozen-lockfile`).
@@ -89,3 +86,4 @@ GitHub Actions automatically validates all pushes and Pull Requests targeting `m
 8. Execute `build`.
 
 No Pull Request may be merged into `main` with failing CI checks.
+

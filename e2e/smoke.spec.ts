@@ -23,3 +23,4 @@ test.describe('Genius Hub Application Smoke Test', () => {
     await expect(page.getByRole('heading', { level: 1, name: /404/i })).toBeVisible();
   });
 });
+

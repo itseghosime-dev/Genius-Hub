@@ -24,3 +24,4 @@
  * - seo (Dynamic schema generation, sitemap indexing, metadata)
  */
 export {};
+

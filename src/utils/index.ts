@@ -16,3 +16,4 @@ export function formatDate(date: Date | string, locale = 'en-US'): string {
     day: 'numeric',
   }).format(d);
 }
+

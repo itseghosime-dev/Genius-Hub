@@ -23,10 +23,7 @@ function getEnv() {
   });
 
   if (!clientParsed.success) {
-    console.error(
-      'Invalid public environment variables:',
-      clientParsed.error.flatten().fieldErrors,
-    );
+    console.error('Invalid public environment variables:', clientParsed.error.flatten().fieldErrors);
     throw new Error('Invalid public environment variables');
   }
 
@@ -37,10 +34,7 @@ function getEnv() {
     });
 
     if (!serverParsed.success) {
-      console.error(
-        'Invalid server environment variables:',
-        serverParsed.error.flatten().fieldErrors,
-      );
+      console.error('Invalid server environment variables:', serverParsed.error.flatten().fieldErrors);
       throw new Error('Invalid server environment variables');
     }
 
@@ -58,3 +52,4 @@ function getEnv() {
 }
 
 export const env = getEnv();
+

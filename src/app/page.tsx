@@ -6,8 +6,11 @@ export default function HomePage() {
           Genius Hub
         </h1>
         <p className="text-lg font-medium text-neutral-700">Digital Platform</p>
-        <p className="text-sm tracking-widest text-neutral-500 uppercase">Engineering Foundation</p>
+        <p className="text-sm uppercase tracking-widest text-neutral-500">
+          Engineering Foundation
+        </p>
       </div>
     </main>
   );
 }
+

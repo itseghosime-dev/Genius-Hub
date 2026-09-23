@@ -17,8 +17,12 @@ export default function Error({
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-8 text-center">
       <div className="max-w-md space-y-4">
-        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">Something went wrong</h1>
-        <p className="text-sm text-neutral-600">An unexpected error occurred. Please try again.</p>
+        <h1 className="text-2xl font-bold tracking-tight text-neutral-950">
+          Something went wrong
+        </h1>
+        <p className="text-sm text-neutral-600">
+          An unexpected error occurred. Please try again.
+        </p>
         <div className="pt-4">
           <button
             type="button"
@@ -32,3 +36,4 @@ export default function Error({
     </main>
   );
 }
+
