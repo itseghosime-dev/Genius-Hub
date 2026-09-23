@@ -13,7 +13,7 @@ const sizeConfig: Record<BrandLoaderSize, { px: number; textClass: string }> = {
   sm: { px: 28, textClass: 'text-xs' },
   md: { px: 44, textClass: 'text-sm' },
   lg: { px: 60, textClass: 'text-base' },
-  xl: { px: 84, textClass: 'text-lg' },
+  xl: { px: 80, textClass: 'text-lg' },
 };
 
 export const BrandLoader: React.FC<BrandLoaderProps> = ({
@@ -41,76 +41,83 @@ export const BrandLoader: React.FC<BrandLoaderProps> = ({
         viewBox="0 0 48 48"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="text-(--brand-primary)"
+        className="shrink-0"
         aria-hidden="true"
       >
-        {/* Warm subtle sun aura */}
+        {/* Connective Motion Ring (Technology / Network Arc) */}
         <circle
           cx="24"
           cy="24"
-          r="20"
-          stroke="currentColor"
+          r="19"
+          stroke="#2563eb"
           strokeWidth="1.5"
-          strokeOpacity="0.15"
-          strokeDasharray="3 4"
-          className="origin-center motion-safe:animate-[spin_12s_linear_infinite]"
+          strokeDasharray="4 6"
+          className="origin-center motion-safe:animate-[spin_6s_linear_infinite]"
+          strokeOpacity="0.3"
         />
 
-        {/* Gathering community nodes (People, Opportunity, Knowledge, Growth) */}
-        {/* Top Node */}
+        {/* Outer Interconnected Network Track */}
         <circle
           cx="24"
-          cy="10"
-          r="3"
-          fill="#d97706"
-          className="motion-safe:animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"
-          fillOpacity="0.8"
-        />
-        {/* Right Node */}
-        <circle
-          cx="38"
           cy="24"
-          r="2.5"
-          fill="#c2410c"
-          className="motion-safe:animate-[pulse_2.5s_ease-in-out_infinite]"
-        />
-        {/* Bottom Node */}
-        <circle
-          cx="24"
-          cy="38"
-          r="3"
-          fill="#d97706"
-          className="motion-safe:animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite_0.5s]"
-          fillOpacity="0.7"
-        />
-        {/* Left Node */}
-        <circle
-          cx="10"
-          cy="24"
-          r="2.5"
-          fill="#36533e"
-          className="motion-safe:animate-[pulse_2.5s_ease-in-out_infinite_0.25s]"
-        />
-
-        {/* Soft connecting human arcs */}
-        <path
-          d="M24 10C31.732 10 38 16.268 38 24C38 31.732 31.732 38 24 38C16.268 38 10 31.732 10 24C10 16.268 16.268 10 24 10Z"
-          stroke="#d97706"
+          r="15"
+          stroke="#0d9488"
           strokeWidth="1"
+          strokeDasharray="2 4"
+          className="origin-center motion-safe:animate-[spin_4s_linear_infinite_reverse]"
           strokeOpacity="0.25"
         />
 
-        {/* Warm Radiant Center Mark (Genius Sun Core) */}
-        <circle cx="24" cy="24" r="5.5" fill="#d97706" />
-        <circle cx="24" cy="24" r="2" fill="#ffffff" />
+        {/* Small Orange People Nodes (Community & Human Potential) */}
+        {/* Top Community Node (Genius Orange) */}
+        <circle
+          cx="24"
+          cy="5"
+          r="3"
+          fill="#ff6b00"
+          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite]"
+        />
+        {/* Right Innovation Node (Digital Blue) */}
+        <circle
+          cx="43"
+          cy="24"
+          r="2.75"
+          fill="#2563eb"
+          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.3s]"
+        />
+        {/* Bottom Community Node (Genius Orange) */}
+        <circle
+          cx="24"
+          cy="43"
+          r="3"
+          fill="#ff6b00"
+          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.6s]"
+        />
+        {/* Left Growth Node (Electric Teal) */}
+        <circle
+          cx="5"
+          cy="24"
+          r="2.75"
+          fill="#0d9488"
+          className="motion-safe:animate-[pulse_1.5s_ease-in-out_infinite_0.9s]"
+        />
+
+        {/* Converging Radiant Sun Core (Genius Hub Center Identity) */}
+        <circle
+          cx="24"
+          cy="24"
+          r="6.5"
+          fill="#ff6b00"
+          className="motion-safe:animate-[ping_2.5s_cubic-bezier(0,0,0.2,1)_infinite]"
+          fillOpacity="0.2"
+        />
+        <circle cx="24" cy="24" r="6" fill="#ff6b00" />
+        <circle cx="24" cy="24" r="2.5" fill="#ffffff" />
       </svg>
 
       {showLabel ? (
         <span
-          className={cn(
-            'font-serif font-medium tracking-normal text-(--text-secondary)',
-            textClass,
-          )}
+          className={cn('font-sans font-semibold tracking-tight text-(--text-primary)', textClass)}
         >
           {label}
         </span>
