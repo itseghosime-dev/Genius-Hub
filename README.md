@@ -1,52 +1,49 @@
 # Genius Hub — Digital Platform
 
-> **Content Architecture & CMS Foundation (Phase 02)**  
+> **Public Information Architecture, Global Navigation & Route Hierarchy (Phase 05)**  
 > A production-grade digital platform for **Genius Hub**, a global development organization originating from Nigeria.
 
 ---
 
 ## 1. Project Purpose & Positioning
 
-Genius Hub is a global development organization empowering individuals, enterprises, and institutions through human capital development, vocational training programmes, technology-driven learning, and entrepreneurship incubation.
+Genius Hub is a global development organization empowering individuals, enterprises, and institutions through human capital development, vocational training programmes (TVET), technology-driven learning, and entrepreneurship incubation.
 
 ### Brand & Architectural Context
 
 - **Master Brand**: Genius Hub
 - **Positioning**: A global development organization originating from Nigeria.
 - **Experience Direction**: Human/social impact + technology/future of work.
-- **Visual & Storytelling Direction**: Photography and human narratives are central design pillars. Leadership and founder storytelling (featuring Isimeme Whyte) is integrated prominently while maintaining an institution-led identity.
+- **Visual & Storytelling Direction**: Photography, documentary storytelling, and human narratives are central design pillars. Leadership and founder storytelling (featuring Isimeme Whyte) is integrated prominently while maintaining an institution-led identity.
 - **Primary Platform Conversion Goals**:
   1. **Apply for training** (Beneficiaries, students, professionals)
   2. **Partner with Genius Hub** (NGOs, governments, international development agencies, enterprises)
-  3. **Buy Genius Hub products/services** (E-commerce merchandise, digital courses, studio/consulting bookings)
+  3. **Buy Genius Hub products/services** (Artisan social enterprise merchandise, creative studio services, events)
 
 ---
 
-## 2. Current Status — Phase 02: Payload CMS + PostgreSQL + Domain Content Architecture
+## 2. Platform Architecture & Status (Phases 01–05)
 
-This repository contains the **Phase 02 domain content and data architecture**. The CMS and database layers model Genius Hub's real organizational entities and cross-domain relationships.
+- **Phase 01**: Engineering Foundation, Next.js 16 App Router, Turbopack, Tailwind CSS v4, Biome/ESLint, Vitest, Playwright.
+- **Phase 02**: Payload CMS 3.x, PostgreSQL relational content model, 13 domain collections, Lexical rich text, multilingual (`en`/`fr`/`de`), migrations.
+- **Phase 03**: Staff identity, invitation cryptographic token lifecycle, RBAC access control matrix, approval workflows, audit logging.
+- **Phase 04**: Digital Brand System, semantic design tokens, WCAG 2.2 AA light-first theme, responsive layout primitives, accessible UI components (`Button`, `Form`, `Media`, `BrandLoader`).
+- **Phase 05 (Current)**: Public Information Architecture (IA), typed central navigation configuration (`src/config/navigation.ts`), accessible desktop mega menus, responsive slide-out mobile drawer (`MobileNav`), global search dialog modal (`SearchDialog`), language switcher (`LanguageSelector`), 5-column footer (`Footer`), page header primitive with semantic breadcrumbs (`PageHeader`), public shell layout (`PublicLayout`), and crawlable public routes catalog.
 
-### Core Technology Stack
+---
+
+## 3. Technology Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19, Turbopack)
 - **CMS**: [Payload CMS 3.x](https://payloadcms.com/) (Embedded App Router Native Architecture)
 - **Database**: [PostgreSQL 16+](https://www.postgresql.org/) via `@payloadcms/db-postgres`
+- **Navigation & IA**: Strongly typed central config (`src/config/navigation.ts`)
 - **Localization**: English (`en`), French (`fr`), German (`de`) with automatic fallback
-- **Rich Text Editor**: `@payloadcms/richtext-lexical` (Lexical Engine)
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/) (Strict mode, `noUncheckedIndexedAccess`, zero `any`)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with semantic CSS variables
 - **Package Manager**: [Bun](https://bun.sh/) (with committed `bun.lock`)
-- **Code Quality**: ESLint 9 (Flat Config), Prettier with Tailwind CSS plugin
-- **Testing**: [Vitest](https://vitest.dev/) (Unit & collections tests) & [Playwright](https://playwright.dev/) (End-to-End smoke tests)
-- **Environment Validation**: [Zod](https://zod.dev/) runtime schema validation
-
----
-
-## 3. Prerequisites
-
-- **[Bun](https://bun.sh/)**: `^1.2.0` (declared in `package.json` as `bun@1.4.2`)
-- **[Docker](https://www.docker.com/)**: Optional (for running local PostgreSQL 16 container)
-- **[Node.js](https://nodejs.org/)**: `>= 20.0.0` (for auxiliary tooling environments)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Testing**: [Vitest](https://vitest.dev/) (Unit & components) & [Playwright](https://playwright.dev/) (E2E browser tests)
 
 ---
 
@@ -86,58 +83,47 @@ bun run db:migrate
 
 ### Running Locally
 
-Start the Next.js development server with Payload CMS:
+Start the Next.js development server:
 
 ```bash
 bun run dev
 ```
 
 - Public Web App: [http://localhost:3000](http://localhost:3000)
+- Design System Showcase: [http://localhost:3000/dev/design-system](http://localhost:3000/dev/design-system)
 - Payload CMS Admin Panel: [http://localhost:3000/admin](http://localhost:3000/admin)
-- GraphQL Endpoint: [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)
 
 ---
 
 ## 5. Available Scripts
 
-| Command                            | Description                                                         |
-| :--------------------------------- | :------------------------------------------------------------------ |
-| `bun run dev`                      | Starts the Next.js development server with Turbopack                |
-| `bun run build`                    | Compiles the production-ready optimized build                       |
-| `bun run start`                    | Runs the compiled production server                                 |
-| `bun run lint`                     | Runs ESLint across all TypeScript/JavaScript files                  |
-| `bun run typecheck`                | Runs the TypeScript compiler (`tsc --noEmit`) to verify type safety |
-| `bun run test`                     | Runs the Vitest unit & domain collection test suite                 |
-| `bun run test:watch`               | Runs Vitest in interactive watch mode                               |
-| `bun run test:e2e`                 | Runs Playwright end-to-end browser tests                            |
-| `bun run format`                   | Automatically formats the codebase with Prettier                    |
-| `bun run format:check`             | Verifies code formatting compliance without modifying files         |
-| `bun run db:migrate`               | Executes pending database migrations against PostgreSQL             |
-| `bun run db:migrate:create <name>` | Generates a new migration file from collection schema diffs         |
-| `bun run db:migrate:status`        | Displays migration status history                                   |
-| `bun run generate:types`           | Generates TypeScript interfaces from Payload collections            |
-| `bun run generate:importmap`       | Generates Payload Admin UI import map                               |
+| Command                | Description                                                     |
+| :--------------------- | :-------------------------------------------------------------- |
+| `bun run dev`          | Starts Next.js development server with Turbopack                |
+| `bun run build`        | Compiles the production-ready optimized build                   |
+| `bun run start`        | Runs compiled production server                                 |
+| `bun run lint`         | Runs ESLint across all TypeScript/JavaScript files              |
+| `bun run typecheck`    | Runs TypeScript compiler (`tsc --noEmit`) to verify type safety |
+| `bun run test`         | Runs Vitest unit and component test suite                       |
+| `bun run test:watch`   | Runs Vitest in interactive watch mode                           |
+| `bun run test:e2e`     | Runs Playwright end-to-end browser tests                        |
+| `bun run format`       | Formats the codebase with Prettier                              |
+| `bun run format:check` | Verifies code formatting compliance                             |
+| `bun run db:migrate`   | Executes pending database migrations against PostgreSQL         |
 
 ---
 
-## 6. Domain Content Collections
+## 6. Public Route Hierarchy
 
-The data layer models Genius Hub's organizational ecosystem across 13 collections and 1 global:
-
-- **`FocusAreas` (`focus-areas`)**: Strategic developmental pillars and topical SEO hubs.
-- **`Locations` (`locations`)**: Physical innovation hubs, training facilities, offices, and event venues with map display settings.
-- **`Programmes` (`programmes`)**: Long-running training initiatives, focus areas, delivery modes, eligibility, and impact metrics.
-- **`Projects` (`projects`)**: Specific funded delivery efforts, partner grants, target community locations, and outcomes.
-- **`Events` (`events`)**: Workshops, summits, hackathons, and ceremonies with hybrid venue details and speakers.
-- **`People` (`people`)**: Leadership (including founder Isimeme Whyte), staff, facilitators, speakers, and authors.
-- **`Partners` (`partners`)**: International development organizations, donors, government agencies, and corporate sponsors.
-- **`SuccessStories` (`success-stories`)**: Beneficiary narratives, pull-quotes, and verified outcome statistics.
-- **`Articles` (`articles`)**: Editorial thought leadership, institutional news, and case studies.
-- **`ArticleCategories` (`article-categories`)**: Controlled editorial categorization taxonomy.
-- **`Tags` (`tags`)**: Lightweight cross-cutting topic tagging.
-- **`Media` (`media`)**: Central reusable asset library with upload capabilities, image sizing, and copyright attribution.
-- **`Users` (`users`)**: Minimal authentication collection for Payload Admin panel (advanced RBAC deferred to Phase 03).
-- **`SiteSettings` (Global)**: Brand identity, headquarters contact info, social links, and fallback SEO.
+- **Home**: `/`
+- **About**: `/about`, `/about/leadership`, `/about/our-story`, `/about/governance`, `/about/locations`, `/about/partners`
+- **What We Do**: `/focus-areas`, `/focus-areas/[slug]`, `/programmes`, `/programmes/[slug]`, `/projects`, `/projects/[slug]`
+- **Impact & Stories**: `/impact`, `/impact/success-stories`, `/impact/success-stories/[slug]`, `/impact/reports`, `/impact/geographic-reach`
+- **Events**: `/events`, `/events/[slug]`
+- **Stories / News**: `/stories`, `/stories/[slug]`
+- **Shop / Social Enterprise**: `/shop`, `/shop/[slug]`
+- **Opportunities & Direct Action**: `/opportunities`, `/apply`, `/partner`, `/donate`, `/contact`
+- **Legal & Trust**: `/privacy`, `/terms`, `/accessibility`
 
 ---
 
@@ -145,21 +131,17 @@ The data layer models Genius Hub's organizational ecosystem across 13 collection
 
 Comprehensive engineering documentation is available in the `docs/` directory:
 
-- [Brand Audit & Digital Identity Translation](docs/brand-audit.md) — Analysis of core brand colors, typography heritage, imagery, and digital translation.
-- [Digital Design System & UI Foundation](docs/design-system.md) — Design principles, semantic CSS tokens, typography scales, layout containers, and UI primitives.
-- [Motion Design & Animation Language](docs/motion.md) — Motion principles, timing/easing tokens, BrandLoader guidelines, and reduced-motion rules.
-- [Staff Authentication & Lifecycle](docs/staff-auth.md) — Cryptographic invitation workflows, status state machine, and session security.
+- [Information Architecture & Route Hierarchy](docs/information-architecture.md) — Public content taxonomy, route inventory, and priority hierarchy.
+- [Global Navigation & Header System](docs/navigation.md) — Navigation config, mega menus, mobile drawer, search modal, and breadcrumbs.
+- [Brand Audit & Digital Identity Translation](docs/brand-audit.md) — Brand colors, typography heritage, and digital translation.
+- [Digital Design System & UI Foundation](docs/design-system.md) — Design tokens, light-first palette, typography, containers, and UI primitives.
+- [Motion Design & Animation Language](docs/motion.md) — Motion principles, timing/easing tokens, BrandLoader, and reduced-motion rules.
+- [Accessibility Standards](docs/accessibility.md) — WCAG 2.2 Level AA conformance pledge, focus management, and drawer trapping.
+- [SEO Architecture](docs/seo.md) — Topical Focus Areas, dynamic metadata, JSON-LD schemas, and multilingual structure.
 - [Access Control & RBAC Matrix](docs/access-control.md) — Role-to-permission mapping and least privilege enforcement.
+- [Staff Authentication & Lifecycle](docs/staff-auth.md) — Cryptographic invitation workflows and session security.
 - [Content Workflow & Governance](docs/content-workflow.md) — Multi-stage publication pipeline and separation of duties.
-- [Content Model & Domain Topology](docs/content-model.md) — Purpose of every collection, authoritative relationships, ER diagram, and localization decisions.
-- [CMS Developer Guide](docs/cms.md) — Payload CMS Local API (`getPayloadClient`), REST/GraphQL endpoints, and admin usage.
-- [Database & Migrations Guide](docs/database-and-migrations.md) — PostgreSQL schema topology, localization tables, and migration lifecycle.
-- [Architecture Guide](docs/architecture.md) — System topology, domain encapsulation, and technology roadmap.
-- [Security Architecture](docs/security.md) — Implemented baseline, query parameterization, and planned defense-in-depth model.
-- [SEO Architecture](docs/seo.md) — Reusable SEO field group, topical Focus Areas, and dynamic metadata.
-- [Accessibility Standards](docs/accessibility.md) — WCAG 2.2 Level AA compliance guidelines and motion preferences.
-- [Performance Principles](docs/performance.md) — Media/CDN pipelines, caching strategies, and RSC optimization.
-- [Git & Engineering Workflow](docs/git-workflow.md) — Branching standards, conventional commits, and CI pipelines.
+- [Content Model & Domain Topology](docs/content-model.md) — Domain entities, authoritative relationships, and ER diagram.
 
 ---
 

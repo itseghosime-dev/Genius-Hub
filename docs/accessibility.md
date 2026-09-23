@@ -6,66 +6,53 @@ Genius Hub is committed to ensuring full digital accessibility for all beneficia
 
 ---
 
-## 2. Implemented Foundation (Phase 01)
+## 2. Implemented Foundation & Navigation Systems (Phases 01–05)
 
-### A. Semantic Document Tree
+### A. Semantic Document Tree & Landmark Regions
 
-- Root layout enforces `<html lang="en">` for screen reader localization.
-- Application templates enforce valid HTML5 landmark elements: `<main>`, `<header>`, `<footer>`, `<nav>`, `<aside>`, and `<section>`.
-- Logical heading progression (`<h1>` -> `<h2>` -> `<h3>`) without skipped heading levels.
+- Root layout enforces `<html lang="en">` with multi-language selector support (`en`, `fr`, `de`).
+- Semantic landmark elements: `<header role="banner">`, `<main id="main-content">`, `<footer role="contentinfo">`, `<nav aria-label="...">`.
+- Top-of-page accessible skip link: `"Skip to main content"` (`<a href="#main-content">`) visible immediately on keyboard focus.
+- Logical heading progression (`<h1>` -> `<h2>` -> `<h3>`) across all public layout templates.
 
-### B. Motion Accessibility Foundation
+### B. Navigation & Modal Accessibility (Phase 05)
 
-- Created `src/hooks/use-reduced-motion.ts` to detect the OS-level `prefers-reduced-motion: reduce` media query.
-- Configured global CSS `@media (prefers-reduced-motion: reduce)` in `src/styles/globals.css` ensuring instant transitions and zero vestibular disruption.
-- `BrandLoader` respects reduced motion by disabling animations.
+- **Desktop Mega Menu**: Navigable via keyboard tab navigation, with clear visual hover and focus highlights and semantic link descriptions.
+- **Mobile Drawer Navigation (`MobileNav`)**:
+  - Semantic `role="dialog"` with `aria-modal="true"` and `aria-label="Mobile Navigation"`.
+  - Focus trapping contained inside drawer while open.
+  - Background scrolling locked (`overflow: hidden`).
+  - Escape key listener for immediate dismissal.
+  - Interactive accordion sections with `aria-expanded` attributes.
+- **Global Search Modal (`SearchDialog`)**:
+  - `role="dialog"` with `aria-modal="true"`.
+  - Accessible `searchbox` input with explicit label and `aria-autocomplete`.
+  - Full keyboard accessibility with `Cmd+K` global shortcut.
+- **Breadcrumb Navigation (`PageHeader`)**:
+  - Accessible `<nav aria-label="Breadcrumb">` containing structured `<ol>` list.
+  - Active current page indicated with `aria-current="page"`.
 
-### C. Keyboard Operability & Focus State Foundations
+### C. Motion Accessibility & Reduced Motion
+
+- Hook `src/hooks/use-reduced-motion.ts` detects OS `prefers-reduced-motion: reduce`.
+- Global CSS `@media (prefers-reduced-motion: reduce)` in `src/styles/globals.css` eliminates non-essential transitions and motion effects.
+- `BrandLoader` respects reduced motion by disabling pulse and orbital rotation.
+
+### D. Keyboard Operability & Focus States
 
 - Visible high-contrast focus rings (`:focus-visible` with 2px solid `--focus-ring` and 2px offset).
 - UI Primitives (`Button`, `IconButton`, `LinkButton`, `Input`, `Select`, `Checkbox`, `Radio`) feature full keyboard operability and accessible error state mappings (`aria-invalid`, `aria-describedby`).
-- Minimum touch targets of 44–48px across mobile inputs and buttons.
+- Minimum touch targets of 44–48px across all mobile buttons, links, and navigation items.
 
 ---
 
 ## 3. Engineering Guidelines for Subsequent Phases
 
-All UI primitives, layout structures, and interactive features built in subsequent phases must adhere to these non-negotiable standards:
+All UI components, layout structures, and interactive features built in subsequent phases must adhere to these non-negotiable standards:
 
-### 1. Keyboard Navigation & Focus Management
-
-- **Complete Keyboard Operability**: Every interactive element (buttons, links, form inputs, modal triggers, accordions, tabs) must be reachable and actionable via keyboard.
-- **Focus Order**: DOM order must match the visual reading order.
-- **Focus Trapping**: Modals, drawer sidebars, and dialog overlays must trap keyboard focus within the active container while open.
-- **Focus Restoration**: Closing a modal or overlay must return focus to the triggering element.
-- **No Keyboard Traps**: Users must never become trapped in any widget.
-
-### 2. ARIA Roles & Screen Reader Semantics
-
-- Native HTML elements (`<button>`, `<a>`, `<input>`, `<select>`) must always be preferred over `<div>` or `<span>` with click handlers.
-- When composite widgets require ARIA:
-  - Use `aria-expanded` on collapsible menus and accordions.
-  - Use `aria-haspopup` and `aria-controls` where appropriate.
-  - Use `aria-live="polite"` or `aria-live="assertive"` for dynamic status messages, toast notifications, and cart updates.
-  - Use `aria-invalid` and `aria-describedby` to link form fields to their specific error messages.
-
-### 3. Color Contrast & Visual Design
-
-- **Normal Text**: Contrast ratio of at least `4.5:1` against its background.
-- **Large Text (>= 18pt or 14pt bold)**: Contrast ratio of at least `3:0:1`.
-- **UI Components & Graphical Objects**: Contrast ratio of at least `3.0:1` for interactive borders and active icons.
-- **Color Independence**: Color must never be the sole visual indicator of information, state, or an action (e.g., error fields must have icons or explanatory text, not just a red border).
-
-### 4. Touch Targets & Spacing
-
-- All interactive controls on mobile and touch devices must maintain a minimum target size of **44 × 44 CSS pixels**, including adequate surrounding touch padding.
-
-### 5. Media & Imagery Accessibility
-
-- All images rendered via `next/image` must include descriptive `alt` text explaining context and content.
-- Purely decorative images must use empty `alt=""` and `aria-hidden="true"`.
-- Video media must include closed captions and transcript availability.
-
-### 6. Automated Verification
-
-- Future CI/CD pipelines will integrate `@axe-core/playwright` to automatically audit rendered pages during E2E runs and fail builds on accessibility regressions.
+1. **Complete Keyboard Operability**: Every interactive element must be reachable and actionable via keyboard.
+2. **Focus Management**: Focus restoration on modal close; no keyboard traps.
+3. **Color Contrast**: Normal text minimum `4.5:1`; large text minimum `3.0:1`; interactive graphical elements minimum `3.0:1`.
+4. **Color Independence**: Color must never be the sole visual indicator of information, state, or an action.
+5. **Touch Targets**: All interactive touch targets must measure at least `44 × 44px`.
+6. **Media Accessibility**: Descriptive `alt` attributes on all contextual images; `alt=""` and `aria-hidden="true"` on decorative icons.
