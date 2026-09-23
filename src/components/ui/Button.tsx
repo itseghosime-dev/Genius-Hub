@@ -2,7 +2,8 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'inverse' | 'danger';
+export type ButtonVariant =
+  'primary' | 'secondary' | 'outline' | 'ghost' | 'inverse' | 'danger' | 'innovation';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,15 +18,17 @@ export const buttonVariantClasses: Record<ButtonVariant, string> = {
   primary:
     'bg-(--brand-primary) text-white hover:bg-(--brand-primary-hover) active:bg-(--brand-primary-active) shadow-xs border border-transparent font-medium',
   secondary:
-    'bg-(--surface-sand) text-(--text-primary) hover:bg-(--surface-stone) active:bg-(--border-strong) border border-(--border-default) font-medium',
+    'bg-white text-(--text-primary) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) border border-(--border-default) shadow-2xs font-medium',
   outline:
-    'bg-transparent text-(--text-primary) border border-(--border-strong) hover:bg-(--surface-sand) active:bg-(--surface-stone) font-medium',
+    'bg-transparent text-(--text-primary) border border-(--border-strong) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) font-medium',
   ghost:
-    'bg-transparent text-(--text-primary) hover:bg-(--surface-muted) active:bg-(--surface-sand) border border-transparent font-medium',
+    'bg-transparent text-(--text-primary) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) border border-transparent font-medium',
   inverse:
-    'bg-white text-(--text-primary) hover:bg-stone-100 active:bg-stone-200 border border-transparent shadow-xs font-medium',
+    'bg-white text-(--text-primary) hover:bg-slate-100 active:bg-slate-200 border border-transparent shadow-xs font-medium',
   danger:
-    'bg-(--state-error) text-white hover:bg-red-800 active:bg-red-900 border border-transparent shadow-xs font-medium',
+    'bg-(--state-error) text-white hover:bg-red-700 active:bg-red-800 border border-transparent shadow-xs font-medium',
+  innovation:
+    'bg-(--brand-blue) text-white hover:bg-(--brand-blue-hover) active:bg-blue-800 border border-transparent shadow-xs font-medium',
 };
 
 export const buttonSizeClasses: Record<ButtonSize, string> = {

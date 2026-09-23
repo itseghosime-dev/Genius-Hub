@@ -11,7 +11,7 @@ export interface StatProps extends React.HTMLAttributes<HTMLDivElement> {
     value: string;
     positive?: boolean;
   };
-  layout?: 'editorial' | 'compact' | 'stacked';
+  layout?: 'editorial' | 'compact' | 'stacked' | 'bold';
 }
 
 export const Stat: React.FC<StatProps> = ({
@@ -28,41 +28,41 @@ export const Stat: React.FC<StatProps> = ({
   if (layout === 'compact') {
     return (
       <div className={cn('flex flex-col gap-0.5', className)} {...props}>
-        <div className="flex items-baseline gap-1 font-serif text-3xl font-semibold tracking-tight text-(--text-primary)">
+        <div className="font-display flex items-baseline gap-1 text-2xl font-bold tracking-tight text-(--text-primary) sm:text-3xl">
           {prefix && <span className="text-xl text-(--brand-primary)">{prefix}</span>}
           <span>{value}</span>
           {suffix && <span className="text-xl text-(--brand-primary)">{suffix}</span>}
         </div>
-        <div className="text-xs font-medium text-(--text-secondary)">{label}</div>
+        <div className="text-xs font-semibold text-(--text-secondary)">{label}</div>
       </div>
     );
   }
 
   return (
     <div className={cn('flex flex-col gap-2', className)} {...props}>
-      <div className="flex items-baseline gap-1">
+      <div className="font-display flex items-baseline gap-1 font-extrabold tracking-tight text-(--text-primary)">
         {prefix && (
-          <span className="font-serif text-2xl font-normal text-(--brand-primary) sm:text-3xl">
+          <span className="text-2xl font-bold text-(--brand-primary) sm:text-3xl lg:text-4xl">
             {prefix}
           </span>
         )}
-        <span className="text-display-lg font-serif font-semibold tracking-tight text-(--text-primary)">
-          {value}
-        </span>
+        <span className="text-4xl sm:text-5xl lg:text-6xl">{value}</span>
         {suffix && (
-          <span className="font-serif text-2xl font-normal text-(--brand-primary) sm:text-3xl">
+          <span className="text-2xl font-bold text-(--brand-primary) sm:text-3xl lg:text-4xl">
             {suffix}
           </span>
         )}
       </div>
-      <div className="text-base font-semibold tracking-tight text-(--text-primary)">{label}</div>
+      <div className="font-display text-base font-bold tracking-tight text-(--text-primary) sm:text-lg">
+        {label}
+      </div>
       {description && (
-        <p className="text-sm leading-relaxed text-(--text-secondary)">{description}</p>
+        <p className="text-body-sm leading-relaxed text-(--text-secondary)">{description}</p>
       )}
       {trend && (
         <div
           className={cn(
-            'mt-0.5 flex items-center gap-1 text-xs font-medium',
+            'mt-0.5 flex items-center gap-1 text-xs font-semibold',
             trend.positive ? 'text-(--state-success)' : 'text-(--state-error)',
           )}
         >

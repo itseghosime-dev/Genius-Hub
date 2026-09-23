@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import type { Radius } from '@/config/design';
 
-export type CardVariant = 'default' | 'editorial' | 'sand' | 'cream' | 'flat' | 'inverse';
+export type CardVariant = 'default' | 'editorial' | 'cloud' | 'feature' | 'flat' | 'inverse';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: CardVariant;
@@ -11,12 +11,12 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const cardVariantClasses: Record<CardVariant, string> = {
-  default:
-    'bg-(--surface-primary) text-(--text-primary) border border-(--border-default) shadow-xs',
+  default: 'bg-white text-(--text-primary) border border-slate-200 shadow-2xs',
   editorial: 'bg-transparent text-(--text-primary) border-0 p-0',
-  sand: 'bg-(--surface-sand) text-(--text-primary) border border-(--border-subtle)',
-  cream: 'bg-(--surface-cream) text-(--text-primary) border border-(--border-subtle)',
-  flat: 'bg-(--surface-muted) text-(--text-primary) border-0',
+  cloud: 'bg-(--surface-cloud) text-(--text-primary) border border-slate-200/80',
+  feature:
+    'bg-white text-(--text-primary) border-t-2 border-t-(--brand-primary) border-x border-b border-slate-200 shadow-xs',
+  flat: 'bg-(--surface-subtle) text-(--text-primary) border-0',
   inverse: 'bg-(--surface-inverse) text-(--text-inverse) border-0',
 };
 
@@ -67,7 +67,10 @@ export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = ({
   ...props
 }) => (
   <h3
-    className={cn('text-heading-md font-semibold tracking-tight text-(--text-primary)', className)}
+    className={cn(
+      'font-display text-lg font-bold tracking-tight text-(--text-primary) sm:text-xl',
+      className,
+    )}
     {...props}
   >
     {children}

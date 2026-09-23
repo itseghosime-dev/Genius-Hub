@@ -1,7 +1,8 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export type BadgeVariant = 'neutral' | 'brand' | 'success' | 'warning' | 'error' | 'info';
+export type BadgeVariant =
+  'neutral' | 'brand' | 'blue' | 'teal' | 'success' | 'warning' | 'error' | 'info';
 export type BadgeSize = 'sm' | 'md';
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -11,8 +12,11 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 const badgeVariantClasses: Record<BadgeVariant, string> = {
-  neutral: 'bg-(--surface-sand) text-(--text-secondary) border border-(--border-default)',
-  brand: 'bg-(--brand-primary-light) text-(--brand-primary-hover) border border-(--border-brand)',
+  neutral: 'bg-slate-100 text-slate-700 border border-slate-200',
+  brand:
+    'bg-(--brand-primary-light) text-(--brand-primary-dark) border border-(--brand-primary-subtle)',
+  blue: 'bg-(--brand-blue-light) text-blue-700 border border-(--brand-blue-border)',
+  teal: 'bg-(--brand-teal-light) text-teal-800 border border-(--brand-teal-border)',
   success:
     'bg-(--state-success-bg) text-(--state-success-foreground) border border-(--state-success-border)',
   warning:
@@ -23,8 +27,10 @@ const badgeVariantClasses: Record<BadgeVariant, string> = {
 };
 
 const dotColors: Record<BadgeVariant, string> = {
-  neutral: 'bg-stone-400',
+  neutral: 'bg-slate-400',
   brand: 'bg-(--brand-primary)',
+  blue: 'bg-(--brand-blue)',
+  teal: 'bg-(--brand-teal)',
   success: 'bg-(--state-success)',
   warning: 'bg-(--state-warning)',
   error: 'bg-(--state-error)',
@@ -47,7 +53,7 @@ export const Badge: React.FC<BadgeProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-(--radius-subtle) leading-normal',
+        'inline-flex items-center rounded-(--radius-subtle) font-sans leading-normal',
         badgeVariantClasses[variant],
         badgeSizeClasses[size],
         className,

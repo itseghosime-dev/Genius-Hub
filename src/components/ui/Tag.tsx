@@ -21,10 +21,10 @@ export const Tag: React.FC<TagProps> = ({
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-(--radius-subtle) border px-2.5 py-1 text-xs font-medium transition-colors',
+        'inline-flex items-center gap-1.5 rounded-(--radius-subtle) border px-2.5 py-1 font-sans text-xs font-medium transition-colors',
         selected
           ? 'border-(--brand-primary) bg-(--brand-primary) text-white'
-          : 'border-(--border-default) bg-(--surface-sand) text-(--text-secondary) hover:border-(--border-strong)',
+          : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100',
         interactive && 'cursor-pointer select-none',
         className,
       )}
