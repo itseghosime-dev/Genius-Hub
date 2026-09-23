@@ -1,78 +1,70 @@
-# Genius Hub — Digital Design System & UI Foundation
+# Genius Hub — Digital Design System & Editorial Foundation
 
 ## 1. Digital Design Principles
 
-1. **Human Before Interface**: Real photography and authentic human stories take precedence over decorative UI flourishes.
-2. **Evidence Over Decoration**: Quantitative milestones, verified statistics, and concrete beneficiary outcomes anchor the visual narrative.
-3. **Global Quality, Nigerian Origin**: World-class engineering, crisp aesthetics, and performance celebrating African leadership and innovation.
-4. **Technology Without Sterility**: Modern design warmed by amber/gold tones, organic textures, and editorial typography.
-5. **Motion With Purpose**: Calm, functional transitions and reveals that reinforce reading continuity and strictly respect `prefers-reduced-motion`.
-6. **Accessibility By Default**: WCAG 2.2 AA contrast ratios, visible 2px focus rings with offsets, minimum 48px touch targets, and full keyboard navigation.
+1. **Human Before Interface**: Real documentary photography and authentic beneficiary narratives anchor every page.
+2. **Evidence Over Decoration**: Verified quantitative milestones and factual outcomes replace arbitrary decorative graphics.
+3. **Global Quality, Nigerian Origin**: World-class engineering, responsive accessibility, and performance celebrating African development leadership.
+4. **Warmth & Dignity**: Earth-toned, warm paper palettes and editorial serif headlines replace sterile, cold technology dashboards.
+5. **Motion With Purpose**: Calm, understated transitions that clarify reading continuity and strictly respect `prefers-reduced-motion`.
+6. **Accessibility By Default**: WCAG 2.2 AA compliance, visible 2px focus outlines, minimum 48px touch targets, and full keyboard operability.
 
 ---
 
 ## 2. Token Architecture & CSS Variables
 
-Tokens are declared in `src/styles/tokens.css` and mapped to Tailwind CSS v4 in `src/styles/globals.css`.
+Declared in `src/styles/tokens.css` and mapped to Tailwind CSS v4 in `src/styles/globals.css`.
 
-### A. Semantic Color Palette
+### A. Surface Architecture
 
-| Token                 | Light Surface | Dark Surface | Semantic Purpose                                      |
-| :-------------------- | :------------ | :----------- | :---------------------------------------------------- |
-| `--brand-primary`     | `#D97706`     | `#D97706`    | Primary action buttons, brand accents, key milestones |
-| `--brand-secondary`   | `#0B1320`     | `#0B1320`    | Institutional headers, dark surface backgrounds       |
-| `--brand-accent`      | `#059669`     | `#059669`    | Agriculture, sustainability, success highlights       |
-| `--brand-tertiary`    | `#0284C7`     | `#0284C7`    | Tech training, innovation, digital skills             |
-| `--surface-canvas`    | `#FFFFFF`     | `#0B1320`    | Main application viewport canvas                      |
-| `--surface-primary`   | `#FFFFFF`     | `#0F172A`    | Card backgrounds, dialog containers                   |
-| `--surface-secondary` | `#F8FAFC`     | `#1E293B`    | Subtle section backgrounds, input fills               |
-| `--text-primary`      | `#0F172A`     | `#F8FAFC`    | Primary headings, body copy                           |
-| `--text-secondary`    | `#475569`     | `#CBD5E1`    | Supporting descriptions, metadata                     |
-| `--text-muted`        | `#64748b`     | `#94A3B8`    | Captions, disabled text, placeholders                 |
+- **`--surface-canvas` (`#FAF8F5`)**: Primary light background for all public layouts.
+- **`--surface-primary` (`#FFFFFF`)**: Crisp document and card surfaces.
+- **`--surface-cream` (`#FDFBF7`)**: Soft warm section canvas.
+- **`--surface-sand` (`#F3EDE2`)**: Editorial callout sections, statistical backgrounds, and pull-quotes.
+- **`--surface-stone` (`#EAE2D5`)**: Subtle neutral tone for input fields and tags.
+- **`--surface-inverse` (`#1C1917`)**: Mineral Charcoal for global footer and high-contrast moments.
+
+### B. Brand & Earth Accent Colors
+
+- **`--brand-primary` (`#D97706`)**: Genius Amber Gold. Primary CTA buttons and key milestones.
+- **`--brand-terracotta` (`#C2410C`)**: Earth Terracotta for artisanal and creative arts contexts.
+- **`--brand-sage` (`#36533E`)**: Muted Forest Sage for agricultural and sustainability initiatives.
+- **`--text-primary` (`#1C1917`)**: Mineral Charcoal text.
+- **`--text-secondary` (`#57534E`)**: Warm Slate text.
+- **`--border-default` (`#E7DFD3`)**: Subtle warm divider border.
 
 ---
 
 ## 3. Typography Hierarchy
 
-Fluid clamp calculations deliver optimal text scaling across viewports:
+- **Editorial Serif (`Lora`)**: Used for Display XL through Heading XL to evoke institutional prestige and editorial warmth.
+- **Humanist Sans (`Plus Jakarta Sans`)**: Used for Heading LG down to Caption for high legibility and clean UI mechanics.
 
-- **`text-display-xl`**: `clamp(2.5rem, 5vw + 1rem, 4.5rem)` (Hero headlines)
-- **`text-display-lg`**: `clamp(2rem, 4vw + 0.75rem, 3.5rem)` (Major section titles)
-- **`text-heading-xl`**: `clamp(1.75rem, 3vw + 0.5rem, 2.5rem)` (Page titles, primary section headers)
-- **`text-heading-lg`**: `clamp(1.375rem, 2vw + 0.5rem, 1.875rem)` (Sub-headers, modal titles)
-- **`text-heading-md`**: `clamp(1.125rem, 1.5vw + 0.5rem, 1.5rem)` (Card titles)
-- **`text-heading-sm`**: `1.125rem` (Sub-item labels)
-- **`text-body-lg`**: `1.125rem` (Lead paragraphs)
-- **`text-body-md`**: `1rem` (Standard body copy)
-- **`text-body-sm`**: `0.875rem` (Descriptions, secondary text)
-- **`text-label`**: `0.8125rem` (Eyebrows, uppercase tags)
-- **`text-caption`**: `0.75rem` (Photo credits, timestamps)
-
----
-
-## 4. Responsive Layout & Content Widths
-
-- **`narrow`**: `48rem` (768px) — Single-column forms, focused settings
-- **`reading`**: `42.5rem` (680px) — Editorial articles, long-form narratives
-- **`default`**: `75rem` (1200px) — Standard page layouts, multi-column grids
-- **`wide`**: `90rem` (1440px) — Hero showcases, media galleries
-- **`full`**: `100%` — Full-bleed photography sections
+| Token             | Family | Clamp / Size                                  | Purpose                       |
+| :---------------- | :----- | :-------------------------------------------- | :---------------------------- |
+| `text-display-xl` | Serif  | `clamp(2.5rem, 5vw + 1rem, 4.25rem)`          | Hero headlines                |
+| `text-display-lg` | Serif  | `clamp(2rem, 3.5vw + 0.75rem, 3.25rem)`       | Major section titles          |
+| `text-heading-xl` | Serif  | `clamp(1.625rem, 2.5vw + 0.5rem, 2.25rem)`    | Page titles, primary headings |
+| `text-heading-lg` | Sans   | `clamp(1.25rem, 1.75vw + 0.5rem, 1.75rem)`    | Sub-headers, dialogue headers |
+| `text-heading-md` | Sans   | `clamp(1.125rem, 1.25vw + 0.35rem, 1.375rem)` | Card titles                   |
+| `text-body-lg`    | Sans   | `1.125rem` (line-height: 1.65)                | Lead narrative paragraphs     |
+| `text-body-md`    | Sans   | `1rem` (line-height: 1.6)                     | Standard body copy            |
+| `text-label`      | Sans   | `0.75rem` (letter-spacing: 0.06em)            | Uppercase category eyebrows   |
+| `text-caption`    | Sans   | `0.75rem`                                     | Photo credits, timestamps     |
 
 ---
 
-## 5. UI Component Primitives
+## 4. UI Components & Editorial Primitives
 
-- **Buttons**: `Button`, `IconButton`, `LinkButton` (Variants: `primary`, `secondary`, `outline`, `ghost`, `inverse`, `danger`).
-- **Form Controls**: `FormField`, `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`.
-- **Containers**: `Container`, `Section`, `Stack`, `Cluster`, `Grid`.
-- **Cards & Media**: `Card`, `MediaCard`, `MediaFrame`, `ResponsiveImage`, `ImageWithCaption`, `PhotoGrid`.
-- **Feedback & Information**: `Badge`, `Tag`, `Stat`, `Avatar`, `Divider`, `Breadcrumbs`, `BrandLoader`.
+- **Buttons**: `Button` (Primary Amber, Secondary Sand, Outline, Ghost, Danger), `IconButton`, `LinkButton`.
+- **Form Foundation**: `FormField`, `Input`, `Textarea`, `Select`, `Checkbox`, `Radio`.
+- **Editorial Cards**: `Card` (`editorial`, `sand`, `cream`, `default`), `MediaCard` (with `editorial` open layout support).
+- **Photography Layouts**: `ResponsiveImage`, `MediaFrame` (`1:1`, `4:5`, `3:2`, `16:9`, `21:9`), `ImageWithCaption`, `PhotoGrid`.
+- **Impact & Navigation**: `Stat` (editorial milestone layout), `Avatar`, `Badge`, `Tag`, `Divider`, `Breadcrumbs`, `BrandLoader`.
 
 ---
 
-## 6. Internal Showcase Route
+## 5. Development Showcase Route
 
-For developer verification, visit:
-`http://localhost:3000/dev/design-system`
-
-This route is excluded from search indexing via `robots: { index: false, follow: false }`.
+Visit:
+`http://localhost:3000/dev/design-system` (Protected with `robots: { index: false, follow: false }`).

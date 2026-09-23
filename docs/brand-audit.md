@@ -1,47 +1,46 @@
 # Genius Hub — Brand Audit & Digital Identity Translation
 
-## 1. Brand Overview & Context
+## 1. Brand Essence & Global Development Context
 
 - **Master Brand**: Genius Hub
 - **Legal Entity**: Genius Hub Global Initiative / Genius Hub Limited
-- **Founder**: Isimeme Whyte (Social impact entrepreneur, MSME development and migration advocacy expert)
-- **Geographic Origin**: Benin City, Edo State, Nigeria (operating across Nigeria and internationally)
-- **Core Mission**: Empowering youth, women, returned migrants, and MSMEs through vocational education, technology incubation, creative arts, and sustainable enterprise development.
+- **Founder**: Isimeme Whyte (Social impact entrepreneur, MSME development strategist, and migration advocacy leader)
+- **Geographic Origin**: Benin City, Edo State, Nigeria (empowering communities nationwide and internationally)
+- **Organizational Character**: Human-first social enterprise, vocational excellence, livelihood creation, community dignity, and grassroots empowerment.
+- **Experience Direction**: Human/social impact first, technology/future-of-work second.
 
 ---
 
-## 2. Existing Brand Assets & Visual Language
+## 2. Brand Audit & Visual Redirection Rationale
 
-### A. Core Brand Colors
+### A. Post-Review Directional Shift
 
-- **Primary Amber / Gold**: `#D97706` (approx. PANTONE 130 C / Warm Nigerian Sun)
-  - Represents youth energy, optimism, opportunity, empowerment, and African warmth.
-- **Deep Obsidian Navy**: `#0B1320` / `#0F172A`
-  - Represents institutional governance, global credibility, technical depth, and security.
-- **Supporting Accents**:
-  - **Impact Emerald** (`#059669`): Agriculture, sustainability, rural enterprise development.
-  - **Technology Sky** (`#0284C7`): Digital innovation, future of work, software and hardware training.
+An early digital prototype leaned too heavily toward a cold, dark, tech-startup / SaaS dashboard aesthetic. Following architectural and visual review, the digital brand system was fundamentally recalibrated to embody:
 
-### B. Recurring Visual Motifs
-
-1. **Documentary Photography**: Real beneficiaries, hands-on workshop ateliers, solar installation sites, classroom coding sessions, fashion ateliers, and community stakeholder convenings.
-2. **Impact Metrics**: Numbers and statistics prominently featured (e.g. _12,000+ MSMEs empowered_, _85% employment rate_, _₦250M+ seed funding_).
-3. **Collaboration & Community**: Circular network diagrams, partnership badges, and multi-sectoral linkages.
+- **Warmth & Humanity**: Warm off-white paper canvas (`#FAF8F5`), soft cream (`#FDFBF7`), and warm sand (`#F3EDE2`) replacing cold dark navy as primary surfaces.
+- **Unified Accent**: **Genius Amber Gold** (`#D97706`) as the clear primary brand accent, harmonized with organic earth tones (Earth Terracotta `#C2410C`, Muted Forest Sage `#36533E`, Mineral Charcoal `#1C1917`).
+- **Editorial Typography**: Dignified editorial serif (`Lora`) paired with a clean, accessible humanist sans-serif (`Plus Jakarta Sans`).
+- **Documentary Photography First**: Real beneficiaries, artisans, trainees, and field initiatives carry the primary visual life against quiet, respectful surfaces.
 
 ---
 
-## 3. Weaknesses of Legacy Web Implementations
+## 3. Core Palette Architecture
 
-1. **Ad-Hoc Styling & Color Inconsistency**: Legacy web pages used unstandardized hex colors without systematic tokens or contrast validation.
-2. **Typography Hierarchy Gaps**: Lack of fluid typography clamp curves resulted in awkward scaling across mobile vs. wide desktop viewports.
-3. **Inconsistent Component Encapsulation**: Cards, buttons, and form elements were styled ad-hoc with varying border radii and shadows.
-4. **Photography Framing**: Images were often cropped without standard aspect ratio preservation, occasionally breaking compositional context.
+| Color Identifier      | Value     | Character & Application                                                       |
+| :-------------------- | :-------- | :---------------------------------------------------------------------------- |
+| **Genius Amber Gold** | `#D97706` | Primary brand accent; sun warmth, optimism, empowerment, key CTAs             |
+| **Earth Terracotta**  | `#C2410C` | Supporting warm accent; traditional clay, artisan craft, garment ateliers     |
+| **Muted Forest Sage** | `#36533E` | Supporting natural accent; sustainable agriculture, growth, solar initiatives |
+| **Mineral Charcoal**  | `#1C1917` | Warm editorial ink; body text and primary headlines on light surfaces         |
+| **Warm Canvas**       | `#FAF8F5` | Primary viewport background; editorial paper texture                          |
+| **Soft Cream**        | `#FDFBF7` | Content and card surfaces                                                     |
+| **Warm Sand**         | `#F3EDE2` | Pullout callouts, statistics backgrounds, and story highlights                |
+| **Warm Stone Border** | `#E7DFD3` | Subtle, organic dividing lines                                                |
 
 ---
 
-## 4. Digital Translation Strategy (Phase 04)
+## 4. Digital Experience Guidelines
 
-- **Preserve Core Identity**: Retain official logo and primary amber/gold + navy brand essence without arbitrary redesign.
-- **Semantic CSS Token Architecture**: Implement centralized tokens across surfaces, typography, borders, and interaction states.
-- **Surface-Based Theming**: Support light, dark, and brand surface contexts (`[data-surface="light"]`, `[data-surface="dark"]`, `[data-surface="brand"]`).
-- **Standardized Photography Primitives**: Controlled aspect ratios (`1:1`, `4:5`, `3:2`, `16:9`, `21:9`) celebrating real human dignity.
+1. **Predominantly Light & Open**: Over 90% of public page surfaces are light, warm, and breathable. Dark surfaces (`#1C1917`) are reserved strictly for the global footer, isolated media overlays, or rare high-contrast storytelling moments.
+2. **Restrained Chrome**: Avoid heavy SaaS border boxes, dense tables, and pill-badge clutter. Favor open editorial spacing and typographic hierarchy.
+3. **Documentary Dignity**: Real people, authentic workshops, and unposed community moments take precedence over decorative UI flourishes.
