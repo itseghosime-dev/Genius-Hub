@@ -1,0 +1,172 @@
+/**
+ * Genius Hub Digital Design Tokens
+ * Light-First, Energetic, Human & Technology Palette.
+ * Primary: Genius Hub Orange.
+ * Foundation: Pure White & Soft Cloud.
+ * Innovation: Digital Blue & Electric Teal.
+ * Contextual: Growth Green & Optimistic Yellow.
+ */
+
+:root {
+  /* Brand Primary (Genius Hub Signature Orange) */
+  --brand-primary: #ff6b00; /* Vibrant Genius Orange / Sun */
+  --brand-primary-hover: #e05d00;
+  --brand-primary-active: #c2410c;
+  --brand-primary-dark: #c2410c; /* High-contrast text on white (WCAG AA 4.5:1+) */
+  --brand-primary-light: #fff7ed;
+  --brand-primary-subtle: #ffedd5;
+  --brand-primary-foreground: #ffffff;
+
+  /* Supporting Innovation Accents (Technology / Future of Work) */
+  --brand-blue: #2563eb; /* Digital Blue */
+  --brand-blue-hover: #1d4ed8;
+  --brand-blue-light: #eff6ff;
+  --brand-blue-border: #bfdbfe;
+
+  --brand-teal: #0d9488; /* Electric Teal */
+  --brand-teal-hover: #0f766e;
+  --brand-teal-light: #f0fdfa;
+  --brand-teal-border: #99f6e4;
+
+  /* Contextual Accents (Growth, Sustainability & Optimism) */
+  --brand-green: #16a34a; /* Growth Green */
+  --brand-green-hover: #15803d;
+  --brand-green-light: #f0fdf4;
+  --brand-green-border: #bbf7d0;
+
+  --brand-yellow: #f59e0b; /* Optimistic Yellow */
+  --brand-yellow-hover: #d97706;
+  --brand-yellow-light: #fefce8;
+  --brand-yellow-border: #fef08a;
+
+  /* Surfaces (Light-First Foundation) */
+  --surface-canvas: #ffffff; /* Pure Fresh White Base */
+  --surface-primary: #ffffff; /* Primary Content Surface */
+  --surface-cloud: #f8fafc; /* Soft Cloud Neutral */
+  --surface-subtle: #f1f5f9; /* Light Slate / Subtle Contrast */
+  --surface-muted: #f1f5f9;
+  --surface-elevated: #ffffff;
+  --surface-inverse: #0f172a; /* Deep Ink Charcoal (Footers & Rare High-Contrast Moments) */
+
+  /* Text & Typography (Deep Ink & Slate) */
+  --text-primary: #0f172a; /* Deep Ink Charcoal */
+  --text-secondary: #475569; /* Slate Body */
+  --text-muted: #64748b; /* Cool Gray Captions / Metadata */
+  --text-inverse: #ffffff; /* Pure White on Dark */
+  --text-inverse-muted: #94a3b8;
+  --text-brand: #ff6b00;
+
+  /* Borders & Dividers */
+  --border-subtle: #f1f5f9;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --border-brand: #fdba74;
+  --border-inverse: #1e293b;
+
+  /* Status / Feedback States */
+  --state-success: #16a34a;
+  --state-success-bg: #f0fdf4;
+  --state-success-border: #bbf7d0;
+  --state-success-foreground: #14532d;
+
+  --state-warning: #d97706;
+  --state-warning-bg: #fffbeb;
+  --state-warning-border: #fde68a;
+  --state-warning-foreground: #78350f;
+
+  --state-error: #dc2626;
+  --state-error-bg: #fef2f2;
+  --state-error-border: #fecaca;
+  --state-error-foreground: #991b1b;
+
+  --state-info: #2563eb;
+  --state-info-bg: #eff6ff;
+  --state-info-border: #bfdbfe;
+  --state-info-foreground: #1e40af;
+
+  /* Interactive States & Focus */
+  --focus-ring: #ff6b00;
+  --focus-ring-offset: #ffffff;
+  --focus-ring-width: 2px;
+  --interactive-hover-overlay: rgba(15, 23, 42, 0.03);
+  --interactive-active-overlay: rgba(15, 23, 42, 0.06);
+
+  /* Layout & Content Widths */
+  --content-narrow: 48rem; /* 768px */
+  --content-reading: 45rem; /* 720px - Comfortable Reading */
+  --content-default: 75rem; /* 1200px */
+  --content-wide: 90rem; /* 1440px */
+  --content-full: 100%;
+
+  /* Radii (Modern, Crisp & Friendly) */
+  --radius-none: 0px;
+  --radius-subtle: 0.25rem; /* 4px */
+  --radius-standard: 0.5rem; /* 8px */
+  --radius-large: 0.875rem; /* 14px */
+  --radius-pill: 9999px;
+
+  /* Elevations */
+  --elevation-low: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  --elevation-mid: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --elevation-high: 0 12px 28px -4px rgba(15, 23, 42, 0.12);
+
+  /* Motion & Easings */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-energetic: 500ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-enter: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-energetic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Dark Contrast Surface Theme (Reserved for Footer & Rare High-Contrast Media Moments) */
+[data-surface='dark'],
+.dark {
+  --surface-canvas: #0f172a;
+  --surface-primary: #1e293b;
+  --surface-cloud: #1e293b;
+  --surface-subtle: #334155;
+  --surface-muted: #1e293b;
+  --surface-elevated: #1e293b;
+  --surface-inverse: #ffffff;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+  --text-inverse-muted: #64748b;
+  --text-brand: #ff8a33;
+
+  --border-subtle: #1e293b;
+  --border-default: #334155;
+  --border-strong: #475569;
+  --border-brand: #ff6b00;
+  --border-inverse: #e2e8f0;
+
+  --focus-ring-offset: #0f172a;
+}
+
+/* Soft Cloud Alternating Surface */
+[data-surface='cloud'] {
+  --surface-canvas: #f8fafc;
+  --surface-primary: #ffffff;
+  --surface-secondary: #f1f5f9;
+  --surface-muted: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-default: #e2e8f0;
+}
+
+/* Light Slate Subtle Surface */
+[data-surface='subtle'] {
+  --surface-canvas: #f1f5f9;
+  --surface-primary: #ffffff;
+  --surface-secondary: #e2e8f0;
+  --surface-muted: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-default: #cbd5e1;
+}

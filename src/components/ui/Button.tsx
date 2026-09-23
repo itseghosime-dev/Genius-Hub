@@ -1,0 +1,89 @@
+import React from 'react';
+import { cn } from '@/lib/utils';
+import { Loader2 } from 'lucide-react';
+
+export type ButtonVariant =
+  'primary' | 'secondary' | 'outline' | 'ghost' | 'inverse' | 'danger' | 'innovation';
+export type ButtonSize = 'sm' | 'md' | 'lg';
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  isLoading?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+}
+
+export const buttonVariantClasses: Record<ButtonVariant, string> = {
+  primary:
+    'bg-(--brand-primary) text-white hover:bg-(--brand-primary-hover) active:bg-(--brand-primary-active) shadow-xs border border-transparent font-medium',
+  secondary:
+    'bg-white text-(--text-primary) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) border border-(--border-default) shadow-2xs font-medium',
+  outline:
+    'bg-transparent text-(--text-primary) border border-(--border-strong) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) font-medium',
+  ghost:
+    'bg-transparent text-(--text-primary) hover:bg-(--surface-cloud) active:bg-(--surface-subtle) border border-transparent font-medium',
+  inverse:
+    'bg-white text-(--text-primary) hover:bg-slate-100 active:bg-slate-200 border border-transparent shadow-xs font-medium',
+  danger:
+    'bg-(--state-error) text-white hover:bg-red-700 active:bg-red-800 border border-transparent shadow-xs font-medium',
+  innovation:
+    'bg-(--brand-blue) text-white hover:bg-(--brand-blue-hover) active:bg-blue-800 border border-transparent shadow-xs font-medium',
+};
+
+export const buttonSizeClasses: Record<ButtonSize, string> = {
+  sm: 'h-8.5 px-3.5 text-xs gap-1.5 rounded-(--radius-standard)',
+  md: 'h-10.5 px-5 text-sm gap-2 rounded-(--radius-standard)',
+  lg: 'h-12 px-6 text-base gap-2.5 rounded-(--radius-standard)',
+};
+
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      children,
+      className,
+      variant = 'primary',
+      size = 'md',
+      isLoading = false,
+      disabled = false,
+      leftIcon,
+      rightIcon,
+      type = 'button',
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        type={type}
+        disabled={disabled || isLoading}
+        aria-busy={isLoading}
+        className={cn(
+          'inline-flex cursor-pointer items-center justify-center font-sans tracking-tight transition-all duration-150 select-none',
+          'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--focus-ring)',
+          'disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+          buttonVariantClasses[variant],
+          buttonSizeClasses[size],
+          className,
+        )}
+        {...props}
+      >
+        {isLoading && <Loader2 className="h-4 w-4 shrink-0 animate-spin" aria-hidden="true" />}
+        {!isLoading && leftIcon && (
+          <span className="shrink-0" aria-hidden="true">
+            {leftIcon}
+          </span>
+        )}
+        {children}
+        {!isLoading && rightIcon && (
+          <span className="shrink-0" aria-hidden="true">
+            {rightIcon}
+          </span>
+        )}
+      </button>
+    );
+  },
+);
+
+Button.displayName = 'Button';

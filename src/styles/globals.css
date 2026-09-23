@@ -1,30 +1,210 @@
 @import 'tailwindcss';
+@import './tokens.css';
+
+@theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-active: var(--brand-primary-active);
+  --color-brand-primary-dark: var(--brand-primary-dark);
+  --color-brand-primary-light: var(--brand-primary-light);
+  --color-brand-primary-subtle: var(--brand-primary-subtle);
+  --color-brand-primary-foreground: var(--brand-primary-foreground);
+
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-hover: var(--brand-blue-hover);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-blue-border: var(--brand-blue-border);
+
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-hover: var(--brand-teal-hover);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-teal-border: var(--brand-teal-border);
+
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-hover: var(--brand-green-hover);
+  --color-brand-green-light: var(--brand-green-light);
+  --color-brand-green-border: var(--brand-green-border);
+
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-hover: var(--brand-yellow-hover);
+  --color-brand-yellow-light: var(--brand-yellow-light);
+  --color-brand-yellow-border: var(--brand-yellow-border);
+
+  --color-surface-canvas: var(--surface-canvas);
+  --color-surface-primary: var(--surface-primary);
+  --color-surface-cloud: var(--surface-cloud);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-inverse: var(--surface-inverse);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-inverse-muted: var(--text-inverse-muted);
+  --color-text-brand: var(--text-brand);
+
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-default);
+  --color-border-strong: var(--border-strong);
+  --color-border-brand: var(--border-brand);
+  --color-border-inverse: var(--border-inverse);
+
+  --color-state-success: var(--state-success);
+  --color-state-success-bg: var(--state-success-bg);
+  --color-state-success-border: var(--state-success-border);
+  --color-state-success-foreground: var(--state-success-foreground);
+
+  --color-state-warning: var(--state-warning);
+  --color-state-warning-bg: var(--state-warning-bg);
+  --color-state-warning-border: var(--state-warning-border);
+  --color-state-warning-foreground: var(--state-warning-foreground);
+
+  --color-state-error: var(--state-error);
+  --color-state-error-bg: var(--state-error-bg);
+  --color-state-error-border: var(--state-error-border);
+  --color-state-error-foreground: var(--state-error-foreground);
+
+  --color-state-info: var(--state-info);
+  --color-state-info-bg: var(--state-info-bg);
+  --color-state-info-border: var(--state-info-border);
+  --color-state-info-foreground: var(--state-info-foreground);
+
+  --radius-subtle: var(--radius-subtle);
+  --radius-standard: var(--radius-standard);
+  --radius-large: var(--radius-large);
+  --radius-pill: var(--radius-pill);
+
+  --shadow-low: var(--elevation-low);
+  --shadow-mid: var(--elevation-mid);
+  --shadow-high: var(--elevation-high);
+
+  --font-display: var(--font-display, 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif);
+  --font-sans: var(--font-sans, 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif);
+}
 
 @layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #09090b;
-    --muted: #71717a;
-    --border: #e4e4e7;
+  * {
+    border-color: var(--border-default);
   }
 
   body {
-    color: var(--foreground);
-    background: var(--background);
-    font-family:
-      system-ui,
-      -apple-system,
-      BlinkMacSystemFont,
-      'Segoe UI',
-      Roboto,
-      Oxygen,
-      Ubuntu,
-      Cantarell,
-      'Open Sans',
-      'Helvetica Neue',
-      sans-serif;
+    color: var(--text-primary);
+    background-color: var(--surface-canvas);
+    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
+    margin: 0;
   }
+
+  /* Accessible Visible Focus Rings */
+  :focus-visible {
+    outline: var(--focus-ring-width) solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Respect reduced motion preference globally */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Contemporary Display & Body Fluid Typography Utilities */
+.text-display-2xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5.5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.text-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw + 0.75rem, 3.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+.text-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 3vw + 0.5rem, 2.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.text-heading-xl {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.25vw + 0.35rem, 2rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+.text-heading-lg {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.text-heading-md {
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 1vw + 0.25rem, 1.25rem);
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+.text-heading-sm {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-family: var(--font-sans);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.text-body-md {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text-body-sm {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.text-label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.text-caption {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--text-muted);
 }

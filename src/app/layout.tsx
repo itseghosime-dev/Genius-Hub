@@ -1,6 +1,19 @@
 import type { Metadata, Viewport } from 'next';
+import { Outfit, Plus_Jakarta_Sans } from 'next/font/google';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
+
+const outfit = Outfit({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-display',
+  display: 'swap',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-sans',
+  display: 'swap',
+});
 
 export const viewport: Viewport = {
   themeColor: '#ffffff',
@@ -40,8 +53,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col">{children}</body>
+    <html lang="en" className={`${outfit.variable} ${plusJakarta.variable}`}>
+      <body className="flex min-h-screen flex-col font-sans antialiased selection:bg-orange-100 selection:text-orange-950">
+        {children}
+      </body>
     </html>
   );
 }
