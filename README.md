@@ -10,6 +10,7 @@
 Genius Hub is a global development organization empowering individuals, enterprises, and institutions through human capital development, vocational training programmes, technology-driven learning, and entrepreneurship incubation.
 
 ### Brand & Architectural Context
+
 - **Master Brand**: Genius Hub
 - **Positioning**: A global development organization originating from Nigeria.
 - **Experience Direction**: Human/social impact + technology/future of work.
@@ -26,6 +27,7 @@ Genius Hub is a global development organization empowering individuals, enterpri
 This repository currently contains the **Phase 01 engineering foundation**. Product features (CMS integration, authentication, payments, databases, and e-commerce) are intentionally deferred to dedicated subsequent phases.
 
 ### Core Technology Stack
+
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19, Turbopack)
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/) (Strict mode, `noUncheckedIndexedAccess`, zero `any`)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
@@ -46,6 +48,7 @@ This repository currently contains the **Phase 01 engineering foundation**. Prod
 ## 4. Getting Started
 
 ### Installation
+
 Clone the repository and install dependencies using the frozen lockfile:
 
 ```bash
@@ -55,6 +58,7 @@ bun install --frozen-lockfile
 ```
 
 ### Environment Configuration
+
 Copy the template environment file:
 
 ```bash
@@ -62,6 +66,7 @@ cp .env.example .env.local
 ```
 
 ### Running Locally
+
 Start the Next.js development server:
 
 ```bash
@@ -74,18 +79,18 @@ The application will be available at [http://localhost:3000](http://localhost:30
 
 ## 5. Available Scripts
 
-| Command | Description |
-| :--- | :--- |
-| `bun run dev` | Starts the Next.js development server with Turbopack |
-| `bun run build` | Compiles the production-ready optimized build |
-| `bun run start` | Runs the compiled production server |
-| `bun run lint` | Runs ESLint across all TypeScript/JavaScript files |
-| `bun run typecheck` | Runs the TypeScript compiler (`tsc --noEmit`) to verify type safety |
-| `bun run test` | Runs the Vitest unit/integration test suite |
-| `bun run test:watch` | Runs Vitest in interactive watch mode |
-| `bun run test:e2e` | Runs Playwright end-to-end browser tests |
-| `bun run format` | Automatically formats the codebase with Prettier |
-| `bun run format:check` | Verifies code formatting compliance without modifying files |
+| Command                | Description                                                         |
+| :--------------------- | :------------------------------------------------------------------ |
+| `bun run dev`          | Starts the Next.js development server with Turbopack                |
+| `bun run build`        | Compiles the production-ready optimized build                       |
+| `bun run start`        | Runs the compiled production server                                 |
+| `bun run lint`         | Runs ESLint across all TypeScript/JavaScript files                  |
+| `bun run typecheck`    | Runs the TypeScript compiler (`tsc --noEmit`) to verify type safety |
+| `bun run test`         | Runs the Vitest unit/integration test suite                         |
+| `bun run test:watch`   | Runs Vitest in interactive watch mode                               |
+| `bun run test:e2e`     | Runs Playwright end-to-end browser tests                            |
+| `bun run format`       | Automatically formats the codebase with Prettier                    |
+| `bun run format:check` | Verifies code formatting compliance without modifying files         |
 
 ---
 
@@ -128,4 +133,3 @@ Comprehensive engineering documentation is available in the `docs/` directory:
 ## 8. License
 
 Copyright © Genius Hub Global. All rights reserved.
-

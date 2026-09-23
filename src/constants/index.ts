@@ -24,4 +24,3 @@ export const LOCALES = {
   DEFAULT: 'en',
   SUPPORTED: ['en', 'fr'] as const,
 } as const;
-

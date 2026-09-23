@@ -72,6 +72,7 @@ src/features/<domain-name>/
 ```
 
 ### Domain Isolation Rules
+
 1. Cross-domain dependencies MUST only import from the target feature's `index.ts` public interface.
 2. Domain internal implementations (internal helper components or private utils) must not leak across features.
 3. Server-only logic (database queries, secrets, API keys) must never be imported into client components.
@@ -80,20 +81,20 @@ src/features/<domain-name>/
 
 ## 4. Technology Stack & Planned Evolution
 
-| Component | Phase 01 Foundation | Planned Evolution / Adoption Phase |
-| :--- | :--- | :--- |
-| **Framework** | Next.js 16 (App Router) | App Router with Turbopack & React 19 |
-| **Language** | TypeScript 5 (Strict Mode) | Full end-to-end type safety |
-| **Styling** | Tailwind CSS v4 | Custom design token system + Tailwind |
-| **Package Manager** | Bun (committed `bun.lock`) | Bun for local execution and CI |
-| **CMS** | Deferred | Payload CMS (Headless integration) |
-| **Database** | Deferred | PostgreSQL + Prisma / Drizzle ORM |
-| **Caching / Queues** | Deferred | Redis (Upstash / Valkey) + BullMQ |
-| **Object Storage** | Deferred | AWS S3 / Cloudflare R2 + CDN |
-| **Email Gateway** | Deferred | Amazon SES + React Email templates |
-| **Payments** | Deferred | Paystack / Flutterwave / Stripe webhook handlers |
-| **Motion** | Baseline accessibility hook | GSAP + ScrollTrigger with reduced-motion support |
-| **CI / CD** | GitHub Actions (Validation) | GitHub Actions automated pipelines |
+| Component            | Phase 01 Foundation         | Planned Evolution / Adoption Phase               |
+| :------------------- | :-------------------------- | :----------------------------------------------- |
+| **Framework**        | Next.js 16 (App Router)     | App Router with Turbopack & React 19             |
+| **Language**         | TypeScript 5 (Strict Mode)  | Full end-to-end type safety                      |
+| **Styling**          | Tailwind CSS v4             | Custom design token system + Tailwind            |
+| **Package Manager**  | Bun (committed `bun.lock`)  | Bun for local execution and CI                   |
+| **CMS**              | Deferred                    | Payload CMS (Headless integration)               |
+| **Database**         | Deferred                    | PostgreSQL + Prisma / Drizzle ORM                |
+| **Caching / Queues** | Deferred                    | Redis (Upstash / Valkey) + BullMQ                |
+| **Object Storage**   | Deferred                    | AWS S3 / Cloudflare R2 + CDN                     |
+| **Email Gateway**    | Deferred                    | Amazon SES + React Email templates               |
+| **Payments**         | Deferred                    | Paystack / Flutterwave / Stripe webhook handlers |
+| **Motion**           | Baseline accessibility hook | GSAP + ScrollTrigger with reduced-motion support |
+| **CI / CD**          | GitHub Actions (Validation) | GitHub Actions automated pipelines               |
 
 ---
 
@@ -103,4 +104,3 @@ src/features/<domain-name>/
 2. **Server-First Execution (RSC)**: Defaults to React Server Components to keep client JavaScript bundles minimal, improve initial page loads (LCP), and enhance SEO.
 3. **Strict Validation at Boundaries**: All environment variables and external payloads (forms, webhooks, API requests) are strictly validated with Zod schemas.
 4. **Resilient Error Boundaries**: Multi-tier error handling with `error.tsx`, `global-error.tsx`, and `not-found.tsx` preventing full-page application crashes.
-

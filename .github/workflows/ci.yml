@@ -43,4 +43,3 @@ jobs:
 
       - name: Run production build
         run: bun run build
-

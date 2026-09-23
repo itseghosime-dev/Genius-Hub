@@ -6,11 +6,8 @@ describe('HomePage Smoke Test', () => {
   it('renders the core platform heading and foundation identity', () => {
     render(<HomePage />);
 
-    expect(
-      screen.getByRole('heading', { level: 1, name: /genius hub/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: /genius hub/i })).toBeInTheDocument();
     expect(screen.getByText(/digital platform/i)).toBeInTheDocument();
     expect(screen.getByText(/engineering foundation/i)).toBeInTheDocument();
   });
 });
-

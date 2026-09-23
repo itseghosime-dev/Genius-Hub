@@ -25,4 +25,3 @@ export function useReducedMotion(): boolean {
 
   return prefersReducedMotion;
 }
-
