@@ -38,29 +38,30 @@ import {
   Globe,
   Users,
   Quote,
+  Zap,
 } from 'lucide-react';
 
 export default function DesignSystemShowcasePage() {
   return (
-    <main className="min-h-screen bg-(--surface-canvas) pb-28 text-(--text-primary)">
-      {/* Header Banner - Warm Sand Editorial Surface */}
-      <Section surface="sand" spacing="lg" className="border-b border-(--border-default)">
+    <main className="min-h-screen bg-white pb-28 text-(--text-primary)">
+      {/* Header Banner - Bright, Energetic, Light-First */}
+      <Section surface="cloud" spacing="lg" className="border-b border-slate-200">
         <Container width="default">
           <Stack gap="md">
             <Cluster gap="xs">
               <Badge variant="brand" dot>
-                Genius Hub Digital System
+                Genius Hub Digital Platform
               </Badge>
-              <Badge variant="neutral">Internal Editorial Showcase</Badge>
-              <Badge variant="warning">NoIndex / Internal</Badge>
+              <Badge variant="blue">Human Impact + Future of Work</Badge>
+              <Badge variant="neutral">Internal Showcase (NoIndex)</Badge>
             </Cluster>
-            <h1 className="text-display-xl font-normal tracking-tight text-(--text-primary)">
-              Human-Centered Design System & Editorial Primitives
+            <h1 className="text-display-xl font-bold tracking-tight text-slate-900">
+              Energetic, Human-Centered & Tech-Forward Design System
             </h1>
-            <p className="text-body-lg max-w-3xl leading-relaxed text-(--text-secondary)">
-              Visual language, warm token architecture, documentary photography foundations, and
-              accessible components representing Genius Hub as a global development organization
-              originating from Nigeria.
+            <p className="text-body-lg max-w-3xl leading-relaxed text-slate-600">
+              The digital brand system for Genius Hub — a global development organization
+              originating from Nigeria. Built around real human photography, vibrant Genius Orange,
+              clean cloud surfaces, and digital innovation accents.
             </p>
           </Stack>
         </Container>
@@ -68,84 +69,92 @@ export default function DesignSystemShowcasePage() {
 
       <Container width="default" className="pt-16">
         <Stack gap="2xl">
-          {/* Section 1: Color Palette & Warm Earth Tones */}
+          {/* Section 1: Color Palette & Light-First Architecture */}
           <section id="colors" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
               <span className="text-label text-(--brand-primary)">01. Color Architecture</span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Warm Earth & Social Impact Palette
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Light-First Palette & Color Hierarchy
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                A unified, warm color foundation anchored by Genius Amber, natural clay, muted
-                forest, and warm paper canvas tones.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                A disciplined, vibrant hierarchy: Genius Orange is primary; Fresh White and Soft
+                Cloud form the light foundation; Digital Blue and Electric Teal represent technology
+                and innovation; Growth Green and Optimistic Yellow provide contextual highlights.
               </p>
             </div>
 
+            {/* Primary & Core Swatches */}
             <Grid cols={1} colsSm={2} colsLg={4} gap="md">
-              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-primary) p-6 text-white shadow-xs">
-                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-80">
-                  --brand-primary
+              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-primary) p-6 text-white shadow-sm">
+                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-85">
+                  --brand-primary (Primary)
                 </span>
-                <span className="font-serif text-lg font-semibold">Genius Amber Gold</span>
-                <span className="text-xs opacity-90">#D97706 / Primary Accent & Warm Sun</span>
+                <span className="font-display text-xl font-bold">Genius Hub Orange</span>
+                <span className="text-xs opacity-90">#FF6B00 / Primary Action & Sun Mark</span>
               </div>
 
-              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-terracotta) p-6 text-white shadow-xs">
-                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-80">
-                  --brand-terracotta
+              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-blue) p-6 text-white shadow-sm">
+                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-85">
+                  --brand-blue (Innovation)
                 </span>
-                <span className="font-serif text-lg font-semibold">Earth Terracotta</span>
-                <span className="text-xs opacity-90">#C2410C / Clay & Traditional Artisanship</span>
+                <span className="font-display text-xl font-bold">Digital Blue</span>
+                <span className="text-xs opacity-90">#2563EB / Future of Work & Tech</span>
               </div>
 
-              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-sage) p-6 text-white shadow-xs">
-                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-80">
-                  --brand-sage
+              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-teal) p-6 text-white shadow-sm">
+                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-85">
+                  --brand-teal (Innovation)
                 </span>
-                <span className="font-serif text-lg font-semibold">Muted Forest Sage</span>
-                <span className="text-xs opacity-90">
-                  #36533E / Sustainable Growth & Agriculture
-                </span>
+                <span className="font-display text-xl font-bold">Electric Teal</span>
+                <span className="text-xs opacity-90">#0D9488 / Digital Skills & Connective</span>
               </div>
 
-              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--text-primary) p-6 text-(--text-inverse) shadow-xs">
-                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-80">
-                  --text-primary
+              <div className="flex flex-col gap-2 rounded-(--radius-standard) bg-(--brand-green) p-6 text-white shadow-sm">
+                <span className="font-mono text-[0.6875rem] tracking-wider uppercase opacity-85">
+                  --brand-green (Contextual)
                 </span>
-                <span className="font-serif text-lg font-semibold">Mineral Charcoal</span>
-                <span className="text-xs opacity-90">#1C1917 / Warm Editorial Ink</span>
+                <span className="font-display text-xl font-bold">Growth Green</span>
+                <span className="text-xs opacity-90">#16A34A / Sustainability & Livelihoods</span>
               </div>
             </Grid>
 
-            {/* Warm Surface Variations */}
+            {/* Surface Foundations */}
             <div className="mt-4 flex flex-col gap-3">
-              <h3 className="text-heading-sm font-semibold text-(--text-primary)">
-                Warm Natural Surfaces
+              <h3 className="font-display text-base font-bold text-slate-900">
+                Light-First Foundation Surfaces
               </h3>
               <Grid cols={1} colsMd={3} gap="md">
-                <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-primary) p-6">
-                  <span className="text-label mb-2 block">Surface: Pure Paper</span>
-                  <h4 className="mb-1 font-serif text-base font-semibold">Crisp Document Area</h4>
-                  <p className="text-body-sm text-(--text-secondary)">
-                    Cards, form fields, and elevated content blocks.
-                  </p>
-                </div>
-
-                <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-sand) p-6">
-                  <span className="text-label mb-2 block">Surface: Warm Sand</span>
-                  <h4 className="mb-1 font-serif text-base font-semibold">
-                    Editorial Pullout Canvas
+                <div className="rounded-(--radius-standard) border border-slate-200 bg-white p-6 shadow-2xs">
+                  <span className="text-label mb-2 block text-orange-600">
+                    Surface: Fresh White
+                  </span>
+                  <h4 className="font-display mb-1 text-base font-bold text-slate-900">
+                    Crisp Canvas & Cards
                   </h4>
-                  <p className="text-body-sm text-(--text-secondary)">
-                    Milestone callouts, statistics, and narrative highlights.
+                  <p className="text-body-sm text-slate-600">
+                    Primary page canvas, cards, form controls, and elevated dialogs.
                   </p>
                 </div>
 
-                <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-cream) p-6">
-                  <span className="text-label mb-2 block">Surface: Soft Cream</span>
-                  <h4 className="mb-1 font-serif text-base font-semibold">Subtle Section Canvas</h4>
-                  <p className="text-body-sm text-(--text-secondary)">
-                    Article categories and supporting community profiles.
+                <div className="rounded-(--radius-standard) border border-slate-200 bg-slate-50 p-6 shadow-2xs">
+                  <span className="text-label mb-2 block text-blue-600">Surface: Soft Cloud</span>
+                  <h4 className="font-display mb-1 text-base font-bold text-slate-900">
+                    Alternating Section Canvas
+                  </h4>
+                  <p className="text-body-sm text-slate-600">
+                    Subtle content groupings, statistics sections, and editorial callouts.
+                  </p>
+                </div>
+
+                <div className="rounded-(--radius-standard) border border-slate-800 bg-slate-900 p-6 text-white shadow-sm">
+                  <span className="text-label mb-2 block text-orange-400">
+                    Surface: Deep Ink (Contrast)
+                  </span>
+                  <h4 className="font-display mb-1 text-base font-bold text-white">
+                    Footer & Contrast Media
+                  </h4>
+                  <p className="text-body-sm text-slate-300">
+                    Reserved exclusively for platform footer and rare high-impact media moments.
                   </p>
                 </div>
               </Grid>
@@ -154,66 +163,69 @@ export default function DesignSystemShowcasePage() {
 
           <Divider />
 
-          {/* Section 2: Editorial Typography */}
+          {/* Section 2: Contemporary Typography */}
           <section id="typography" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
               <span className="text-label text-(--brand-primary)">02. Typography</span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Editorial Serif & Humanist Sans Hierarchy
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Contemporary Display (Outfit) & Humanist Sans (Plus Jakarta Sans)
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                Warm editorial headlines paired with clean, accessible body typography optimized for
-                storytelling across English, French, and German.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                Confident, energetic display headings with personality paired with clean, accessible
+                body typography supporting English, French, and German characters.
               </p>
             </div>
 
-            <div className="flex flex-col gap-8 rounded-(--radius-standard) border border-(--border-default) bg-(--surface-cream) p-8">
-              <div className="flex flex-col gap-1 border-b border-(--border-default) pb-6">
-                <span className="font-mono text-[0.6875rem] text-(--text-muted)">
-                  .text-display-xl (Editorial Serif)
+            <div className="flex flex-col gap-8 rounded-(--radius-standard) border border-slate-200 bg-slate-50/70 p-8 sm:p-10">
+              <div className="flex flex-col gap-1 border-b border-slate-200 pb-6">
+                <span className="font-mono text-[0.6875rem] text-slate-500">
+                  .text-display-2xl (Outfit / Bold & Optimistic)
                 </span>
-                <p className="text-display-xl font-normal text-(--text-primary)">
-                  Dignified Pathways to Self-Reliance
+                <p className="text-display-2xl font-extrabold text-slate-900">
+                  Igniting African Youth & Women Potential
                 </p>
               </div>
 
-              <div className="flex flex-col gap-1 border-b border-(--border-default) pb-6">
-                <span className="font-mono text-[0.6875rem] text-(--text-muted)">
-                  .text-display-lg (Editorial Serif)
+              <div className="flex flex-col gap-1 border-b border-slate-200 pb-6">
+                <span className="font-mono text-[0.6875rem] text-slate-500">
+                  .text-display-xl (Outfit / Contemporary Display)
                 </span>
-                <p className="text-display-lg font-normal text-(--text-primary)">
+                <p className="text-display-xl font-bold text-slate-900">
                   Empowering 12,000+ Entrepreneurs Across Nigeria
                 </p>
               </div>
 
-              <div className="flex flex-col gap-1 border-b border-(--border-default) pb-6">
-                <span className="font-mono text-[0.6875rem] text-(--text-muted)">
-                  .text-heading-xl (Editorial Serif)
+              <div className="flex flex-col gap-1 border-b border-slate-200 pb-6">
+                <span className="font-mono text-[0.6875rem] text-slate-500">
+                  .text-heading-xl (Outfit / Section Heading)
                 </span>
-                <p className="text-heading-xl font-normal text-(--text-primary)">
-                  Vocational Excellence, Solar Power & Technology Incubation
+                <p className="text-heading-xl font-bold text-slate-900">
+                  Practical Vocational Mastery, Solar Engineering & Digital Incubation
                 </p>
               </div>
 
-              <div className="flex flex-col gap-1 border-b border-(--border-default) pb-6">
-                <span className="font-mono text-[0.6875rem] text-(--text-muted)">
-                  .text-body-lg (Humanist Sans)
+              <div className="flex flex-col gap-1 border-b border-slate-200 pb-6">
+                <span className="font-mono text-[0.6875rem] text-slate-500">
+                  .text-body-lg (Plus Jakarta Sans / Clean & Warm)
                 </span>
-                <p className="text-body-lg leading-relaxed text-(--text-secondary)">
-                  Genius Hub works at the intersection of human dignity, practical vocational
-                  mastery, and modern technology education. Founded in Edo State, our programmes
-                  equip young women, men, and returnee migrants with tangible livelihoods.
+                <p className="text-body-lg leading-relaxed text-slate-700">
+                  Genius Hub operates at the dynamic intersection of human dignity, practical
+                  vocational skills, and technology for the future of work. Founded in Edo State,
+                  our initiatives equip young women, men, and returnee migrants with market-driven
+                  skills and sustainable enterprise capital.
                 </p>
               </div>
 
               <div className="flex flex-col gap-1">
-                <span className="font-mono text-[0.6875rem] text-(--text-muted)">
+                <span className="font-mono text-[0.6875rem] text-slate-500">
                   .text-label / .text-caption
                 </span>
                 <Cluster gap="lg">
-                  <span className="text-label">Report — Benin City Training Cohort</span>
-                  <span className="text-caption">
-                    Photography by Genius Hub Media Team • September 2026
+                  <span className="text-label text-orange-600">
+                    Genius Hub Innovation Lab • Benin City HQ
+                  </span>
+                  <span className="text-caption text-slate-500">
+                    Documentary Photography Archive • Updated September 2026
                   </span>
                 </Cluster>
               </div>
@@ -226,41 +238,41 @@ export default function DesignSystemShowcasePage() {
           <section id="stats" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
               <span className="text-label text-(--brand-primary)">03. Impact & Outcomes</span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Quantitative Milestones
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Expressive Impact Milestones
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                Restrained, factual metrics presented in an editorial format rather than a SaaS KPI
-                dashboard.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                Bold, energetic numbers integrated into layouts to celebrate tangible human progress
+                rather than sterile SaaS widgets.
               </p>
             </div>
 
-            <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-sand) p-8 sm:p-10">
+            <div className="rounded-(--radius-standard) border border-slate-200 bg-slate-50 p-8 sm:p-10">
               <Grid cols={1} colsSm={2} colsLg={4} gap="xl">
                 <Stat
                   value="12,000"
                   suffix="+"
                   label="MSMEs Empowered"
-                  description="Grassroots enterprises founded and scaled across Edo, Lagos, and nationwide hubs."
+                  description="Grassroots enterprises founded and scaled across Edo, Lagos, and national hubs."
                 />
                 <Stat
                   value="85"
                   suffix="%"
                   label="Livelihood Placement"
-                  description="Graduates operating registered businesses or placed in skilled employment."
+                  description="Graduates actively operating registered businesses or placed in tech/vocational jobs."
                 />
                 <Stat
                   value="45"
                   suffix="+"
-                  label="Training Hubs"
-                  description="Community centers, fashion studios, and solar testing workshops."
+                  label="Innovation Hubs"
+                  description="Community learning centers, fashion ateliers, and solar testing workshops."
                 />
                 <Stat
                   prefix="₦"
                   value="250M"
                   suffix="+"
-                  label="Seed Capital Facilitated"
-                  description="Direct micro-grants and equipment disbursements to beneficiaries."
+                  label="Seed Capital Disbursed"
+                  description="Direct enterprise grants, toolkits, and equipment funding for beneficiaries."
                 />
               </Grid>
             </div>
@@ -268,49 +280,51 @@ export default function DesignSystemShowcasePage() {
 
           <Divider />
 
-          {/* Section 4: Photography & Storytelling Layouts */}
+          {/* Section 4: Photography-First Foundations */}
           <section id="photography" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
-              <span className="text-label text-(--brand-primary)">04. Photography Foundation</span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Documentary Storytelling & Aspect Ratios
+              <span className="text-label text-(--brand-primary)">
+                04. Photography-First Foundation
+              </span>
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Real Human Stories & Documentary Visuals
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                Real human stories carry the color and vitality of the brand against calm neutral
-                surfaces.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                Authentic activity imagery—students, women, youth, tech training, fashion atelier,
+                community leadership—drives the emotional resonance of Genius Hub.
               </p>
             </div>
 
             {/* Asymmetric Story Layout: Portrait + Quote */}
-            <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-cream) p-8 sm:p-12">
+            <div className="rounded-(--radius-standard) border border-slate-200 bg-white p-8 shadow-2xs sm:p-12">
               <Grid cols={1} colsMd={12} gap="xl" className="items-center">
                 <div className="md:col-span-5">
                   <ImageWithCaption
                     aspectRatio="4:5"
-                    caption="Vocational apprentice at the Benin City Garment Atelier."
+                    caption="Vocational apprentice at the Genius Hub Garment Atelier."
                     credit="Genius Hub Documentary Archive"
                     media={
-                      <div className="flex h-full w-full items-center justify-center bg-stone-300 font-serif text-sm text-stone-700 italic">
-                        [4:5 Documentary Portrait]
+                      <div className="font-display flex h-full w-full items-center justify-center bg-slate-100 text-sm font-semibold text-slate-600">
+                        [4:5 Real Activity Portrait]
                       </div>
                     }
                   />
                 </div>
                 <div className="flex flex-col gap-6 md:col-span-7">
-                  <Quote className="h-8 w-8 text-(--brand-primary) opacity-70" />
-                  <blockquote className="font-serif text-2xl leading-snug text-(--text-primary) sm:text-3xl">
-                    “When you equip a woman with a practical craft and commercial confidence, you
-                    transform not only her household, but the economic heartbeat of her entire
-                    community.”
+                  <Quote className="h-10 w-10 text-(--brand-primary)" />
+                  <blockquote className="font-display text-2xl leading-snug font-bold text-slate-900 sm:text-3xl">
+                    “When you equip a young African with a practical craft, digital capabilities,
+                    and commercial confidence, you transform not just a household—you activate the
+                    entire regional economy.”
                   </blockquote>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3.5">
                     <Avatar name="Isimeme Whyte" role="Founder & CEO" size="md" />
                     <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-(--text-primary)">
+                      <span className="font-display text-sm font-bold text-slate-900">
                         Isimeme Whyte
                       </span>
-                      <span className="text-xs text-(--text-secondary)">
-                        Founder & Social Impact Lead, Genius Hub
+                      <span className="text-xs text-slate-600">
+                        Founder & CEO, Genius Hub Global
                       </span>
                     </div>
                   </div>
@@ -318,10 +332,10 @@ export default function DesignSystemShowcasePage() {
               </Grid>
             </div>
 
-            {/* Editorial Story Cards */}
+            {/* Photography-Led Editorial Cards */}
             <div className="mt-4 flex flex-col gap-4">
-              <h3 className="text-heading-sm font-semibold text-(--text-primary)">
-                Editorial Programme & Article Cards
+              <h3 className="font-display text-base font-bold text-slate-900">
+                Editorial Programme & Story Cards
               </h3>
               <Grid cols={1} colsMd={3} gap="lg">
                 <MediaCard
@@ -329,22 +343,22 @@ export default function DesignSystemShowcasePage() {
                   aspectRatio="16:9"
                   badge={<Badge variant="brand">Solar & Energy</Badge>}
                   media={
-                    <div className="flex h-full w-full items-center justify-center bg-amber-900/10 font-serif text-xs text-stone-600">
+                    <div className="font-display flex h-full w-full items-center justify-center bg-orange-50 text-xs font-semibold text-orange-800">
                       [16:9 Solar Installation Training]
                     </div>
                   }
                 >
-                  <span className="text-[0.6875rem] font-semibold tracking-wider text-(--brand-primary) uppercase">
-                    Technical Programme
+                  <span className="text-[0.6875rem] font-bold tracking-wider text-orange-600 uppercase">
+                    Technical Track
                   </span>
-                  <h4 className="cursor-pointer font-serif text-xl leading-snug font-semibold text-(--text-primary) transition-colors hover:text-(--brand-primary)">
+                  <h4 className="font-display cursor-pointer text-xl leading-snug font-bold text-slate-900 transition-colors hover:text-(--brand-primary)">
                     Renewable Solar Installation & Microgrid Engineering
                   </h4>
-                  <p className="text-body-sm line-clamp-2 text-(--text-secondary)">
+                  <p className="text-body-sm line-clamp-2 text-slate-600">
                     A comprehensive 16-week practical cohort for youth across rural and urban Edo
                     State.
                   </p>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-(--brand-primary)">
+                  <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-(--brand-primary)">
                     <span>Explore Curriculum</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
@@ -353,24 +367,24 @@ export default function DesignSystemShowcasePage() {
                 <MediaCard
                   editorial
                   aspectRatio="16:9"
-                  badge={<Badge variant="neutral">Creative Arts</Badge>}
+                  badge={<Badge variant="blue">Future of Work</Badge>}
                   media={
-                    <div className="flex h-full w-full items-center justify-center bg-stone-300 font-serif text-xs text-stone-600">
-                      [16:9 Fashion Design Studio]
+                    <div className="font-display flex h-full w-full items-center justify-center bg-blue-50 text-xs font-semibold text-blue-800">
+                      [16:9 Software & Digital Studio]
                     </div>
                   }
                 >
-                  <span className="text-[0.6875rem] font-semibold tracking-wider text-(--text-muted) uppercase">
-                    Enterprise Incubation
+                  <span className="text-[0.6875rem] font-bold tracking-wider text-blue-600 uppercase">
+                    Digital Academy
                   </span>
-                  <h4 className="cursor-pointer font-serif text-xl leading-snug font-semibold text-(--text-primary) transition-colors hover:text-(--brand-primary)">
-                    Apparel Manufacturing & Sustainable Fashion Export
+                  <h4 className="font-display cursor-pointer text-xl leading-snug font-bold text-slate-900 transition-colors hover:text-(--brand-primary)">
+                    Full-Stack Web Development & Cloud Foundations
                   </h4>
-                  <p className="text-body-sm line-clamp-2 text-(--text-secondary)">
-                    Bridging traditional African craftsmanship with commercial pattern drafting and
-                    export readiness.
+                  <p className="text-body-sm line-clamp-2 text-slate-600">
+                    Equipping young developers with modern JavaScript, cloud architectures, and
+                    remote readiness.
                   </p>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-(--brand-primary)">
+                  <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-(--brand-primary)">
                     <span>Read Overview</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
@@ -381,22 +395,22 @@ export default function DesignSystemShowcasePage() {
                   aspectRatio="16:9"
                   badge={<Badge variant="success">Beneficiary Story</Badge>}
                   media={
-                    <div className="flex h-full w-full items-center justify-center bg-emerald-900/10 font-serif text-xs text-stone-600">
+                    <div className="font-display flex h-full w-full items-center justify-center bg-emerald-50 text-xs font-semibold text-emerald-800">
                       [16:9 Beneficiary Story]
                     </div>
                   }
                 >
-                  <span className="text-[0.6875rem] font-semibold tracking-wider text-(--state-success) uppercase">
-                    Impact Narrative
+                  <span className="text-[0.6875rem] font-bold tracking-wider text-emerald-600 uppercase">
+                    Impact Story
                   </span>
-                  <h4 className="cursor-pointer font-serif text-xl leading-snug font-semibold text-(--text-primary) transition-colors hover:text-(--brand-primary)">
+                  <h4 className="font-display cursor-pointer text-xl leading-snug font-bold text-slate-900 transition-colors hover:text-(--brand-primary)">
                     From Apprentice to Employer: Osasere’s Tech Journey
                   </h4>
-                  <p className="text-body-sm line-clamp-2 text-(--text-secondary)">
+                  <p className="text-body-sm line-clamp-2 text-slate-600">
                     How digital skills training enabled a returnee youth to establish a digital
                     agency in Benin City.
                   </p>
-                  <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-(--brand-primary)">
+                  <div className="mt-2 flex items-center gap-1.5 text-xs font-bold text-(--brand-primary)">
                     <span>Read Story</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </div>
@@ -407,30 +421,33 @@ export default function DesignSystemShowcasePage() {
 
           <Divider />
 
-          {/* Section 5: Buttons & Forms */}
+          {/* Section 5: Actions & Forms */}
           <section id="controls" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
               <span className="text-label text-(--brand-primary)">
                 05. Actions & Accessible Forms
               </span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Warm Buttons & Accessible Controls
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Vibrant Buttons, Accessible Controls & Structured Cards
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                High-contrast keyboard focus, softened radii, and clear form feedback without heavy
-                SaaS borders.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                High-contrast keyboard focus, accessible WCAG 2.2 AA targets, and clear visual
+                hierarchy.
               </p>
             </div>
 
             <Stack gap="xl">
               {/* Button Family */}
               <div className="flex flex-col gap-3">
-                <h3 className="text-heading-sm font-semibold text-(--text-primary)">
+                <h3 className="font-display text-base font-bold text-slate-900">
                   Button Hierarchy
                 </h3>
                 <Cluster gap="sm" align="center">
                   <Button variant="primary" rightIcon={<ArrowRight className="h-4 w-4" />}>
                     Apply for Programme
+                  </Button>
+                  <Button variant="innovation" leftIcon={<Zap className="h-4 w-4" />}>
+                    Explore Innovation Hub
                   </Button>
                   <Button variant="secondary" leftIcon={<ShieldCheck className="h-4 w-4" />}>
                     Partner with Us
@@ -457,7 +474,7 @@ export default function DesignSystemShowcasePage() {
 
               {/* Navigation Links & Tags */}
               <div className="flex flex-col gap-3">
-                <h3 className="text-heading-sm font-semibold text-(--text-primary)">
+                <h3 className="font-display text-base font-bold text-slate-900">
                   Links & Taxonomy Chips
                 </h3>
                 <Cluster gap="md" align="center">
@@ -486,11 +503,11 @@ export default function DesignSystemShowcasePage() {
 
               {/* Structured Card Demonstration */}
               <div className="flex flex-col gap-3">
-                <h3 className="text-heading-sm font-semibold text-(--text-primary)">
-                  Structured Institutional Card
+                <h3 className="font-display text-base font-bold text-slate-900">
+                  Structured Institutional Cards
                 </h3>
                 <Grid cols={1} colsMd={2} gap="lg">
-                  <Card variant="sand">
+                  <Card variant="feature">
                     <CardHeader>
                       <CardTitle>Vocational Incubation Advisory</CardTitle>
                       <CardDescription>
@@ -499,20 +516,20 @@ export default function DesignSystemShowcasePage() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-body-sm text-(--text-secondary)">
+                      <p className="text-body-sm text-slate-600">
                         Cohorts receive continuous business incubation support, financial literacy
                         workshops, and regulatory compliance assistance.
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <span className="text-xs text-(--text-muted)">Benin City Hub</span>
+                      <span className="text-xs font-semibold text-slate-500">Benin City Hub</span>
                       <Button size="sm" variant="primary">
                         Access Support
                       </Button>
                     </CardFooter>
                   </Card>
 
-                  <Card variant="cream">
+                  <Card variant="default">
                     <CardHeader>
                       <CardTitle>Institutional Partnerships</CardTitle>
                       <CardDescription>
@@ -521,13 +538,13 @@ export default function DesignSystemShowcasePage() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-body-sm text-(--text-secondary)">
+                      <p className="text-body-sm text-slate-600">
                         Genius Hub works closely with donor partners to ensure transparent
                         governance, verified impact tracking, and scalable outcomes.
                       </p>
                     </CardContent>
                     <CardFooter>
-                      <span className="text-xs text-(--text-muted)">Global Desk</span>
+                      <span className="text-xs font-semibold text-slate-500">Global Desk</span>
                       <Button size="sm" variant="secondary">
                         Partner With Us
                       </Button>
@@ -537,7 +554,7 @@ export default function DesignSystemShowcasePage() {
               </div>
 
               {/* Form Foundation */}
-              <div className="rounded-(--radius-standard) border border-(--border-default) bg-(--surface-cream) p-8 sm:p-10">
+              <div className="rounded-(--radius-standard) border border-slate-200 bg-slate-50/70 p-8 sm:p-10">
                 <Grid cols={1} colsMd={2} gap="lg">
                   <FormField
                     label="Applicant Full Name"
@@ -617,7 +634,9 @@ export default function DesignSystemShowcasePage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h4 className="text-sm font-semibold">Registration Agreement</h4>
+                    <h4 className="font-display text-sm font-bold text-slate-900">
+                      Registration Agreement
+                    </h4>
                     <Checkbox
                       id="cb-code-conduct"
                       label="I agree to commit to the full cohort duration and community code of conduct"
@@ -625,7 +644,7 @@ export default function DesignSystemShowcasePage() {
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <h4 className="text-sm font-semibold">Learning Mode</h4>
+                    <h4 className="font-display text-sm font-bold text-slate-900">Learning Mode</h4>
                     <Cluster gap="md">
                       <Radio
                         name="delivery-mode"
@@ -643,23 +662,24 @@ export default function DesignSystemShowcasePage() {
 
           <Divider />
 
-          {/* Section 6: Breadcrumbs & Brand Loading Mark */}
+          {/* Section 6: Navigation & Connected Brand Loader */}
           <section id="loader" className="flex flex-col gap-6">
             <div className="flex flex-col gap-1.5">
               <span className="text-label text-(--brand-primary)">
                 06. Navigation & Brand Loading Mark
               </span>
-              <h2 className="text-heading-xl font-normal tracking-tight">
-                Breadcrumbs & Community Gathering Mark
+              <h2 className="text-heading-xl font-bold tracking-tight text-slate-900">
+                Semantic Breadcrumbs & Connected Brand Loader
               </h2>
-              <p className="text-body-md max-w-3xl text-(--text-secondary)">
-                A calm, respectful SVG loading mark and semantic breadcrumb navigation trail.
+              <p className="text-body-md max-w-3xl text-slate-600">
+                Connected community nodes converging into the radiant Genius Hub sun mark, built
+                with lightweight SVG and full reduced-motion support.
               </p>
             </div>
 
             <Grid cols={1} colsMd={2} gap="lg">
-              <div className="flex flex-col gap-4 rounded-(--radius-standard) border border-(--border-default) bg-(--surface-primary) p-8">
-                <h3 className="text-heading-sm font-semibold text-(--text-primary)">
+              <div className="flex flex-col gap-4 rounded-(--radius-standard) border border-slate-200 bg-white p-8 shadow-2xs">
+                <h3 className="font-display text-base font-bold text-slate-900">
                   Semantic Breadcrumb Navigation
                 </h3>
                 <Breadcrumbs
@@ -678,9 +698,9 @@ export default function DesignSystemShowcasePage() {
                 />
               </div>
 
-              <div className="flex flex-col items-center justify-center gap-6 rounded-(--radius-standard) border border-(--border-default) bg-(--surface-sand) p-8">
-                <h3 className="text-heading-sm self-start font-semibold text-(--text-primary)">
-                  Brand Loading Mark
+              <div className="flex flex-col items-center justify-center gap-6 rounded-(--radius-standard) border border-slate-200 bg-slate-50 p-8 shadow-2xs">
+                <h3 className="font-display self-start text-base font-bold text-slate-900">
+                  Connected Brand Loader Mark
                 </h3>
                 <Cluster gap="2xl" align="center" justify="center">
                   <BrandLoader size="sm" />

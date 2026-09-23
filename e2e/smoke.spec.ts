@@ -21,11 +21,9 @@ test.describe('Genius Hub Application Smoke Test', () => {
     await page.goto('/dev/design-system');
 
     await expect(page).toHaveTitle(/Design System Showcase/i);
-    await expect(
-      page.getByRole('heading', { level: 1, name: /design system & ui primitives/i }),
-    ).toBeVisible();
-    await expect(page.getByText(/01. Color System & Surfaces/i)).toBeVisible();
-    await expect(page.getByText(/03. Button Hierarchy & States/i)).toBeVisible();
+    await expect(page.getByRole('heading', { level: 1, name: /design system/i })).toBeVisible();
+    await expect(page.getByText(/01. Color Architecture/i)).toBeVisible();
+    await expect(page.getByText(/05. Actions & Accessible Forms/i)).toBeVisible();
 
     // Verify robots noindex meta tag
     const robotsMeta = page.locator('meta[name="robots"]');

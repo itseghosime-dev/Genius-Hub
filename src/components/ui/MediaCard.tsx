@@ -23,14 +23,18 @@ export const MediaCard: React.FC<MediaCardProps> = ({
 }) => {
   if (editorial) {
     return (
-      <article className={cn('group flex flex-col gap-3', className)}>
-        <div className="relative w-full overflow-hidden">
-          <MediaFrame aspectRatio={aspectRatio} radius={radius} className="w-full">
+      <article className={cn('group flex flex-col gap-3.5', className)}>
+        <div className="relative w-full overflow-hidden rounded-(--radius-standard)">
+          <MediaFrame
+            aspectRatio={aspectRatio}
+            radius={radius}
+            className="w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+          >
             {media}
           </MediaFrame>
           {badge && <div className="absolute top-3 left-3 z-10">{badge}</div>}
         </div>
-        <div className="flex flex-1 flex-col gap-1.5">{children}</div>
+        <div className="flex flex-1 flex-col gap-2">{children}</div>
       </article>
     );
   }
@@ -39,11 +43,15 @@ export const MediaCard: React.FC<MediaCardProps> = ({
     <Card
       variant={variant}
       radius={radius}
-      className={cn('group flex flex-col', className)}
+      className={cn('group flex flex-col transition-all duration-200 hover:shadow-sm', className)}
       {...props}
     >
       <div className="relative w-full overflow-hidden">
-        <MediaFrame aspectRatio={aspectRatio} radius="none" className="w-full">
+        <MediaFrame
+          aspectRatio={aspectRatio}
+          radius="none"
+          className="w-full transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+        >
           {media}
         </MediaFrame>
         {badge && <div className="absolute top-3 left-3 z-10">{badge}</div>}
