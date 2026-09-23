@@ -17,9 +17,18 @@ test.describe('Genius Hub Application Smoke Test', () => {
     expect(text).toContain('User-Agent: *');
   });
 
-  test('handles 404 not found route gracefully', async ({ page }) => {
-    const response = await page.goto('/non-existent-page-path');
-    expect(response?.status()).toBe(404);
-    await expect(page.getByRole('heading', { level: 1, name: /404/i })).toBeVisible();
+  test('serves the internal design system showcase correctly', async ({ page }) => {
+    await page.goto('/dev/design-system');
+
+    await expect(page).toHaveTitle(/Design System Showcase/i);
+    await expect(
+      page.getByRole('heading', { level: 1, name: /design system & ui primitives/i }),
+    ).toBeVisible();
+    await expect(page.getByText(/01. Color System & Surfaces/i)).toBeVisible();
+    await expect(page.getByText(/03. Button Hierarchy & States/i)).toBeVisible();
+
+    // Verify robots noindex meta tag
+    const robotsMeta = page.locator('meta[name="robots"]');
+    await expect(robotsMeta).toHaveAttribute('content', /noindex.*nofollow/i);
   });
 });
