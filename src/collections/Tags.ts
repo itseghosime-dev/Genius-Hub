@@ -1,4 +1,8 @@
 import type { CollectionConfig } from 'payload';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { slugField } from '@/fields/slug';
 
 export const Tags: CollectionConfig = {
@@ -7,6 +11,12 @@ export const Tags: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug', 'updatedAt'],
     group: 'Taxonomies & Tags',
+  },
+  access: {
+    read: publicReadOrRequirePermission('taxonomies.read'),
+    create: requirePermissionAccess('taxonomies.create'),
+    update: requirePermissionAccess('taxonomies.update'),
+    delete: requirePermissionAccess('taxonomies.delete'),
   },
   fields: [
     {

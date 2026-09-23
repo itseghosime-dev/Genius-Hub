@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
 
 export const FocusAreas: CollectionConfig = {
   slug: 'focus-areas',
@@ -8,6 +12,12 @@ export const FocusAreas: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'displayOrder', 'isFeatured', 'updatedAt'],
     group: 'Programmes & Impact',
+  },
+  access: {
+    read: publicReadOrRequirePermission('focus_areas.read'),
+    create: requirePermissionAccess('focus_areas.create'),
+    update: requirePermissionAccess('focus_areas.update'),
+    delete: requirePermissionAccess('focus_areas.delete'),
   },
   fields: [
     {

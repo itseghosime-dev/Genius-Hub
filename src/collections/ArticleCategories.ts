@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
 
 export const ArticleCategories: CollectionConfig = {
   slug: 'article-categories',
@@ -8,6 +12,12 @@ export const ArticleCategories: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug', 'displayOrder', 'updatedAt'],
     group: 'Editorial & Content',
+  },
+  access: {
+    read: publicReadOrRequirePermission('taxonomies.read'),
+    create: requirePermissionAccess('taxonomies.create'),
+    update: requirePermissionAccess('taxonomies.update'),
+    delete: requirePermissionAccess('taxonomies.delete'),
   },
   fields: [
     {

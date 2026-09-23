@@ -1,6 +1,15 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
+import {
+  createWorkflowBeforeChangeHook,
+  WORKFLOW_STATUS_OPTIONS,
+  workflowFieldGroup,
+} from '@/fields/workflow';
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -8,6 +17,20 @@ export const Events: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'eventType', 'format', 'schedule.startDateTime', 'status'],
     group: 'Community & Events',
+  },
+  access: {
+    read: publicReadOrRequirePermission('events.read'),
+    create: requirePermissionAccess('events.create'),
+    update: requirePermissionAccess('events.update'),
+    delete: requirePermissionAccess('events.delete'),
+  },
+  hooks: {
+    beforeChange: [
+      createWorkflowBeforeChangeHook({
+        approvePermission: 'events.approve',
+        publishPermission: 'events.publish',
+      }),
+    ],
   },
   fields: [
     {
@@ -174,19 +197,15 @@ export const Events: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      defaultValue: 'published',
-      options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published / Active', value: 'published' },
-        { label: 'Postponed', value: 'postponed' },
-        { label: 'Cancelled', value: 'cancelled' },
-        { label: 'Completed', value: 'completed' },
-      ],
-      label: 'Event Status',
+      defaultValue: 'draft',
+      required: true,
+      options: WORKFLOW_STATUS_OPTIONS,
+      label: 'Workflow Status',
       admin: {
         position: 'sidebar',
       },
     },
+    workflowFieldGroup,
     seoFieldGroup,
   ],
 };

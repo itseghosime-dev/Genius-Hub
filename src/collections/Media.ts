@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,6 +46,12 @@ export const Media: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'alt', 'mediaType', 'dateCaptured', 'updatedAt'],
     group: 'Assets & Media',
+  },
+  access: {
+    read: publicReadOrRequirePermission('media.read'),
+    create: requirePermissionAccess('media.create'),
+    update: requirePermissionAccess('media.update'),
+    delete: requirePermissionAccess('media.delete'),
   },
   fields: [
     {

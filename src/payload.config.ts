@@ -6,6 +6,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { Users } from './collections/Users';
+import { StaffInvitations } from './collections/StaffInvitations';
+import { AuditLogs } from './collections/AuditLogs';
 import { Media } from './collections/Media';
 import { People } from './collections/People';
 import { Partners } from './collections/Partners';
@@ -46,6 +48,8 @@ export default buildConfig({
   },
   collections: [
     Users,
+    StaffInvitations,
+    AuditLogs,
     Media,
     People,
     Partners,

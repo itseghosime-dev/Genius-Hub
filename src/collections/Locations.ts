@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
 
 export const Locations: CollectionConfig = {
   slug: 'locations',
@@ -8,6 +12,12 @@ export const Locations: CollectionConfig = {
     useAsTitle: 'name',
     defaultColumns: ['name', 'city', 'stateOrRegion', 'locationType', 'isOffice', 'updatedAt'],
     group: 'Organization & Directory',
+  },
+  access: {
+    read: publicReadOrRequirePermission('locations.read'),
+    create: requirePermissionAccess('locations.create'),
+    update: requirePermissionAccess('locations.update'),
+    delete: requirePermissionAccess('locations.delete'),
   },
   fields: [
     {

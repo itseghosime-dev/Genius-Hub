@@ -1,13 +1,36 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
+import {
+  createWorkflowBeforeChangeHook,
+  WORKFLOW_STATUS_OPTIONS,
+  workflowFieldGroup,
+} from '@/fields/workflow';
 
 export const SuccessStories: CollectionConfig = {
   slug: 'success-stories',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'beneficiaryName', 'relatedProgramme', 'isFeatured', 'status'],
+    defaultColumns: ['title', 'beneficiaryName', 'relatedProgramme', 'status', 'isFeatured'],
     group: 'Programmes & Impact',
+  },
+  access: {
+    read: publicReadOrRequirePermission('success_stories.read'),
+    create: requirePermissionAccess('success_stories.create'),
+    update: requirePermissionAccess('success_stories.update'),
+    delete: requirePermissionAccess('success_stories.delete'),
+  },
+  hooks: {
+    beforeChange: [
+      createWorkflowBeforeChangeHook({
+        approvePermission: 'success_stories.approve',
+        publishPermission: 'success_stories.publish',
+      }),
+    ],
   },
   fields: [
     {
@@ -140,17 +163,15 @@ export const SuccessStories: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      defaultValue: 'published',
-      options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
-        { label: 'Archived', value: 'archived' },
-      ],
-      label: 'Status',
+      defaultValue: 'draft',
+      required: true,
+      options: WORKFLOW_STATUS_OPTIONS,
+      label: 'Workflow Status',
       admin: {
         position: 'sidebar',
       },
     },
+    workflowFieldGroup,
     seoFieldGroup,
   ],
 };

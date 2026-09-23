@@ -1,13 +1,36 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
+import {
+  createWorkflowBeforeChangeHook,
+  WORKFLOW_STATUS_OPTIONS,
+  workflowFieldGroup,
+} from '@/fields/workflow';
 
 export const Programmes: CollectionConfig = {
   slug: 'programmes',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'applicationStatus', 'isFeatured', 'status'],
+    defaultColumns: ['title', 'applicationStatus', 'status', 'isFeatured'],
     group: 'Programmes & Impact',
+  },
+  access: {
+    read: publicReadOrRequirePermission('programmes.read'),
+    create: requirePermissionAccess('programmes.create'),
+    update: requirePermissionAccess('programmes.update'),
+    delete: requirePermissionAccess('programmes.delete'),
+  },
+  hooks: {
+    beforeChange: [
+      createWorkflowBeforeChangeHook({
+        approvePermission: 'programmes.approve',
+        publishPermission: 'programmes.publish',
+      }),
+    ],
   },
   fields: [
     {
@@ -179,17 +202,15 @@ export const Programmes: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      defaultValue: 'published',
-      options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
-        { label: 'Archived', value: 'archived' },
-      ],
-      label: 'Publication Status',
+      defaultValue: 'draft',
+      required: true,
+      options: WORKFLOW_STATUS_OPTIONS,
+      label: 'Workflow Status',
       admin: {
         position: 'sidebar',
       },
     },
+    workflowFieldGroup,
     seoFieldGroup,
   ],
 };

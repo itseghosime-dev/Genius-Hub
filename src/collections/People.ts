@@ -1,6 +1,10 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
 
 export const People: CollectionConfig = {
   slug: 'people',
@@ -8,6 +12,12 @@ export const People: CollectionConfig = {
     useAsTitle: 'fullName',
     defaultColumns: ['fullName', 'role', 'organization', 'displayOrder', 'status'],
     group: 'Organization & Directory',
+  },
+  access: {
+    read: publicReadOrRequirePermission('people.read'),
+    create: requirePermissionAccess('people.create'),
+    update: requirePermissionAccess('people.update'),
+    delete: requirePermissionAccess('people.delete'),
   },
   fields: [
     {

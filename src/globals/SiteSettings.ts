@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload';
+import { requirePermissionAccess } from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
 
 export const SiteSettings: GlobalConfig = {
@@ -6,6 +7,10 @@ export const SiteSettings: GlobalConfig = {
   label: 'Site & Brand Settings',
   admin: {
     group: 'Admin & Governance',
+  },
+  access: {
+    read: () => true, // Public brand and institutional channels are readable
+    update: requirePermissionAccess('settings.update'),
   },
   fields: [
     {

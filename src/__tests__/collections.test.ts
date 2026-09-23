@@ -24,6 +24,8 @@ describe('Domain Content Architecture & Collections', () => {
 
     const expectedSlugs = [
       'users',
+      'staff-invitations',
+      'audit-logs',
       'media',
       'people',
       'partners',
@@ -41,8 +43,8 @@ describe('Domain Content Architecture & Collections', () => {
     for (const slug of expectedSlugs) {
       expect(registeredSlugs).toContain(slug);
     }
-    // 13 domain collections + 4 Payload internal collections (payload-migrations, payload-preferences, etc.)
-    expect(registeredSlugs.length).toBe(17);
+    // 15 domain & admin collections + 4 Payload internal collections
+    expect(registeredSlugs.length).toBe(19);
 
     const registeredGlobals = resolvedConfig.globals?.map((g) => g.slug) || [];
     expect(registeredGlobals).toContain('site-settings');
@@ -133,10 +135,12 @@ describe('Domain Content Architecture & Collections', () => {
     expect(storyLoc).toBeDefined();
   });
 
-  it('confirms Users collection is restricted to minimal admin authentication without premature RBAC', () => {
+  it('confirms Users collection is properly configured for staff identity and RBAC', () => {
     expect(Users.auth).toBeTruthy();
     const rolesField = Users.fields.find((f) => 'name' in f && f.name === 'roles');
-    expect(rolesField).toBeUndefined();
+    expect(rolesField).toBeDefined();
+    const statusField = Users.fields.find((f) => 'name' in f && f.name === 'status');
+    expect(statusField).toBeDefined();
   });
 
   it('validates reusable SEO field group structure and optionality', () => {

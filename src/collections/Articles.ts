@@ -1,13 +1,36 @@
 import type { CollectionConfig } from 'payload';
-import { slugField } from '@/fields/slug';
+import {
+  publicReadOrRequirePermission,
+  requirePermissionAccess,
+} from '@/lib/access/payload-access';
 import { seoFieldGroup } from '@/fields/seo';
+import { slugField } from '@/fields/slug';
+import {
+  createWorkflowBeforeChangeHook,
+  WORKFLOW_STATUS_OPTIONS,
+  workflowFieldGroup,
+} from '@/fields/workflow';
 
 export const Articles: CollectionConfig = {
   slug: 'articles',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'publishedAt', 'status'],
+    defaultColumns: ['title', 'category', 'status', 'publishedAt'],
     group: 'Editorial & Content',
+  },
+  access: {
+    read: publicReadOrRequirePermission('articles.read'),
+    create: requirePermissionAccess('articles.create'),
+    update: requirePermissionAccess('articles.update'),
+    delete: requirePermissionAccess('articles.delete'),
+  },
+  hooks: {
+    beforeChange: [
+      createWorkflowBeforeChangeHook({
+        approvePermission: 'articles.approve',
+        publishPermission: 'articles.publish',
+      }),
+    ],
   },
   fields: [
     {
@@ -107,17 +130,15 @@ export const Articles: CollectionConfig = {
     {
       name: 'status',
       type: 'select',
-      defaultValue: 'published',
-      options: [
-        { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
-        { label: 'Archived', value: 'archived' },
-      ],
-      label: 'Status',
+      defaultValue: 'draft',
+      required: true,
+      options: WORKFLOW_STATUS_OPTIONS,
+      label: 'Workflow Status',
       admin: {
         position: 'sidebar',
       },
     },
+    workflowFieldGroup,
     seoFieldGroup,
   ],
 };
