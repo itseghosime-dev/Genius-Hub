@@ -31,6 +31,7 @@ This repository contains the **Phase 02 domain content and data architecture**. 
 - **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19, Turbopack)
 - **CMS**: [Payload CMS 3.x](https://payloadcms.com/) (Embedded App Router Native Architecture)
 - **Database**: [PostgreSQL 16+](https://www.postgresql.org/) via `@payloadcms/db-postgres`
+- **Localization**: English (`en`), French (`fr`), German (`de`) with automatic fallback
 - **Rich Text Editor**: `@payloadcms/richtext-lexical` (Lexical Engine)
 - **Language**: [TypeScript 5](https://www.typescriptlang.org/) (Strict mode, `noUncheckedIndexedAccess`, zero `any`)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
@@ -121,17 +122,21 @@ bun run dev
 
 ## 6. Domain Content Collections
 
-The data layer models Genius Hub's organizational ecosystem:
+The data layer models Genius Hub's organizational ecosystem across 13 collections and 1 global:
 
+- **`FocusAreas` (`focus-areas`)**: Strategic developmental pillars and topical SEO hubs.
+- **`Locations` (`locations`)**: Physical innovation hubs, training facilities, offices, and event venues with map display settings.
 - **`Programmes` (`programmes`)**: Long-running training initiatives, focus areas, delivery modes, eligibility, and impact metrics.
 - **`Projects` (`projects`)**: Specific funded delivery efforts, partner grants, target community locations, and outcomes.
 - **`Events` (`events`)**: Workshops, summits, hackathons, and ceremonies with hybrid venue details and speakers.
 - **`People` (`people`)**: Leadership (including founder Isimeme Whyte), staff, facilitators, speakers, and authors.
 - **`Partners` (`partners`)**: International development organizations, donors, government agencies, and corporate sponsors.
-- **`Media` (`media`)**: Central reusable asset library with upload capabilities, image sizing, and copyright attribution.
 - **`SuccessStories` (`success-stories`)**: Beneficiary narratives, pull-quotes, and verified outcome statistics.
 - **`Articles` (`articles`)**: Editorial thought leadership, institutional news, and case studies.
-- **`Users` (`users`)**: Authenticated admin users with role-based governance.
+- **`ArticleCategories` (`article-categories`)**: Controlled editorial categorization taxonomy.
+- **`Tags` (`tags`)**: Lightweight cross-cutting topic tagging.
+- **`Media` (`media`)**: Central reusable asset library with upload capabilities, image sizing, and copyright attribution.
+- **`Users` (`users`)**: Minimal authentication collection for Payload Admin panel (advanced RBAC deferred to Phase 03).
 - **`SiteSettings` (Global)**: Brand identity, headquarters contact info, social links, and fallback SEO.
 
 ---
@@ -140,10 +145,12 @@ The data layer models Genius Hub's organizational ecosystem:
 
 Comprehensive engineering documentation is available in the `docs/` directory:
 
-- [Architecture Guide](docs/architecture.md) — System topology, domain encapsulation, and future stack roadmap.
-- [Database & Migrations Guide](docs/database-and-migrations.md) — PostgreSQL schema, Docker workflow, and migration lifecycle.
-- [Security Architecture](docs/security.md) — Implemented baseline and planned OWASP / ASVS defense-in-depth model.
-- [SEO Architecture](docs/seo.md) — Metadata API, dynamic sitemaps, JSON-LD schemas, and CWV guidelines.
+- [Content Model & Domain Topology](docs/content-model.md) — Purpose of every collection, authoritative relationships, ER diagram, and localization decisions.
+- [CMS Developer Guide](docs/cms.md) — Payload CMS Local API (`getPayloadClient`), REST/GraphQL endpoints, and admin usage.
+- [Database & Migrations Guide](docs/database-and-migrations.md) — PostgreSQL schema topology, localization tables, and migration lifecycle.
+- [Architecture Guide](docs/architecture.md) — System topology, domain encapsulation, and technology roadmap.
+- [Security Architecture](docs/security.md) — Implemented baseline, query parameterization, and planned defense-in-depth model.
+- [SEO Architecture](docs/seo.md) — Reusable SEO field group, topical Focus Areas, and dynamic metadata.
 - [Accessibility Standards](docs/accessibility.md) — WCAG 2.2 Level AA compliance guidelines and motion preferences.
 - [Performance Principles](docs/performance.md) — Media/CDN pipelines, caching strategies, and RSC optimization.
 - [Git & Engineering Workflow](docs/git-workflow.md) — Branching standards, conventional commits, and CI pipelines.
