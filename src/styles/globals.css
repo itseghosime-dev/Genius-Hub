@@ -5,22 +5,35 @@
   --color-brand-primary: var(--brand-primary);
   --color-brand-primary-hover: var(--brand-primary-hover);
   --color-brand-primary-active: var(--brand-primary-active);
+  --color-brand-primary-dark: var(--brand-primary-dark);
   --color-brand-primary-light: var(--brand-primary-light);
   --color-brand-primary-subtle: var(--brand-primary-subtle);
   --color-brand-primary-foreground: var(--brand-primary-foreground);
 
-  --color-brand-terracotta: var(--brand-terracotta);
-  --color-brand-terracotta-light: var(--brand-terracotta-light);
-  --color-brand-sage: var(--brand-sage);
-  --color-brand-sage-light: var(--brand-sage-light);
-  --color-brand-pale-blue: var(--brand-pale-blue);
-  --color-brand-pale-blue-light: var(--brand-pale-blue-light);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-hover: var(--brand-blue-hover);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-blue-border: var(--brand-blue-border);
+
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-hover: var(--brand-teal-hover);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-teal-border: var(--brand-teal-border);
+
+  --color-brand-green: var(--brand-green);
+  --color-brand-green-hover: var(--brand-green-hover);
+  --color-brand-green-light: var(--brand-green-light);
+  --color-brand-green-border: var(--brand-green-border);
+
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-yellow-hover: var(--brand-yellow-hover);
+  --color-brand-yellow-light: var(--brand-yellow-light);
+  --color-brand-yellow-border: var(--brand-yellow-border);
 
   --color-surface-canvas: var(--surface-canvas);
   --color-surface-primary: var(--surface-primary);
-  --color-surface-cream: var(--surface-cream);
-  --color-surface-sand: var(--surface-sand);
-  --color-surface-stone: var(--surface-stone);
+  --color-surface-cloud: var(--surface-cloud);
+  --color-surface-subtle: var(--surface-subtle);
   --color-surface-muted: var(--surface-muted);
   --color-surface-elevated: var(--surface-elevated);
   --color-surface-inverse: var(--surface-inverse);
@@ -67,7 +80,7 @@
   --shadow-mid: var(--elevation-mid);
   --shadow-high: var(--elevation-high);
 
-  --font-serif: var(--font-serif, 'Lora', Georgia, Cambria, 'Times New Roman', serif);
+  --font-display: var(--font-display, 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif);
   --font-sans: var(--font-sans, 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif);
 }
 
@@ -105,34 +118,42 @@
   }
 }
 
-/* Editorial Fluid Typography Utilities */
+/* Contemporary Display & Body Fluid Typography Utilities */
+.text-display-2xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 5.5vw + 1rem, 4.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
 .text-display-xl {
-  font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 5vw + 1rem, 4.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.5vw + 0.75rem, 3.75rem);
   line-height: 1.1;
   letter-spacing: -0.025em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .text-display-lg {
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.5vw + 0.75rem, 3.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.875rem, 3vw + 0.5rem, 2.75rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .text-heading-xl {
-  font-family: var(--font-serif);
-  font-size: clamp(1.625rem, 2.5vw + 0.5rem, 2.25rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.25vw + 0.35rem, 2rem);
   line-height: 1.22;
   letter-spacing: -0.015em;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .text-heading-lg {
-  font-family: var(--font-sans);
-  font-size: clamp(1.25rem, 1.75vw + 0.5rem, 1.75rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.5vw + 0.25rem, 1.5rem);
   line-height: 1.3;
   letter-spacing: -0.01em;
   font-weight: 600;
@@ -140,14 +161,14 @@
 
 .text-heading-md {
   font-family: var(--font-sans);
-  font-size: clamp(1.125rem, 1.25vw + 0.35rem, 1.375rem);
+  font-size: clamp(1.125rem, 1vw + 0.25rem, 1.25rem);
   line-height: 1.35;
   font-weight: 600;
 }
 
 .text-heading-sm {
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   line-height: 1.4;
   font-weight: 600;
 }
@@ -175,7 +196,7 @@
   font-family: var(--font-sans);
   font-size: 0.75rem;
   line-height: 1.4;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-muted);

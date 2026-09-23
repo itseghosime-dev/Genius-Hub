@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next';
-import { Lora, Plus_Jakarta_Sans } from 'next/font/google';
+import { Outfit, Plus_Jakarta_Sans } from 'next/font/google';
 import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 
-const lora = Lora({
+const outfit = Outfit({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-serif',
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -16,7 +16,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#faf8f5',
+  themeColor: '#ffffff',
   width: 'device-width',
   initialScale: 1,
 };
@@ -53,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lora.variable} ${plusJakarta.variable}`}>
-      <body className="flex min-h-screen flex-col font-sans antialiased selection:bg-amber-100 selection:text-amber-900">
+    <html lang="en" className={`${outfit.variable} ${plusJakarta.variable}`}>
+      <body className="flex min-h-screen flex-col font-sans antialiased selection:bg-orange-100 selection:text-orange-950">
         {children}
       </body>
     </html>
