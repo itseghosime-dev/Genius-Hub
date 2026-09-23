@@ -3,6 +3,13 @@ import { z } from 'zod';
 const serverSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.string().default('3000'),
+  DATABASE_URI: z
+    .string()
+    .default('postgresql://postgres:postgrespassword@127.0.0.1:5432/genius_hub'),
+  PAYLOAD_SECRET: z
+    .string()
+    .min(16)
+    .default('genius_hub_development_secret_key_minimum_32_chars_long'),
 });
 
 const clientSchema = z.object({
@@ -34,6 +41,8 @@ function getEnv() {
     const serverParsed = serverSchema.safeParse({
       NODE_ENV: process.env.NODE_ENV,
       PORT: process.env.PORT,
+      DATABASE_URI: process.env.DATABASE_URI,
+      PAYLOAD_SECRET: process.env.PAYLOAD_SECRET,
     });
 
     if (!serverParsed.success) {
@@ -53,6 +62,8 @@ function getEnv() {
   return {
     NODE_ENV: process.env.NODE_ENV ?? 'development',
     PORT: '3000',
+    DATABASE_URI: '',
+    PAYLOAD_SECRET: '',
     ...clientParsed.data,
   };
 }
