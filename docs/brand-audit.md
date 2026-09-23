@@ -4,43 +4,55 @@
 
 - **Master Brand**: Genius Hub
 - **Legal Entity**: Genius Hub Global Initiative / Genius Hub Limited
-- **Founder**: Isimeme Whyte (Social impact entrepreneur, MSME development strategist, and migration advocacy leader)
+- **Founder & CEO**: Isimeme Whyte (Social impact entrepreneur, MSME development strategist, and migration advocacy leader)
 - **Geographic Origin**: Benin City, Edo State, Nigeria (empowering communities nationwide and internationally)
-- **Organizational Character**: Human-first social enterprise, vocational excellence, livelihood creation, community dignity, and grassroots empowerment.
-- **Experience Direction**: Human/social impact first, technology/future-of-work second.
+- **Brand Personality**: Energetic, optimistic, African, international, youthful, human-centered, innovative, impact-driven, credible, modern, visually active.
+- **Core Experience Direction**: **Human / Social Impact + Technology / Future of Work**.
 
 ---
 
-## 2. Brand Audit & Visual Redirection Rationale
+## 2. Digital Identity Architecture
 
-### A. Post-Review Directional Shift
+### A. Core Hierarchy & Visual Direction
 
-An early digital prototype leaned too heavily toward a cold, dark, tech-startup / SaaS dashboard aesthetic. Following architectural and visual review, the digital brand system was fundamentally recalibrated to embody:
+Genius Hub expands its recognized brand rather than replacing it:
 
-- **Warmth & Humanity**: Warm off-white paper canvas (`#FAF8F5`), soft cream (`#FDFBF7`), and warm sand (`#F3EDE2`) replacing cold dark navy as primary surfaces.
-- **Unified Accent**: **Genius Amber Gold** (`#D97706`) as the clear primary brand accent, harmonized with organic earth tones (Earth Terracotta `#C2410C`, Muted Forest Sage `#36533E`, Mineral Charcoal `#1C1917`).
-- **Editorial Typography**: Dignified editorial serif (`Lora`) paired with a clean, accessible humanist sans-serif (`Plus Jakarta Sans`).
-- **Documentary Photography First**: Real beneficiaries, artisans, trainees, and field initiatives carry the primary visual life against quiet, respectful surfaces.
-
----
-
-## 3. Core Palette Architecture
-
-| Color Identifier      | Value     | Character & Application                                                       |
-| :-------------------- | :-------- | :---------------------------------------------------------------------------- |
-| **Genius Amber Gold** | `#D97706` | Primary brand accent; sun warmth, optimism, empowerment, key CTAs             |
-| **Earth Terracotta**  | `#C2410C` | Supporting warm accent; traditional clay, artisan craft, garment ateliers     |
-| **Muted Forest Sage** | `#36533E` | Supporting natural accent; sustainable agriculture, growth, solar initiatives |
-| **Mineral Charcoal**  | `#1C1917` | Warm editorial ink; body text and primary headlines on light surfaces         |
-| **Warm Canvas**       | `#FAF8F5` | Primary viewport background; editorial paper texture                          |
-| **Soft Cream**        | `#FDFBF7` | Content and card surfaces                                                     |
-| **Warm Sand**         | `#F3EDE2` | Pullout callouts, statistics backgrounds, and story highlights                |
-| **Warm Stone Border** | `#E7DFD3` | Subtle, organic dividing lines                                                |
+1. **Light-First Public Website**:
+   - Predominantly white and soft cool neutral / cloud surfaces.
+   - Clean, crisp white space.
+   - Dark surfaces (`#0F172A`) are reserved strictly for the platform footer and rare high-impact contrast media moments.
+2. **Clear Color Hierarchy**:
+   - **PRIMARY**: Signature **Genius Hub Orange** (`#FF6B00`).
+   - **FOUNDATION**: Fresh White (`#FFFFFF`), Soft Cloud (`#F8FAFC`), and Deep Ink (`#0F172A`) for typography.
+   - **SUPPORTING INNOVATION**: Digital Blue (`#2563EB`) and Electric Teal (`#0D9488`) representing technology and the future of work.
+   - **CONTEXTUAL**: Growth Green (`#16A34A`) for sustainability/livelihoods and Optimistic Yellow (`#F59E0B`) for highlights.
+3. **Typography**:
+   - Contemporary display sans (`Outfit`) with personality and energetic presence for display and headlines.
+   - Humanist geometric sans (`Plus Jakarta Sans`) for highly readable body copy and UI controls.
+4. **Photography Leads the Emotional Identity**:
+   - Authentic real activity imagery: students, women, youth, solar engineering, digital academy, garment atelier, community leadership, and donor partnerships.
 
 ---
 
-## 4. Digital Experience Guidelines
+## 3. Color Hierarchy Reference
 
-1. **Predominantly Light & Open**: Over 90% of public page surfaces are light, warm, and breathable. Dark surfaces (`#1C1917`) are reserved strictly for the global footer, isolated media overlays, or rare high-contrast storytelling moments.
-2. **Restrained Chrome**: Avoid heavy SaaS border boxes, dense tables, and pill-badge clutter. Favor open editorial spacing and typographic hierarchy.
-3. **Documentary Dignity**: Real people, authentic workshops, and unposed community moments take precedence over decorative UI flourishes.
+| Color Role                  | Token Name             | Value     | Purpose & Application                                                          |
+| :-------------------------- | :--------------------- | :-------- | :----------------------------------------------------------------------------- |
+| **Primary Brand**           | `--brand-primary`      | `#FF6B00` | Signature Genius Hub Orange; primary CTAs, active states, and radiant sun mark |
+| **Primary Accessible Dark** | `--brand-primary-dark` | `#C2410C` | High-contrast text on white (WCAG AA 4.5:1+)                                   |
+| **Innovation Accent**       | `--brand-blue`         | `#2563EB` | Digital Blue; technology tracks, future-of-work highlights                     |
+| **Innovation Accent**       | `--brand-teal`         | `#0D9488` | Electric Teal; digital connectivity, skill academy accents                     |
+| **Growth Contextual**       | `--brand-green`        | `#16A34A` | Growth Green; sustainability, agriculture, success badges                      |
+| **Optimism Contextual**     | `--brand-yellow`       | `#F59E0B` | Optimistic Yellow; alerts, spotlight highlights                                |
+| **Fresh White Canvas**      | `--surface-canvas`     | `#FFFFFF` | Primary light background for all public layouts                                |
+| **Soft Cloud Surface**      | `--surface-cloud`      | `#F8FAFC` | Alternating section backgrounds, statistical callouts                          |
+| **Deep Ink Typography**     | `--text-primary`       | `#0F172A` | Crisp primary body text and headlines                                          |
+| **Deep Ink Surface**        | `--surface-inverse`    | `#0F172A` | Footer and rare high-contrast media moments                                    |
+
+---
+
+## 4. Visual Balance: Human Dignity + Future of Work
+
+- **Social Impact Expression**: Unposed documentary photography, beneficiary quotes, community imagery, transparent outcome metrics.
+- **Technology Expression**: Clean responsive grid systems, energetic motion reveals, subtle data patterns, modern iconography, and digital blue/teal accents.
+- **Aesthetic Guardrails**: Strictly avoids dark SaaS interfaces, beige luxury/law-firm minimalism, sterile corporate dashboards, and crypto/fintech tropes.
